@@ -66,12 +66,14 @@ export class EvaluateComponent implements OnInit {
         }
 
         console.log(this.summarys)
-        this.calculateShit();
+        let myFirst = this.calculateShit();
+        let mySecond = this.calculateShit();
+        let myThird = this.calculateShit();
     }
 
     calculateShit() {
 
-
+        let myStorage = Array.apply(null, Array());
         let highestValue = {
             value: this.summaryHolder[0].value,
             index: 0,
@@ -81,14 +83,37 @@ export class EvaluateComponent implements OnInit {
             if (highestValue.value < this.summaryHolder[i].value) {
                 highestValue.value = this.summaryHolder[i].value;
                 highestValue.index = i;
-                highestValue.letter = this.summaryHolder[i].value;
+                highestValue.letter = this.summaryHolder[i].letter;
 
 
 
             }
 
         }
-        console.log(highestValue)
+        //Remove the current highest in the array
+        this.summaryHolder.splice(highestValue.index, 1)
+
+
+        myStorage.push({
+            value: highestValue.value,
+            letter: highestValue.letter
+        });
+
+
+        for (let i = 0; i < this.summaryHolder.length; i++) {
+            if (highestValue.value == this.summaryHolder[i].value) {
+                myStorage.push({
+                    value: this.summaryHolder[i].value,
+                    letter: this.summaryHolder[i].letter
+                });
+                this.summaryHolder.splice(i, 1);
+
+
+            }
+
+        }
+
+        return myStorage;
     }
 
 
