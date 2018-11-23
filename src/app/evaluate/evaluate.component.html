@@ -1,0 +1,100 @@
+<div class="navbar-fixed">
+  <nav class="white">
+    <div class="nav-wrapper container">
+      <a href="#!" class="brand-logo green-text bolder">Organizing your answer</a>
+
+    </div>
+  </nav>
+</div>
+<br>
+<br>
+<div class="row container">
+  <div class="col l2 center">
+    <a href="#!" class="btn-floating btn-large center r_bg bolder" id="r">R</a>
+  </div>
+  <div class="col l2 center">
+    <a href="#!" class="btn-floating btn-large center i_bg bolder">I</a>
+  </div>
+  <div class="col l2 center">
+    <a href="#!" class="btn-floating btn-large center a_bg bolder">A</a>
+  </div>
+  <div class="col l2 center">
+    <a href="#!" class="btn-floating btn-large center s_bg bolder">S</a>
+  </div>
+  <div class="col l2 center">
+    <a href="#!" class="btn-floating btn-large center e_bg bolder">E</a>
+  </div>
+  <div class="col l2 center">
+    <a href="#!" class="btn-floating btn-large center c_bg bolder">C</a>
+  </div>
+</div>
+<hr>
+
+
+<!-- Activities Section -->
+<div class="container row">
+  <h2 class="header bolder">Activities</h2>
+  <div *ngFor="let activity of activities">
+    <div class="col l2 input-field">
+      <input type="text" [attr.value]="activity" class="center black-text medium-text r_text" disabled>
+    </div>
+  </div>
+</div>
+<!-- Activities Section -->
+
+<!-- Competencies Section -->
+<div class="row container">
+  <h2 class="bolder header">Competencies</h2>
+  <div *ngFor="let competency of competencies">
+    <div class="col l2 input-field">
+      <input type="text" [attr.value]="competency" class="center black-text medium-text r_text" disabled>
+    </div>
+  </div>
+</div>
+<!-- Competencies Section -->
+
+
+<!-- Occupations Section -->
+<div class="row container">
+  <h2 class="bolder header">Occupations</h2>
+  <div *ngFor="let job of jobs">
+    <div class="col l2 input-field">
+      <input type="text" [attr.value]="job" class="center black-text medium-text r_text" disabled>
+    </div>
+  </div>
+</div>
+<!-- Occupations Section -->
+
+
+<!-- Self Estimates Part 1 Section -->
+<div class="row container">
+  <h2 class="bolder header">Self Estimates Part 1</h2>
+  <div *ngFor="let selfEsti1 of self_estimates1">
+    <div class="col l2 input-field">
+      <input type="text" [attr.value]="selfEsti1" class="center black-text medium-text r_text" disabled>
+    </div>
+  </div>
+</div>
+<!-- Self Estimates Part 1 Section -->
+
+<!-- Self Estimates Part 2 Section -->
+<div class="row container">
+  <h2 class="bolder header">Self Estimates Part 2</h2>
+  <div *ngFor="let selfEsti2 of self_estimates2">
+    <div class="col l2 input-field">
+      <input type="text" [attr.value]="selfEsti2" class="center black-text medium-text r_text" disabled>
+    </div>
+  </div>
+</div>
+<!-- Self Estimates Part 2 Section -->
+
+<!-- Summary Section -->
+<div class="row container">
+  <h2 class="bolder header">Summary</h2>
+  <div *ngFor="let summary of summarys">
+    <div class="col l2 input-field">
+      <input type="text" [attr.value]="summary" class="center black-text medium-text r_text" disabled>
+    </div>
+  </div>
+</div>
+<!-- Summary Section -->

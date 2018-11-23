@@ -1,0 +1,25 @@
+<div class="" id="content">
+  <div class="card darken-1">
+    <div class="card-content white-text">
+      <h2 class="primary bolder center">Login</h2>
+      <br>
+      <div class="row">
+        <div class="input-field col l6 offset-l3">
+          <input id="username" type="text" class="validate" #username>
+          <label for="username">Username</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col l6 offset-l3">
+          <input id="password" type="text" class="validate" #password>
+          <label for="password">Password</label>
+        </div>
+      </div>
+
+    </div>
+    <div class="card-action">
+      <a class="right btn bolder secondary" (click)="login(username.value,password.value)">Submit</a>
+
+    </div>
+  </div>
+</div>

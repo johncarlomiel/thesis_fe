@@ -1,0 +1,233 @@
+<div *ngIf="view">
+  <div class="navbar-fixed">
+    <nav class="white lighten-1">
+      <div class="nav-wrapper container">
+        <a class="brand-logo green-text left bolder">Self-estimates</a>
+        <a class="brand-logo green-text right bolder" (click)="submit()">Submit</a>
+
+      </div>
+    </nav>
+  </div>
+  <br>
+
+  <blockquote>
+    Rate yourself on each of the following traits, as compared with other persons your own age, by circling the
+    appropriate
+    number.
+  </blockquote>
+  <blockquote>
+    Give an accurate estimate of how you see yourself; try to avoid rating yourself the same each ability.
+  </blockquote>
+
+  <!-- Part 1 -->
+  <div class='row'>
+    <div class='card center'>
+      <div class='card-content BLACK-text'>
+        <span class='card-title bolder'>
+          <h5 class="bolder primary">PART 1</h5>
+        </span>
+
+        <div class="row">
+
+
+          <div class="col l12">
+            <table class="highlight centered">
+
+              <thead>
+                <tr>
+                  <th>Levels</th>
+                  <th>Mechanical Ability</th>
+                  <th>Scientific Ability</th>
+                  <th>Artistic Ability</th>
+                  <th>Teaching Ability</th>
+                  <th>Sales Ability</th>
+                  <th>Clerical Ability</th>
+                </tr>
+              </thead>
+
+              <tbody>
+
+
+                <tr *ngFor="let item of myArray;let i = index">
+                  <td *ngIf="i == 5" rowspan="2" class="green bolder">High</td>
+
+                  <td *ngIf="i == 3" rowspan="2" class="orange bolder">Medium</td>
+                  <td *ngIf="i == 0" rowspan="3" class="red bolder">Low</td>
+
+                  <td><button [ngClass]="{'btn': true, 'btn-flat': true}" [ngStyle]="{
+                    'background-color': selectedMechanical==i ? mechanical.color: '',
+                    'font-weight': selectedMechanical==i ? 'bolder' : 'normal'
+                  }"
+                      (click)="selectedMechanical=i;setValue('mechanical', item);">{{item}}</button></td>
+
+                  <td><button [ngClass]="{'btn': true, 'btn-flat': true}" [ngStyle]="{
+                    'background-color': selectedScientific==i ? scientific.color : '',
+                    'font-weight': selectedScientific==i ? 'bolder' : 'normal'
+                  }"
+                      (click)="selectedScientific=i;setValue('scientific', item)">{{item}}</button></td>
+
+                  <td><button [ngClass]="{'btn': true , 'btn-flat': true}" [ngStyle]="{
+                    'background-color': (selectedArtistic==i) ? artistic.color: '',
+                    'font-weight': selectedArtistic==i ? 'bolder' : 'normal'
+                  }"
+                      (click)="selectedArtistic=i;setValue('artistic',item)">{{item}}</button></td>
+
+                  <td><button [ngClass]="{'btn': true,'btn-flat': true}" [ngStyle]="{
+                    'background-color': (selectedTeaching==i) ? teaching.color: '',
+                    'font-weight': selectedTeaching==i ? 'bolder' : 'normal'
+                  }"
+                      (click)="selectedTeaching=i;setValue('teaching',item);">{{item}}</button></td>
+
+                  <td><button [ngClass]="{'btn': true,'btn-flat': true}" [ngStyle]="{
+                    'background-color': (selectedSales==i) ? sales.color: '',
+                    'font-weight': selectedSales==i ? 'bolder' : 'normal'
+                  }"
+                      (click)="selectedSales=i;setValue('sales',item);">{{item}}</button></td>
+
+
+                  <td><button [ngClass]="{'btn': true,'btn-flat': true}" [ngStyle]="{
+                    'background-color': (selectedClerical==i) ? clerical.color: '',
+                    'font-weight': selectedClerical==i ? 'bolder' : 'normal'
+                  }"
+                      (click)="selectedClerical=i;setValue('clerical',item);">{{item}}</button></td>
+
+
+                </tr>
+
+                <tr>
+                  <td rowspan="2"></td>
+                  <td><a class="btn btn-floating  white"><i class="material-icons r_bg">build</i></a></td>
+                  <td><a class="btn btn-floating  white"><i class="material-icons i_bg">create</i></a></td>
+                  <td><a class="btn btn-floating  white"><i class="material-icons a_bg">color_lens</i></a></td>
+                  <td><a class="btn btn-floating  white"><i class="material-icons s_bg">group</i></a></td>
+                  <td><a class="btn btn-floating  white"><i class="material-icons e_bg">business_center</i></a></td>
+                  <td><a class="btn btn-floating  white"><i class="material-icons c_bg">description</i></a></td>
+                </tr>
+
+
+
+
+
+              </tbody>
+
+
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- End of part 1 -->
+
+
+
+  <!-- Part 2  -->
+  <div class='row'>
+    <div class='card center'>
+      <div class='card-content BLACK-text'>
+        <span class='card-title bolder'>
+          <h5 class="bolder primary">PART 2</h5>
+        </span>
+
+        <div class="row">
+
+
+          <div class="col l12">
+            <table class="highlight centered">
+
+              <thead>
+                <tr>
+                  <th>Levels</th>
+                  <th>Manual Ability</th>
+                  <th>Math Ability</th>
+                  <th>Musical Ability</th>
+                  <th>Understand of Others</th>
+                  <th>Managerial Ability</th>
+                  <th>Office Skills</th>
+                </tr>
+              </thead>
+
+              <tbody>
+
+
+                <tr *ngFor="let item of myArray;let i = index">
+                  <td *ngIf="i == 5" rowspan="2" class="green bolder">High</td>
+
+                  <td *ngIf="i == 3" rowspan="2" class="orange bolder">Medium</td>
+                  <td *ngIf="i == 0" rowspan="3" class="red bolder">Low</td>
+
+                  <td><button [ngClass]="{'btn': true, 'btn-flat': true}" [ngStyle]="{
+                    'background-color': selectedManual==i ? manual.color: '',
+                    'font-weight': selectedManual==i ? 'bolder' : 'normal'
+                  }"
+                      (click)="selectedManual=i;setValue('manual', item);">{{item}}</button></td>
+
+                  <td><button [ngClass]="{'btn': true, 'btn-flat': true}" [ngStyle]="{
+                    'background-color': selectedMath==i ? math.color : '',
+                    'font-weight': selectedMath==i ? 'bolder' : 'normal'
+                  }"
+                      (click)="selectedMath=i;setValue('math', item)">{{item}}</button></td>
+
+
+
+                  <td><button [ngClass]="{'btn': true , 'btn-flat': true}" [ngStyle]="{
+                    'background-color': (selectedMusical==i) ? musical.color: '',
+                    'font-weight': selectedMusical==i ? 'bolder' : 'normal'
+                  }"
+                      (click)="selectedMusical=i;setValue('musical',item)">{{item}}</button></td>
+
+                  <td><button [ngClass]="{'btn': true,'btn-flat': true}" [ngStyle]="{
+                    'background-color': (selectedUof==i) ? uof.color: '',
+                    'font-weight': selectedUof==i ? 'bolder' : 'normal'
+                  }"
+                      (click)="selectedUof=i;setValue('uof',item);">{{item}}</button></td>
+
+                  <td><button [ngClass]="{'btn': true,'btn-flat': true}" [ngStyle]="{
+                    'background-color': (selectedManagerial==i) ? managerial.color: '',
+                    'font-weight': selectedManagerial==i ? 'bolder' : 'normal'
+                  }"
+                      (click)="selectedManagerial=i;setValue('managerial',item);">{{item}}</button></td>
+
+
+                  <td><button [ngClass]="{'btn': true,'btn-flat': true}" [ngStyle]="{
+                    'background-color': (selectedOffice==i) ? office.color: '',
+                    'font-weight': selectedOffice==i ? 'bolder' : 'normal'
+                  }"
+                      (click)="selectedOffice=i;setValue('office',item);">{{item}}</button></td>
+
+
+                </tr>
+
+                <tr>
+                  <td rowspan="2"></td>
+                  <td><a class="btn btn-floating  white"><i class="material-icons r_bg">build</i></a></td>
+                  <td><a class="btn btn-floating  white"><i class="material-icons i_bg">create</i></a></td>
+                  <td><a class="btn btn-floating  white"><i class="material-icons a_bg">color_lens</i></a></td>
+                  <td><a class="btn btn-floating  white"><i class="material-icons s_bg">group</i></a></td>
+                  <td><a class="btn btn-floating  white"><i class="material-icons e_bg">business_center</i></a></td>
+                  <td><a class="btn btn-floating  white"><i class="material-icons c_bg">description</i></a></td>
+                </tr>
+
+
+
+
+
+              </tbody>
+
+
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div *ngIf="loader" class="showbox">
+  <div class="loader">
+    <svg class="circular" viewBox="25 25 50 50">
+      <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10" />
+    </svg>
+  </div>
+</div>

@@ -1,0 +1,56 @@
+<div *ngIf="view" class="row">
+  <div class="col l8 offset-l2">
+
+    <div class="card darken-1">
+      <div class="card-content">
+        <span class="card-title bolder primary" style="display:inline">{{title}}</span> <span style="display:inline;font-size:24px"
+          class="right bolder primary">{{currentLike}}</span>
+        <br>
+        <table class="highlight">
+          <thead>
+            <tr>
+              <th>Question</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr *ngFor="let question of currentQuestion; index as i">
+              <td>{{question.qst}}</td>
+              <td>
+                <p style="margin:5px;">
+                  <label>
+                    <input name="{{question.qst}}" class="with-gap" type="radio" (click)="like(i)" />
+                    <span>Like</span>
+                  </label>
+                </p>
+                <p style="margin:5px;">
+                  <label>
+                    <input name="{{question.qst}}" class="with-gap" type="radio" (click)="dislike(i)" />
+                    <span>Dislike</span>
+                  </label>
+                </p>
+              </td>
+              <td>
+
+              </td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+      <div class="card-action">
+        <a (click)="change()" class="right primary bolder">Submit</a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div *ngIf="loader" class="showbox">
+  <div class="loader">
+    <svg class="circular" viewBox="25 25 50 50">
+      <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10" />
+    </svg>
+  </div>
+</div>
