@@ -53,10 +53,7 @@ export class QuestionComponent implements OnInit {
     */
     this.questions = exportedQuestions;
     console.log(exportedQuestions)
-    this.data.changeResult(["qweqewq", "qweqweqw"])
-    this.data.recentResult.subscribe((data) => {
-      console.log(data)
-    })
+
 
 
 

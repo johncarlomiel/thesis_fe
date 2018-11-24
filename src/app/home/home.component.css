@@ -1,18 +1,6 @@
-html {
-    background: #fff;
-    color: #7BCC87;
-    margin:0;
-}
-.nav-wrapper,nav {
-    background: #fff !important;
-}
-.brand-logo{
-    font-size: 1.8rem !important;
-    font-weight: bolder;
-    color:#003863 !important;
-}
 
-.content{
+
+.content_section{
     position: absolute;
     z-index: 1;
     color: #f3f3f3;
@@ -38,9 +26,7 @@ html {
     color: #f3f3f3;
     transition: all 1000ms;
 }
-.circle-content{
-    padding: 15%;
-}
+
 
 .content div#intro-title{
     padding-top: 5%;
@@ -87,16 +73,7 @@ section#gray-section div div#right{
 }
 /* Right Side */
 
-#logos img
-{
-    margin-right: 2%;
-    margin-left: 2%;
-}
-#footer{
-    background: #ffffff;
-}
-.input-field label {
-    color: #003863 !important;
-    font-weight: 400;
-  }
+
+
+
 

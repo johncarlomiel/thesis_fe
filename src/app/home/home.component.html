@@ -1,16 +1,28 @@
 <!-- Header -->
-<header>
-  <nav>
-    <div class="nav-wrapper container">
-      <a href="#" class="brand-logo">Self-directed search</a>
-      <ul id="nav-mobile" class="right hide-on-med-and-down">
-        <li><a href="#!" class="primary bolder">What is RIASEC?</a></li>
-        <li><a href="#!" class="primary bolder">Who is John Holland?</a></li>
-        <li><a (click)="start()" class="primary bolder">Start Now</a></li>
-      </ul>
+<div class="ui secondary  menu container" style="margin-top:5px;">
+  <a class="active item">
+    Home
+  </a>
+  <a class="item">
+    Messages
+  </a>
+  <a class="item">
+    Friends
+  </a>
+  <div class="right menu">
+    <a class="ui item" (click)="start()">
+      Start
+    </a>
+    <div class="ui item dropdown" suiDropdown>
+      <div class="text">Name</div>
+      <i class="dropdown icon"></i>
+      <div class="menu" suiDropdownMenu>
+        <div class="item">View Profile</div>
+        <div class="item">Logout</div>
+      </div>
     </div>
-  </nav>
-</header>
+  </div>
+</div>
 <!-- Header -->
 
 
@@ -18,10 +30,12 @@
 
 <!-- Section -->
 <section id="header-section">
-  <div class="row container content">
+  <div class="row container content_section">
     <div class="col l7" id="intro-title">
-      <h2 class="bolder">What is the SDS?</h2>
-      <p>The next generation of John Holland’s Self-Directed Search® (SDS®) is a career assessment and
+      <h1 class="bolder center">What is the SDS?</h1>
+      <p class="center" style="font-size:1.3rem">The next generation of John Holland’s Self-Directed Search® (SDS®) is
+        a
+        career assessment and
         exploration
         tool that matches your aspirations, activities, and talents to the career choices and educational
         opportunities
@@ -42,15 +56,15 @@
 
 <!-- Section -->
 <section>
-  <h3 class="center bolder primary">How SDS Works</h3>
+  <h1 class="center bolder primary">How SDS Works</h1>
   <p class="center" style="color: gray">Choose a career that based on your personality and skills</p>
   <br>
   <br>
-  <div class="row container">
+  <div class="ui grid container">
+    <div class="four wide column"></div>
 
-
-    <div class="col l9 offset-l2">
-      <img src="assets/images/questions.png" alt="" class="responsive-img left" style="margin-right: 20px;">
+    <div class="eight wide column">
+      <img src="assets/images/questions.png" alt="" class="responsive-img" style="margin-right: 20px;">
       <h4 class="bolder primary">Answer</h4>
       <p style="color: gray;font-weight: 500;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis
         aperiam in nostrum iure iusto laborum, perferendis
@@ -59,9 +73,10 @@
   </div>
 
 
-  <div class="row container">
-    <div class="col l9 offset-l2">
-      <img src="assets/images/evaluation.png" class="responsive-img right" alt="" style="margin-left: 20px;">
+  <div class="ui grid container">
+    <div class="four wide column"></div>
+    <div class="eight wide column">
+      <p style="text-align:right"><img src="assets/images/evaluation.png" class="responsive-img" alt="" style="margin-left: 20px;"></p>
       <h4 class="primary bolder">Evaluate</h4>
       <p style="color:gray;font-weight: 500;">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Modi
         iure placeat ad voluptate soluta quo rem excepturi
@@ -69,8 +84,9 @@
     </div>
   </div>
 
-  <div class="row container">
-    <div class="col l9 offset-l2">
+  <div class="ui grid container">
+    <div class="four wide column"></div>
+    <div class="eight wide column">
       <img src="assets/images/menu.png" alt="" class="responsive-img left" style="margin-right: 20px;">
       <h4 class="primary bolder">Choose</h4>
       <p style="color: gray;font-weight: 500">Lorem ipsum, dolor sit amet consectetur adipisicing elit.
@@ -90,77 +106,86 @@
 
 <!-- Section -->
 <section>
-  <h3 class="bolder center primary">The Self-Directed Search is for</h3>
-  <div class="row container">
-    <div class="col l3">
-      <div class="">
-        <div class="circle-content">
-          <p class="center">
-            <img src="assets/images/meeting.png" alt="" class="responsive-img"></p>
-
-          <h5 class="primary bolder center">Career Counselors</h5>
-          <p style="color: gray;font-weight: 500;text-indent:10%;">Lorem ipsum dolor sit, amet
-            consectetur adipisicing
-            elit. Debitis ipsam molestias quae nobis dolor
-            odio, eveniet soluta dicta blanditiis doloribus rerum fuga ullam! Et, earum.</p>
-          <a href="#!">Click here to see more</a>
+  <h1 class="bolder center primary">The Self-Directed Search is for</h1>
+  <div class="ui grid container">
+    <div class="four wide column">
+      <div class="ui card">
+        <div class="image">
+          <img class="ui circular image" src="assets/images/meeting.png">
+        </div>
+        <div class="content">
+          <a class="header center bolder">Career Counselors</a>
+          <div class="description center">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam, saepe tempora. Nam, nulla! Similique eius
+            voluptates blanditiis fugiat dolore vero!
+          </div>
+        </div>
+        <div class="extra content">
+          <a class="center">
+            Click here to see more
+          </a>
         </div>
       </div>
     </div>
-    <div class="col l3">
-      <div class="">
-        <div class="circle-content">
-          <p class="center">
-            <img src="assets/images/briefcase.png" alt="" class="responsive-img"></p>
+    <div class="four wide column">
+      <div class="ui card">
+        <div class="image">
+          <img class="ui circular image" src="assets/images/briefcase.png">
+        </div>
+        <div class="content">
+          <a class="header bolder center">Career Transition</a>
 
-          <h5 class="primary bolder center">Career Transition</h5>
-          <p style="color: gray;font-weight: 500;text-indent:10%;">Lorem ipsum dolor sit, amet
-            consectetur adipisicing
-            elit. Debitis ipsam molestias quae nobis dolor
-            odio, eveniet soluta dicta blanditiis doloribus rerum fuga ullam! Et, earum.</p>
+          <div class="description">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus architecto corporis quasi esse
+            asperiores nostrum facilis quia cupiditate amet incidunt.
+          </div>
+        </div>
+        <div class="extra content">
+          <a>
+            Click here to see more
+          </a>
+        </div>
+      </div>
 
-          <a href="#!">Click here to see more</a>
+    </div>
+    <div class="four wide column">
+      <div class="ui card">
+        <div class="image">
+          <img class="ui circular image" src="assets/images/soldier.png">
+        </div>
+        <div class="content">
+          <a class="header bolder center">Veterans</a>
 
+          <div class="description">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore, in omnis repellendus ducimus soluta
+            culpa sunt. Est animi quas quis?
+          </div>
+        </div>
+        <div class="extra content">
+          <a>
+            Click here to see more
+          </a>
         </div>
       </div>
     </div>
-    <div class="col l3">
-      <div class="">
-        <div class="circle-content">
-          <p class="center">
-
-            <img src="assets/images/soldier.png" alt="" class="responsive-img">
-          </p>
-
-          <h5 class="primary bolder center">Veterans</h5><br>
-          <p style="color: gray;font-weight: 500;text-indent:10%;">Lorem ipsum dolor sit, amet
-            consectetur adipisicing
-            elit. Debitis ipsam molestias quae nobis dolor
-            odio, eveniet soluta dicta blanditiis doloribus rerum fuga ullam! Et, earum.</p>
-          <a href="#!">Click here to see more</a>
-
-
+    <div class="four wide column">
+      <div class="ui card">
+        <div class="image">
+          <img class="ui circular image" src="assets/images/school.png">
         </div>
+        <div class="content">
+          <a class="header bolder center">Career Counselors</a>
 
-      </div>
-    </div>
-    <div class="col l3">
-      <div class="">
-        <div class="circle-content">
-          <p class="center">
-
-            <img src="assets/images/school.png" alt="" class="responsive-img">
-          </p>
-
-          <h5 class="primary bolder center">Students & Parents</h5>
-          <p style="color: gray;font-weight: 500;text-indent:10%;">Lorem ipsum dolor sit, amet
-            consectetur adipisicing
-            elit. Debitis ipsam molestias quae nobis dolor
-            odio, eveniet soluta dicta blanditiis doloribus rerum fuga ullam! Et, earum.</p>
-          <a href="#!">Click here to see more</a>
-
+          <div class="description">
+            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Unde voluptatem molestias veniam porro modi minus
+            consequatur, ipsam fugiat blanditiis deserunt!
+          </div>
         </div>
-
+        <div class="extra content">
+          <a>
+            Click here to see more
+          </a>
+        </div>
       </div>
     </div>
   </div>
@@ -170,69 +195,33 @@
 <br>
 
 
-<!-- Section -->
-<section id="gray-section">
-  <div class="row container">
-
-    <p class="center" id="logos">
-      <a href="#!"><img src="assets/images/facebook.png" class="responsive-img" alt="" height="50" width="50"></a>
-      <a href="#!"><img src="assets/images/instagram.png" class="responsive-img" alt="" height="50" width="50"></a>
-      <a href="#!"><img src="assets/images/youtube.png" class="responsive-img" alt="" height="50" width="50"></a>
-      <a href="#!"><img src="assets/images/twitter.png" class="responsive-img" alt="" height="50" width="50"></a>
-    </p>
-
-
-  </div>
-  <div class="row container">
-    <div class="col l6" id="left">
-      <p id="quote">
+<div class="ui placeholder segment container">
+  <div class="ui two column very relaxed stackable grid">
+    <div class="column" style="margin-top:150px;">
+      <h3 style="color:#808080;font-style:italic;font-weight: normal">
         “Choose a job you love, and you will never have to work a day in your life.”
-        <br><br><span style="font-size:1.6em;font-style:bold;">-Confucius</span>
-      </p>
+        <br><br><span style="font-size:1.6em;font-style:bold;color:#808080">-Confucius</span>
+      </h3>
     </div>
-    <div class="col l6" id="right">
-      <h5 class="primary bolder center">Self directed search video</h5>
-      <video class="responsive-video" controls>
+
+    <div class="column" style="margin-top:50px;">
+      <h2 class="primary bolder center">Self directed search video</h2>
+      <video controls width="500" height="300">
         <source src="assets/videos/video.mp4" type="video/mp4">
       </video>
-
     </div>
   </div>
-</section>
-<!-- End of Section -->
 
+  <div class="ui vertical divider">
 
-<footer class="page-footer" id="footer">
-  <div class="container">
-    <div class="row">
-      <div class="col l6">
-        <!-- Logo -->
-        <img src="assets/images/graph.png" class="responsive-img" alt="" height="150" width="150">
-      </div>
-      <div class="col l3">
-        <ul>
-          <li><a class="primary" href="#!" style="font-weight:500;">About</a></li>
-          <li><a class="primary" href="#!" style="font-weight:500;">Careers</a></li>
-          <li><a class="primary" href="#!" style="font-weight:500;">Terms</a></li>
-          <li><a class="primary" href="#!" style="font-weight:500;">Privacy</a></li>
-        </ul>
-
-      </div>
-      <div class="col l3">
-        <ul>
-          <li><a class="primary" href="#!" style="font-weight:500;">Facebook</a></li>
-          <li><a class="primary" href="#!" style="font-weight:500;">Instagram</a></li>
-          <li><a class="primary" href="#!" style="font-weight:500;">Youtube</a></li>
-          <li><a class="primary" href="#!" style="font-weight:500;">Twitter</a></li>
-        </ul>
-
-      </div>
-    </div>
   </div>
-  <div class="footer-copyright white">
-    <div class="container primary" style="font-weight:500">
-      ©
-      <script>document.write(new Date().getFullYear())</script> Copyright Text
-    </div>
+</div>
+
+
+<!-- Footer -->
+<div class="ui inverted vertical footer segment">
+  <div class="ui container center">
+    Gordon College All Rights Reserved
   </div>
-</footer>
+</div>
+<!-- Footer -->

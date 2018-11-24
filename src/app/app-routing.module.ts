@@ -8,6 +8,7 @@ import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import { EstimatesComponent } from './estimates/estimates.component';
 import { EvaluateComponent } from './evaluate/evaluate.component';
+import { ProfileComponent } from './profile/profile.component';
 
 
 const routes: Routes = [
@@ -17,7 +18,8 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponent },
   { path: 'self-estimates', component: EstimatesComponent },
-  { path: 'evaluate', component: EvaluateComponent }
+  { path: 'evaluate', component: EvaluateComponent },
+  { path: 'profile', component: ProfileComponent }
 
 ];
 

@@ -6,19 +6,12 @@ import { UserInfo } from '../interfaces/userInfo';
 @Injectable({
   providedIn: 'root'
 })
-export class DataService {
-
+export class ProfileService {
 
   constructor(private http: HttpClient) { }
 
-
-
-
-  submitResult(result) {
-    const url = "http://localhost:5000/api/submitResult";
-    const data = {
-      result
-    }
+  getMyCode() {
+    const url = "http://localhost:5000/api/getMyCode";
     const httpOptions = {
       headers: new HttpHeaders({
         'authorization': localStorage.getItem("Authorization"),
@@ -26,8 +19,15 @@ export class DataService {
         'Access-Control-Allow-Origin': '*'
       })
     }
-    return this.http.post(url, data, httpOptions);
+
+    return this.http.get<Codes>(url, httpOptions);
 
 
   }
+
+
+
+}
+interface Codes {
+  result: any
 }

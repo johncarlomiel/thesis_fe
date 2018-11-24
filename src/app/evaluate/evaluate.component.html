@@ -2,7 +2,7 @@
   <nav class="white">
     <div class="nav-wrapper container">
       <a href="#!" class="brand-logo green-text bolder">Organizing your answer</a>
-
+      <a class="brand-logo right green-text bolder">See result</a>
     </div>
   </nav>
 </div>
@@ -55,7 +55,7 @@
 
 
 <!-- Occupations Section -->
-<div class="row container">
+<div class="row container" #dito>
   <h2 class="bolder header">Occupations</h2>
   <div *ngFor="let job of jobs">
     <div class="col l2 input-field">
@@ -93,8 +93,47 @@
   <h2 class="bolder header">Summary</h2>
   <div *ngFor="let summary of summarys">
     <div class="col l2 input-field">
-      <input type="text" [attr.value]="summary" class="center black-text medium-text r_text" disabled>
+      <input type="text" [attr.value]="summary.value" class="center black-text medium-text r_text" disabled>
     </div>
   </div>
 </div>
 <!-- Summary Section -->
+
+
+<!-- Rankings Section -->
+<div class="row container">
+  <h2 class="bolder header">Rankings</h2>
+  <!-- 1st -->
+  <div class="col l4">
+    <h3 class="primary bolder center">1st</h3>
+    <div class="card">
+      <div class="card-content">
+        <span style="font-size:3rem" class="card-title bolder primary center">{{firstString}}</span>
+      </div>
+    </div>
+  </div>
+  <!-- 1st -->
+  <!-- 2nd -->
+  <div class="col l4">
+    <h3 class="primary bolder center">2nd</h3>
+    <div class="card">
+      <div class="card-content">
+        <span style="font-size:3rem" class="card-title bolder primary center">{{secondString}}</span>
+      </div>
+    </div>
+  </div>
+  <!-- 2nd -->
+
+  <!-- 3rd -->
+  <div class="col l4">
+    <h3 class="primary bolder center">3rd</h3>
+    <div class="card">
+      <div class="card-content">
+        <span style="font-size:3rem" class="card-title bolder primary center">{{thirdString}}</span>
+      </div>
+    </div>
+  </div>
+  <!-- 3rd -->
+</div>
+
+<!-- Rankings Section -->

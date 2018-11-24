@@ -2,7 +2,10 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
+import { SuiModule } from 'ng2-semantic-ui';
+
 
 
 import { AppComponent } from './app.component';
@@ -13,6 +16,7 @@ import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import { EstimatesComponent } from './estimates/estimates.component';
 import { EvaluateComponent } from './evaluate/evaluate.component';
+import { ProfileComponent } from './profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -23,13 +27,16 @@ import { EvaluateComponent } from './evaluate/evaluate.component';
     RegisterComponent,
     LoginComponent,
     EstimatesComponent,
-    EvaluateComponent
+    EvaluateComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule,
+    SuiModule
   ],
   providers: [],
   bootstrap: [AppComponent]

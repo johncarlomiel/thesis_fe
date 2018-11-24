@@ -15,9 +15,7 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     this.checkSession();
-    this.data.recentResult.subscribe((data) => {
-      console.log(data)
-    })
+
   }
 
 

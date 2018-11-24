@@ -1,8 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import swal from 'sweetalert2';
 import { Router } from '@angular/router';
 import { DataService } from '../services/data.service';
+
+
+
+
 
 @Component({
     selector: 'app-evaluate',
@@ -17,6 +21,15 @@ export class EvaluateComponent implements OnInit {
     self_estimates2 = Array.apply(null, Array(6));
     summarys = Array.apply(null, Array(6));
     summaryHolder = Array.apply(null, Array(6));
+
+    firstString: String = "";
+    secondString: String = "";
+    thirdString: String = "";
+    first: any;
+    second: any;
+    third: any;
+    combinations = Array.apply(null, Array());
+    @ViewChild('dito') ditoConfetti;
     letters = ["R", "I", "A", "S", "E", "C"]
     constructor(public authService: AuthService, public router: Router, public data: DataService) { }
 
@@ -64,11 +77,44 @@ export class EvaluateComponent implements OnInit {
             }
 
         }
+        //Get the ranking
+        this.first = this.calculateShit();
+        this.second = this.calculateShit();
+        this.third = this.calculateShit();
 
-        console.log(this.summarys)
-        let myFirst = this.calculateShit();
-        let mySecond = this.calculateShit();
-        let myThird = this.calculateShit();
+        // Transform it into string
+        this.first.forEach(element => this.firstString += element.letter + " ");
+        this.second.forEach(element => this.secondString += element.letter + " ");
+        this.third.forEach(element => this.thirdString += element.letter + " ");
+
+
+
+        //get all letter combination
+        for (let i = 0; i < this.first.length; i++) {
+            let firstLetter = this.first[i].letter;
+            for (let k = 0; k < this.second.length; k++) {
+                let secondLetter = this.second[k].letter;
+                for (let o = 0; o < this.third.length; o++) {
+                    let thirdLetter = this.third[o].letter;
+                    this.combinations.push(firstLetter + secondLetter + thirdLetter)
+
+                }
+
+            }
+
+        }
+
+        //Submit result to the database
+        this.data.submitResult(this.combinations).subscribe(data => {
+            console.log(data)
+
+        },
+            (error) => {
+                console.log(error)
+            });
+
+
+
     }
 
     calculateShit() {
@@ -115,6 +161,8 @@ export class EvaluateComponent implements OnInit {
 
         return myStorage;
     }
+
+
 
 
 
