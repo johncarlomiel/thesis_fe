@@ -163,7 +163,10 @@ export class EvaluateComponent implements OnInit {
     }
 
 
-
+    getBackgroudColor(i) {
+        let colors = ["#f0483e", "#f8941e", "#ffce02", "#00773f", "#0073a4", "#9279b7"];
+        return colors[i];
+    }
 
 
 

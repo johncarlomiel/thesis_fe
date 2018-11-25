@@ -17,6 +17,7 @@ import { LoginComponent } from './login/login.component';
 import { EstimatesComponent } from './estimates/estimates.component';
 import { EvaluateComponent } from './evaluate/evaluate.component';
 import { ProfileComponent } from './profile/profile.component';
+import { AuthenticationComponent } from './authentication/authentication.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { ProfileComponent } from './profile/profile.component';
     LoginComponent,
     EstimatesComponent,
     EvaluateComponent,
-    ProfileComponent
+    ProfileComponent,
+    AuthenticationComponent
   ],
   imports: [
     BrowserModule,

@@ -1,34 +1,54 @@
+<div class="ui inverted segment">
+    <div class="ui inverted large secondary pointing menu container">
+        <a class="item">
+            Home
+        </a>
+
+        <div class="right menu">
+            <a class="item">
+                Logout
+            </a>
+        </div>
+
+
+    </div>
+
+</div>
+
+
 <div class="ui grid container">
     <div class="eighteen wide column">
-        <div style="clear: both">
-            <h1 class="ui header primary bolder" style="float:left">{{title}}</h1>
-            <h1 class="ui header primary bolder" style="float:right">Likes: {{currentLike}}</h1>
-        </div>
+
+
+        <h2 class="ui header huge center aligned primary bolder">
+            {{title}}
+            <div class="sub header">Likes: {{currentLike}}</div>
+        </h2>
 
 
         <table class="ui celled selectable table">
             <thead>
                 <tr>
-                    <th>Question</th>
+                    <th>Questions</th>
                     <th>Action</th>
                 </tr>
             </thead>
             <tbody>
                 <tr *ngFor="let question of currentQuestion;let i = index">
-                    <td>{{question.qst}}</td>
+                    <td class="primary bolder" style="font-size:1.2rem;">{{question.qst}}</td>
                     <td>
                         <div class="ui form">
                             <div class="inline fields">
                                 <div class="field">
                                     <div class="ui radio checkbox">
                                         <input type="radio" name="{{question.qst}}" (click)="like(i)">
-                                        <label>Like</label>
+                                        <label style="font-size:1.1rem;font-weight: 600">Like</label>
                                     </div>
                                 </div>
                                 <div class="field">
                                     <div class="ui radio checkbox">
                                         <input type="radio" name="{{question.qst}}" (click)="dislike(i)">
-                                        <label>Dislike</label>
+                                        <label style="font-size:1.1rem;font-weight: 600">Dislike</label>
                                     </div>
                                 </div>
                             </div>
@@ -39,8 +59,12 @@
             </tbody>
 
         </table>
-        <button class="ui primary right floated button" (click)="change()">
+        <button class="ui right floated blue button " (click)="change()">
             Submit
         </button>
     </div>
+</div>
+
+<div class="ui dimmer" [ngClass]="{'active': loader}">
+    <div class="ui loader"></div>
 </div>

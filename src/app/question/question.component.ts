@@ -118,6 +118,9 @@ export class QuestionComponent implements OnInit {
         //   this.view = true;
         // }, 2000)
 
+        this.loader = true;
+        setTimeout(() => this.loader = false, 1500)
+
         //Scroll up
         scroll(0, 0)
 

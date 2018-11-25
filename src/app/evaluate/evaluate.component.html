@@ -1,139 +1,191 @@
-<div class="navbar-fixed">
+<div class="ui inverted segment">
+  <div class="ui inverted large secondary pointing menu container">
+    <a class="item">
+      Home
+    </a>
+
+    <div class="right menu">
+      <a class="item">
+        Logout
+      </a>
+    </div>
+
+
+  </div>
+
+</div>
+<!-- <div class="navbar-fixed">
   <nav class="white">
     <div class="nav-wrapper container">
       <a href="#!" class="brand-logo green-text bolder">Organizing your answer</a>
       <a class="brand-logo right green-text bolder">See result</a>
     </div>
   </nav>
+</div> -->
+
+
+<!-- Rankings Section -->
+<p class="center aligned"><button class="ui blue button center large">
+    Click here to see results
+  </button></p>
+<h1 class="ui header primary bolder large center aligned">Rankings</h1>
+<div class="ui grid container">
+  <div class="two wide column"></div>
+  <div class="four wide column center aligned">
+    <h2 class="ui header primary bolder">1st</h2>
+    <a class="ui red circular label massive">{{firstString}}</a>
+  </div>
+  <div class="four wide column center aligned">
+    <h2 class="ui header primary bolder">2nd</h2>
+    <a class="ui red circular label massive">{{secondString}}</a>
+  </div>
+  <div class="four wide column center aligned">
+    <h2 class="ui header primary bolder">3rd</h2>
+    <a class="ui red circular label massive">{{thirdString}}</a>
+  </div>
+  <div class="two wide column"></div>
 </div>
-<br>
-<br>
-<div class="row container">
-  <div class="col l2 center">
-    <a href="#!" class="btn-floating btn-large center r_bg bolder" id="r">R</a>
-  </div>
-  <div class="col l2 center">
-    <a href="#!" class="btn-floating btn-large center i_bg bolder">I</a>
-  </div>
-  <div class="col l2 center">
-    <a href="#!" class="btn-floating btn-large center a_bg bolder">A</a>
-  </div>
-  <div class="col l2 center">
-    <a href="#!" class="btn-floating btn-large center s_bg bolder">S</a>
-  </div>
-  <div class="col l2 center">
-    <a href="#!" class="btn-floating btn-large center e_bg bolder">E</a>
-  </div>
-  <div class="col l2 center">
-    <a href="#!" class="btn-floating btn-large center c_bg bolder">C</a>
-  </div>
-</div>
+<!-- Rankings Section -->
 <hr>
+<br>
+<br>
+
+<br>
+<div class="ui grid container">
+
+  <div class="three wide column"></div>
+  <div class="ten wide column center aligned">
+
+    <a class="ui tag label large" style="background-color:#f0483e">R</a>
+    <a class="ui tag label large" style="background-color:#f8941e">I</a>
+    <a class="ui tag label large" style="background-color:#ffce02">A</a>
+    <a class="ui tag label large" style="background-color:#00773f; color:white">S</a>
+    <a class="ui tag label large" style="background-color:#0073a4; color:white">E</a>
+    <a class="ui tag label large" style="background-color:#9279b7;color:white">C</a>
+    <h3 class="ui header primary bolder">Color Labels</h3>
+  </div>
+  <div class="three wide column"></div>
+
+</div>
+
+<br>
 
 
 <!-- Activities Section -->
-<div class="container row">
-  <h2 class="header bolder">Activities</h2>
-  <div *ngFor="let activity of activities">
-    <div class="col l2 input-field">
-      <input type="text" [attr.value]="activity" class="center black-text medium-text r_text" disabled>
+<div class="ui container">
+  <h4 class="ui horizontal divider header ">
+    <i class="tag icon"></i>
+    Activities
+  </h4>
+  <div class="ui grid" style="padding:20px;">
+    <div class="two wide column"></div>
+    <div *ngFor="let activity of activities; let i = index">
+      <div class="two wide column">
+        <a class="ui tag label massive" [ngStyle]="{'background-color': getBackgroudColor(i),'width': '100px'}">{{activity}}</a>
+      </div>
     </div>
+    <div class="two wide column"></div>
+
   </div>
 </div>
 <!-- Activities Section -->
 
 <!-- Competencies Section -->
-<div class="row container">
-  <h2 class="bolder header">Competencies</h2>
-  <div *ngFor="let competency of competencies">
-    <div class="col l2 input-field">
-      <input type="text" [attr.value]="competency" class="center black-text medium-text r_text" disabled>
+<div class="ui container">
+  <h4 class="ui horizontal divider header ">
+    <i class="tag icon"></i>
+    Competencies
+  </h4>
+  <div class="ui grid" style="padding:20px;">
+    <div class="two wide column"></div>
+    <div *ngFor="let competency of competencies; let i = index">
+      <div class="two wide column">
+        <a class="ui tag label massive" [ngStyle]="{'background-color': getBackgroudColor(i),'width': '100px'}">{{competency}}</a>
+      </div>
     </div>
+    <div class="two wide column"></div>
+
   </div>
 </div>
 <!-- Competencies Section -->
 
 
 <!-- Occupations Section -->
-<div class="row container" #dito>
-  <h2 class="bolder header">Occupations</h2>
-  <div *ngFor="let job of jobs">
-    <div class="col l2 input-field">
-      <input type="text" [attr.value]="job" class="center black-text medium-text r_text" disabled>
+<div class="ui container">
+  <h4 class="ui horizontal divider header ">
+    <i class="tag icon"></i>
+    Occupations
+  </h4>
+  <div class="ui grid" style="padding:20px;">
+    <div class="two wide column"></div>
+    <div *ngFor="let job of jobs; let i = index">
+      <div class="two wide column">
+        <a class="ui tag label massive" [ngStyle]="{'background-color': getBackgroudColor(i),'width': '100px'}">{{job}}</a>
+      </div>
     </div>
+    <div class="two wide column"></div>
+
   </div>
 </div>
 <!-- Occupations Section -->
 
 
 <!-- Self Estimates Part 1 Section -->
-<div class="row container">
-  <h2 class="bolder header">Self Estimates Part 1</h2>
-  <div *ngFor="let selfEsti1 of self_estimates1">
-    <div class="col l2 input-field">
-      <input type="text" [attr.value]="selfEsti1" class="center black-text medium-text r_text" disabled>
+<div class="ui container">
+  <h4 class="ui horizontal divider header">
+    <i class="tag icon"></i>
+    Self Estimates Part 1
+  </h4>
+  <div class="ui grid" style="padding:20px;">
+    <div class="two wide column"></div>
+    <div *ngFor="let selfEsti1 of self_estimates1; let i = index">
+      <div class="two wide column">
+        <a class="ui tag label massive" [ngStyle]="{
+          'background-color': getBackgroudColor(i),
+          'width': '100px'
+        }">{{selfEsti1}}</a>
+      </div>
     </div>
+    <div class="two wide column"></div>
+
   </div>
 </div>
 <!-- Self Estimates Part 1 Section -->
 
 <!-- Self Estimates Part 2 Section -->
-<div class="row container">
-  <h2 class="bolder header">Self Estimates Part 2</h2>
-  <div *ngFor="let selfEsti2 of self_estimates2">
-    <div class="col l2 input-field">
-      <input type="text" [attr.value]="selfEsti2" class="center black-text medium-text r_text" disabled>
+<div class="ui container">
+  <h4 class="ui horizontal divider header">
+    <i class="tag icon"></i>
+    Self Estimates Part 2
+  </h4>
+  <div class="ui grid" style="padding:20px;">
+    <div class="two wide column"></div>
+    <div *ngFor="let selfEsti2 of self_estimates2; let i = index">
+      <div class="two wide column">
+        <a class="ui tag label massive" [ngStyle]="{'background-color': getBackgroudColor(i),'width': '100px'}">{{selfEsti2}}</a>
+      </div>
     </div>
+    <div class="two wide column"></div>
+
   </div>
 </div>
 <!-- Self Estimates Part 2 Section -->
 
 <!-- Summary Section -->
-<div class="row container">
-  <h2 class="bolder header">Summary</h2>
-  <div *ngFor="let summary of summarys">
-    <div class="col l2 input-field">
-      <input type="text" [attr.value]="summary.value" class="center black-text medium-text r_text" disabled>
+<div class="ui container">
+  <h4 class="ui horizontal divider header">
+    <i class="tag icon"></i>
+    Summary
+  </h4>
+  <div class="ui grid" style="padding:20px;">
+    <div class="two wide column"></div>
+    <div *ngFor="let summary of summarys; let i = index">
+      <div class="two wide column">
+        <a class="ui tag label massive" [ngStyle]="{'background-color': getBackgroudColor(i),'width': '100px'}">{{summary.value}}</a>
+      </div>
     </div>
+    <div class="two wide column"></div>
+
   </div>
 </div>
 <!-- Summary Section -->
-
-
-<!-- Rankings Section -->
-<div class="row container">
-  <h2 class="bolder header">Rankings</h2>
-  <!-- 1st -->
-  <div class="col l4">
-    <h3 class="primary bolder center">1st</h3>
-    <div class="card">
-      <div class="card-content">
-        <span style="font-size:3rem" class="card-title bolder primary center">{{firstString}}</span>
-      </div>
-    </div>
-  </div>
-  <!-- 1st -->
-  <!-- 2nd -->
-  <div class="col l4">
-    <h3 class="primary bolder center">2nd</h3>
-    <div class="card">
-      <div class="card-content">
-        <span style="font-size:3rem" class="card-title bolder primary center">{{secondString}}</span>
-      </div>
-    </div>
-  </div>
-  <!-- 2nd -->
-
-  <!-- 3rd -->
-  <div class="col l4">
-    <h3 class="primary bolder center">3rd</h3>
-    <div class="card">
-      <div class="card-content">
-        <span style="font-size:3rem" class="card-title bolder primary center">{{thirdString}}</span>
-      </div>
-    </div>
-  </div>
-  <!-- 3rd -->
-</div>
-
-<!-- Rankings Section -->
