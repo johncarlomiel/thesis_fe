@@ -1,0 +1,25 @@
+<div class="ui secondary  menu container" style="margin-top:5px;">
+  <a class="active item" routerLink="/">
+    Home
+  </a>
+  <a class="item">
+    Messages
+  </a>
+  <a class="item">
+    Friends
+  </a>
+  <div class="right menu">
+    <a class="ui item" (click)="start()">
+      Start Now
+    </a>
+    <div class="ui item dropdown" suiDropdown *ngIf="userSession">
+      <div class="text">My Profile</div>
+      <i class="dropdown icon"></i>
+      <div class="menu" suiDropdownMenu>
+        <div class="item" routerLink="/profile">View Profile</div>
+        <div class="item" (click)="logout()">Logout</div>
+      </div>
+    </div>
+    <a class="ui item" routerLink="/authentication" *ngIf="!userSession">Login/Register</a>
+  </div>
+</div>

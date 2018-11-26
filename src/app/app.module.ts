@@ -18,6 +18,7 @@ import { EstimatesComponent } from './estimates/estimates.component';
 import { EvaluateComponent } from './evaluate/evaluate.component';
 import { ProfileComponent } from './profile/profile.component';
 import { AuthenticationComponent } from './authentication/authentication.component';
+import { HeaderComponent } from './header/header.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { AuthenticationComponent } from './authentication/authentication.compone
     EstimatesComponent,
     EvaluateComponent,
     ProfileComponent,
-    AuthenticationComponent
+    AuthenticationComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,

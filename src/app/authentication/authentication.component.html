@@ -1,83 +1,84 @@
-<div class="ui inverted segment">
-  <div class="ui inverted large secondary pointing menu container">
-    <a class="item">
-      Home
-    </a>
+<div>
 
-    <div class="right menu">
-      <a class="item">
-        Logout
-      </a>
+  <app-header></app-header>
+
+
+
+
+  <div class="ui placeholder container segment">
+    <div class="ui active centered inline dimmer" *ngIf="loader">
+      <div class="ui large text loader">Loading</div>
     </div>
+    <div class="ui two column very relaxed stackable grid">
+      <div class="middle aligned column">
 
-
-  </div>
-
-</div>
-
-
-
-
-<div class="ui placeholder container segment">
-  <div class="ui two column very relaxed stackable grid">
-    <div class="middle aligned column">
-
-      <p class="center aligned" *ngIf="!login">
-        <button class="ui big button" (click)="change('qwe')">
-          <i class="sign in alternate icon"></i>
-          Login
-        </button>
-      </p>
-      <div class="ui form" *ngIf="login">
-        <div class="field">
-          <label>Username</label>
-          <div class="ui left  icon input">
-            <input type="text" placeholder="Username">
-            <i class="user icon"></i>
+        <p class="center aligned" *ngIf="!login">
+          <button class="ui big button" (click)="change('qwe')">
+            <i class="sign in alternate icon"></i>
+            Login
+          </button>
+        </p>
+        <div class="ui form" *ngIf="login">
+          <div class="field">
+            <label>Username</label>
+            <div class="ui left icon input">
+              <input type="text" placeholder="Username" #loginUsername>
+              <i class="user icon"></i>
+            </div>
           </div>
-        </div>
-        <div class="field">
-          <label>Password</label>
-          <div class="ui left  icon input">
-            <input type="password">
-            <i class="lock icon"></i>
+          <div class="field">
+            <label>Password</label>
+            <div class="ui left icon input">
+              <input type="password" #loginPass placeholder="Password">
+              <i class="lock icon"></i>
+            </div>
           </div>
+
+
+
+          <p class="center aligned"><button class="ui blue submit big button" (click)="userLogin(loginUsername.value,loginPass.value)">Login</button></p>
+
         </div>
+      </div>
+      <div class="middle aligned column">
+        <p class="center aligned" *ngIf="login">
+          <button class="ui big button" (click)="change('signup')">
+            <i class="signup icon"></i>
+            Sign Up
+          </button>
+        </p>
 
-        <p class="center aligned"><button class="ui blue submit big button">Login</button></p>
+        <div class="ui form" *ngIf="!login">
+          <div class="field">
+            <label>Username</label>
+            <div class="ui left  icon input">
+              <input type="text" placeholder="Enter username here" #registerUsername>
+              <i class="user icon"></i>
+            </div>
+          </div>
+          <div class="field">
+            <label>Password</label>
+            <div class="ui left  icon input">
+              <input type="password" placeholder="Enter password here" #registerPassword>
+              <i class="lock icon"></i>
+            </div>
+          </div>
 
+          <div class="field">
+            <label>Name</label>
+            <div class="ui left  icon input">
+              <input type="text" placeholder="Full name" #registerFullname>
+              <i class="lock icon"></i>
+            </div>
+          </div>
+
+          <p class="center aligned"><button class="ui blue submit big button" (click)="register(registerUsername.value,registerPassword.value,registerFullname.value)">Register</button></p>
+
+        </div>
       </div>
     </div>
-    <div class="middle aligned column">
-      <p class="center aligned" *ngIf="login">
-        <button class="ui big button" (click)="change('signup')">
-          <i class="signup icon"></i>
-          Sign Up
-        </button>
-      </p>
-
-      <div class="ui form" *ngIf="!login">
-        <div class="field">
-          <label>Username</label>
-          <div class="ui left  icon input">
-            <input type="text" placeholder="Username">
-            <i class="user icon"></i>
-          </div>
-        </div>
-        <div class="field">
-          <label>Password</label>
-          <div class="ui left  icon input">
-            <input type="password">
-            <i class="lock icon"></i>
-          </div>
-        </div>
-
-        <p class="center aligned"><button class="ui blue submit big button">Login</button></p>
-
-      </div>
+    <div class="ui vertical divider">
+      Or
     </div>
-  </div>
-  <div class="ui vertical divider">
-    Or
   </div>
 </div>
