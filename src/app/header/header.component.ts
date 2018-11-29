@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../services/auth.service';
+import { Router } from '@angular/router';
+import swal from 'sweetalert2';
+
 
 @Component({
   selector: 'app-header',
@@ -8,7 +11,8 @@ import { AuthService } from '../services/auth.service';
 })
 export class HeaderComponent implements OnInit {
   userSession: Boolean = false;
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService,
+    private router: Router) { }
 
   ngOnInit() {
     if (localStorage.getItem("Authorization") != "" && localStorage.getItem("Authorization") != null) {
@@ -30,6 +34,21 @@ export class HeaderComponent implements OnInit {
   logout() {
     localStorage.setItem("Authorization", "");
     this.userSession = false;
+  }
+
+  start() {
+    if (this.userSession) {
+      this.router.navigate(["questions"]);
+    } else {
+      swal({
+        title: "Please login first",
+        type: "warning"
+      });
+      setTimeout(() => {
+        this.router.navigate(["login"]);
+      }, 1000);
+
+    }
   }
 
 }

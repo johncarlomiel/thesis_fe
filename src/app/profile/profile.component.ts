@@ -10,7 +10,12 @@ import { ProfileService } from '../services/profile.service';
 export class ProfileComponent implements OnInit {
   codes: any;
   userInfo = {
-    name: ""
+    name: "",
+    username: "",
+    id: 0,
+    iat: 0,
+    exp: 0
+
   };
   constructor(private authService: AuthService, private profileService: ProfileService) {
 
@@ -20,8 +25,9 @@ export class ProfileComponent implements OnInit {
 
     //Check session
     this.authService.checkSession().subscribe((successData) => {
-      console.log(successData)
-      this.userInfo = successData;
+
+      this.userInfo = successData
+      console.log(this.userInfo)
     },
       (error) => {
         console.log(error)
@@ -42,4 +48,12 @@ export class ProfileComponent implements OnInit {
   }
 
 
+}
+
+interface UserInfo {
+  name: string,
+  username: string,
+  id: number,
+  iat: number,
+  exp: number
 }
