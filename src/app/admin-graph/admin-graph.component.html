@@ -1,0 +1,64 @@
+<div class="ui small menu">
+  <a class="active item">
+    Home
+  </a>
+  <a class="item">
+    Messages
+  </a>
+  <div class="right menu">
+    <div class="ui dropdown item">
+      Language <i class="dropdown icon"></i>
+      <div class="menu">
+        <a class="item">English</a>
+        <a class="item">Russian</a>
+        <a class="item">Spanish</a>
+      </div>
+    </div>
+    <div class="item">
+      <div class="ui primary button">Sign Up</div>
+    </div>
+  </div>
+</div>
+
+
+<div class="ui grid container">
+  <div class="three wide column">
+    <div class="ui form">
+      <div class="grouped fields" *ngFor="let indivCriteria of criteria">
+        <label>{{indivCriteria.fieldname}}</label>
+        <div class="field" *ngFor="let value of indivCriteria.values">
+          <sui-checkbox [(ngModel)]="value.isChecked" (ngModelChange)="try()">{{value.label}}</sui-checkbox>
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+
+  <div class="ten wide column">
+    <fusioncharts width="700" height="400" type="Column2d" [dataSource]="dataSource">
+    </fusioncharts>
+  </div>
+
+  <div class="three wide column">
+    <sui-accordion [closeOthers]="false">
+      <sui-accordion-panel [isOpen]="false" *ngFor="let indivProblems of problems">
+        <div title>
+          <i class="dropdown icon"></i>
+          {{indivProblems.name}}
+        </div>
+        <div content>
+          <div class="ui form">
+            <div class="grouped fields">
+              <div class="field" *ngFor="let problem of indivProblems.questions">
+                <sui-checkbox [(ngModel)]="problem.value" (ngModelChange)="try()">{{problem.label}}</sui-checkbox>
+              </div>
+
+
+            </div>
+          </div>
+        </div>
+      </sui-accordion-panel>
+    </sui-accordion>
+  </div>
+</div>

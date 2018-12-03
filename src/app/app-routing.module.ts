@@ -10,6 +10,8 @@ import { EstimatesComponent } from './estimates/estimates.component';
 import { EvaluateComponent } from './evaluate/evaluate.component';
 import { ProfileComponent } from './profile/profile.component';
 import { AuthenticationComponent } from './authentication/authentication.component';
+import { AdminHomeComponent } from './admin-home/admin-home.component';
+import { AdminGraphComponent } from './admin-graph/admin-graph.component';
 
 
 const routes: Routes = [
@@ -21,7 +23,9 @@ const routes: Routes = [
   { path: 'self-estimates', component: EstimatesComponent },
   { path: 'evaluate', component: EvaluateComponent },
   { path: 'profile', component: ProfileComponent },
-  { path: 'authentication', component: AuthenticationComponent }
+  { path: 'authentication', component: AuthenticationComponent },
+  { path: 'admin/home', component: AdminHomeComponent },
+  { path: 'admin/graph', component: AdminGraphComponent }
 
 ];
 

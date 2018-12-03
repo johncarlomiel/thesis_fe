@@ -1,0 +1,191 @@
+<div class="ui small menu">
+  <a class="active item">
+    Home
+  </a>
+  <a class="item">
+    Messages
+  </a>
+  <div class="right menu">
+    <div class="ui dropdown item">
+      Language <i class="dropdown icon"></i>
+      <div class="menu">
+        <a class="item">English</a>
+        <a class="item">Russian</a>
+        <a class="item">Spanish</a>
+      </div>
+    </div>
+    <div class="item">
+      <div class="ui primary button">Sign Up</div>
+    </div>
+  </div>
+</div>
+
+<br>
+
+
+<div class="ui grid container">
+  <div class="ui input right aligned">
+    <input type="text" placeholder="Search..." (input)="onSearchChange($event.target.value)">
+  </div>
+  <table class="ui celled table center aligned selectable ">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Username</th>
+        <th>Name</th>
+        <th>Information Buttons</th>
+        <th style="background-color:#db2828;color:white">Action Buttons (Danger Zone)</th>
+
+      </tr>
+    </thead>
+    <tbody>
+
+      <tr *ngFor="let myPage of pages | paginate: { itemsPerPage: 10, currentPage: page } ; let i = index">
+        <td>
+          {{myPage.id}}
+        </td>
+        <td>
+          {{myPage.username}}
+        </td>
+        <td>
+          {{myPage.name}}
+        </td>
+
+        <td>
+          <div class="ui buttons">
+            <button class="ui red basic button" (click)="showInfoModal = true; getInfo(myPage.id)">Basic Info</button>
+            <button class="ui blue basic button" (click)="showProblemModal = true; getProblems(myPage.id)">Problems</button>
+            <button class="ui green basic button" (click)="showMoreInfoModal = true; getMoreInfo(myPage.id)">More Info</button>
+          </div>
+        </td>
+
+        <td>
+          <button class="negative ui button" (click)="delete(myPage.id)">Delete</button>
+        </td>
+
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <th colspan="5">
+          <div class="ui right floated pagination menu">
+            <a></a>
+            <pagination-controls (pageChange)="page = $event"></pagination-controls>
+          </div>
+        </th>
+      </tr>
+    </tfoot>
+  </table>
+
+
+  <!-- Info Modal -->
+  <sui-modal *ngIf="showInfoModal" [mustScroll]="true" [isClosable]="true" (dismissed)="showInfoModal = false"
+    #infoModal>
+    <div class="content">
+      <h2 class="center aligned" *ngIf="noInfo">No info about this person</h2>
+      <div class="ui two column grid" *ngIf="!noInfo">
+        <div class="column" *ngFor="let info of userInfo">
+          <div class="ui raised segment" style="min-height:130px">
+            <a [ngStyle]="{'background-color': true ? info.color:'', 'color': true ? 'white': ''}" class="ui ribbon label large">{{info.label}}</a>
+            <div class="ui divided items">
+              <div class="item">
+                <div class="content">
+
+                  <div class="description">
+                    <p class="primary bolder" style="font-size:1.5rem">{{info.value}}</p>
+                  </div>
+
+
+                </div>
+              </div>
+            </div>
+
+            <p></p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="actions">
+      <button class="ui red button" (click)="infoModal.deny()">Close</button>
+    </div>
+  </sui-modal>
+  <!-- Info Modal -->
+
+
+  <!-- More Info Modal -->
+  <sui-modal *ngIf="showMoreInfoModal" [mustScroll]="true" [isClosable]="true" (dismissed)="showMoreInfoModal = false;"
+    #moreInfoModal>
+    <div class="content">
+      <h2 class="center aligned" *ngIf="noInfo">No info about this person</h2>
+      <div class="ui" *ngIf="!noInfo">
+        <div class="ui raised segment" style="min-height:130px" *ngFor="let info of moreInfo">
+          <a [ngStyle]="{'background-color': true ? info.color:'', 'color': true ? 'white': ''}" class="ui ribbon label large">{{info.label}}</a>
+          <div class="ui divided items">
+            <div class="item">
+              <div class="content">
+
+                <div class="description">
+                  <p class="primary bolder" style="font-size:1.5rem">{{info.value}}</p>
+                </div>
+
+
+              </div>
+            </div>
+          </div>
+
+          <p></p>
+        </div>
+      </div>
+    </div>
+    <div class="actions">
+      <button class="ui red button" (click)="moreInfoModal.deny()">Close</button>
+    </div>
+  </sui-modal>
+  <!-- More Info Modal -->
+
+  <!-- Problems Modal -->
+  <sui-modal *ngIf="showProblemModal" [mustScroll]="true" [isClosable]="true" (dismissed)="showProblemModal = false;"
+    #problemModal>
+    <div class="content">
+      <h2 class="center aligned" *ngIf="noInfo">No info about this person</h2>
+      <div *ngIf="!noInfo">
+        <div class="ui segment" *ngFor="let proInfo of problemInfo">
+          <a [ngStyle]="{'background-color': true ? proInfo.color:'', 'color': true ? 'white': ''}" class="ui ribbon label large">{{proInfo.name}}</a>
+          <div *ngFor="let indivInfo of proInfo.value">
+            <div class="ui divided items">
+              <div class="item">
+                <div class="content">
+
+                  <div class="description">
+                    <p>{{indivInfo.label}}</p>
+                  </div>
+
+
+
+                  <hr>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <div class="actions">
+      <button class="ui red button" (click)="problemModal.deny()">Close</button>
+    </div>
+  </sui-modal>
+</div>
+
+<!-- Alert modal -->
+<sui-modal [isClosable]="false" *ngIf="alertModal" class="center aligned" #alertModal123>
+  <div class="header">Warning</div>
+  <div class="content">
+    <h2 class="primary bolder ">Are you sure you want to delete?</h2>
+  </div>
+  <div class="actions">
+    <button class="ui red button" (click)="alertModal123.deny();deleteConfirm = false">Cancel</button>
+    <button class="ui green button" (click)="alertModal123.approve('done');deleteConfirm = true" autofocus>Yes</button>
+  </div>
+</sui-modal>
+<!-- Alert modal -->

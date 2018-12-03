@@ -4,7 +4,14 @@ import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
+import { NgxPaginationModule } from 'ngx-pagination'; // <-- import the module
 import { SuiModule } from 'ng2-semantic-ui';
+import { FusionChartsModule } from 'angular-fusioncharts';
+import * as FusionCharts from 'fusioncharts';
+import * as Charts from 'fusioncharts/fusioncharts.charts';
+
+import * as FusionTheme from 'fusioncharts/themes/fusioncharts.theme.fusion';
+
 
 
 
@@ -19,6 +26,13 @@ import { EvaluateComponent } from './evaluate/evaluate.component';
 import { ProfileComponent } from './profile/profile.component';
 import { AuthenticationComponent } from './authentication/authentication.component';
 import { HeaderComponent } from './header/header.component';
+import { AdminHomeComponent } from './admin-home/admin-home.component';
+import { InfoComponent } from './modal/info/info.component';
+import { ProblemsComponent } from './modal/problems/problems.component';
+import { MoreInfoComponent } from './modal/more-info/more-info.component';
+import { AdminGraphComponent } from './admin-graph/admin-graph.component';
+
+FusionChartsModule.fcRoot(FusionCharts, Charts, FusionTheme);
 
 @NgModule({
   declarations: [
@@ -32,7 +46,12 @@ import { HeaderComponent } from './header/header.component';
     EvaluateComponent,
     ProfileComponent,
     AuthenticationComponent,
-    HeaderComponent
+    HeaderComponent,
+    AdminHomeComponent,
+    InfoComponent,
+    ProblemsComponent,
+    MoreInfoComponent,
+    AdminGraphComponent
   ],
   imports: [
     BrowserModule,
@@ -40,7 +59,9 @@ import { HeaderComponent } from './header/header.component';
     FormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    SuiModule
+    SuiModule,
+    NgxPaginationModule,
+    FusionChartsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
