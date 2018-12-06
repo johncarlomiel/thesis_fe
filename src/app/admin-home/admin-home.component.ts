@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { AdminService } from '../services/admin.service';
 import swal from 'sweetalert2';
+import { problems } from '../models/problems';
+import { labels } from '../models/problemLabel';
+import { title } from '../models/problemTitle';
+
 
 
 @Component({
@@ -24,23 +28,17 @@ export class AdminHomeComponent implements OnInit {
   options = ["qweqweqw", " tanga"]
   holder: any;
 
+  problem: any;
+  labelArray: any;
+  problemTitle: any;
+
+  userProblem: any;
+
 
   constructor(private adminService: AdminService) { }
 
   ngOnInit() {
-    this.holder = {
-      adjustment: { name: "Adjustments to School Relations", value: Array.apply(null, Array()) },
-      courtship: { name: "Courtship, Sex and Marriage", value: Array.apply(null, Array()) },
-      curiculum: { name: "Curriculum and Teaching Procedures", value: Array.apply(null, Array()) },
-      edu_voc: { name: "Education and Vocation", value: Array.apply(null, Array()) },
-      finan: { name: "Financial", value: Array.apply(null, Array()) },
-      home_fam: { name: "Home and Family", value: Array.apply(null, Array()) },
-      morals: { name: "Morals and Religion", value: Array.apply(null, Array()) },
-      per_psy: { name: "Personal Psychological Relations", value: Array.apply(null, Array()) },
-      phy: { name: "Physiological", value: Array.apply(null, Array()) },
-      soc_psy: { name: "Social Psychological Relations", value: Array.apply(null, Array()) },
-      soc_reac: { name: "Social and Reacreational Activities", value: Array.apply(null, Array()) },
-    }
+
     this.getUsers();
 
 
@@ -55,37 +53,51 @@ export class AdminHomeComponent implements OnInit {
 
 
   getProblems(i) {
-    this.problemInfo = Array.apply(null, Array())
-    this.holder = {
-      adjustment: { name: "Adjustments to School Relations", value: Array.apply(null, Array()) },
-      courtship: { name: "Courtship, Sex and Marriage", value: Array.apply(null, Array()) },
-      curiculum: { name: "Curriculum and Teaching Procedures", value: Array.apply(null, Array()) },
-      edu_voc: { name: "Education and Vocation", value: Array.apply(null, Array()) },
-      finan: { name: "Financial", value: Array.apply(null, Array()) },
-      home_fam: { name: "Home and Family", value: Array.apply(null, Array()) },
-      morals: { name: "Morals and Religion", value: Array.apply(null, Array()) },
-      per_psy: { name: "Personal Psychological Relations", value: Array.apply(null, Array()) },
-      phy: { name: "Physiological", value: Array.apply(null, Array()) },
-      soc_psy: { name: "Social Psychological Relations", value: Array.apply(null, Array()) },
-      soc_reac: { name: "Social and Reacreational Activities", value: Array.apply(null, Array()) },
-    }
+    this.userProblem = Array.apply(null, Array());
     this.adminService.getProblems(i).subscribe((successData) => {
-      successData.forEach(element => {
-        this.holder[element.label].value.push({
-          label: element.title,
+      if (successData != null || undefined) {
+        this.problem = problems.problems;
+        this.labelArray = labels;
+        let label_holder = Object.keys(successData);
+        label_holder.splice(0, 1)
+        let value_holder = Object.values(successData);
+        value_holder.splice(0, 1)
+        let currentIndex = 0;
+        this.problemTitle = title;
 
-        })
-      });
+        this.labelArray.forEach((element, index) => {
 
-      console.log(this.holder)
-      this.holder = Object.values(this.holder)
-      this.holder.forEach(element => {
-        if (element.value.length > 0) {
-          element["color"] = this.randColor()
-          this.problemInfo.push(element)
-        }
-      });
-      console.log(this.problemInfo)
+          if (element.fieldname == label_holder[index]) {
+            this.labelArray[index].value = value_holder[index]
+          }
+          if (index == 9) { currentIndex++ }
+          else if (index == 14) { currentIndex++ }
+          else if (index == 22) { currentIndex++ }
+          else if (index == 30) { currentIndex++ }
+          else if (index == 37) { currentIndex++ }
+          else if (index == 48) { currentIndex++ }
+          else if (index == 55) { currentIndex++ }
+          else if (index == 75) { currentIndex++ }
+          else if (index == 79) { currentIndex++ }
+          if (this.labelArray[index].value) {
+            this.problemTitle[currentIndex].questions.push(this.labelArray[index])
+          }
+
+        });
+
+        console.log(this.problemTitle)
+        this.problemTitle.forEach((element, index) => {
+          if (element.questions.length > 1) {
+            this.userProblem.push(element)
+          }
+
+        });
+
+        this.userProblem.forEach((element, index) => {
+          this.userProblem[index].color = this.randColor();
+
+        });
+      }
     }, (error) => console.log(error))
 
   }

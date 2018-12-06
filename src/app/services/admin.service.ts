@@ -81,7 +81,7 @@ export class AdminService {
       params: params
 
     }
-    return this.http.get<Problems[]>(url, httpOptions)
+    return this.http.get(url, httpOptions)
 
   }
   search(keyword) {
@@ -100,20 +100,23 @@ export class AdminService {
   }
 
 
-  getAllProblems() {
-    const url = this.server_url + "api/getQuestions";
+  graph(data) {
+    console.log(data)
+    const url = this.server_url + "api/admin/graph";
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*'
       })
 
-
     }
-    return this.http.get<Problems[]>(url, httpOptions)
+    return this.http.post<GraphResult>(url, data, httpOptions);
+
 
   }
+
 }
+
 
 interface Users {
   id: number,
@@ -161,4 +164,9 @@ interface Problems {
   title: string,
   user_id: number,
   value: number
+}
+interface GraphResult {
+  conditionMet: { value: number, data: [], label: string },
+  notCondition: { value: number, data: [], label: string },
+  allResult: { value: number, data: [], label: string }
 }

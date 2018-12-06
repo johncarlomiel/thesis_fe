@@ -1,6 +1,7 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { ProfileService } from '../services/profile.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-profile',
@@ -17,7 +18,7 @@ export class ProfileComponent implements OnInit {
     exp: 0
 
   };
-  constructor(private authService: AuthService, private profileService: ProfileService) {
+  constructor(private authService: AuthService, private profileService: ProfileService, private router: Router) {
 
   }
 
@@ -30,6 +31,7 @@ export class ProfileComponent implements OnInit {
       console.log(this.userInfo)
     },
       (error) => {
+        this.router.navigate(["/"])
         console.log(error)
       });
 

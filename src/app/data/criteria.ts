@@ -38,5 +38,14 @@ export var criteria = [
             { label: "male", isChecked: false },
             { label: "female", isChecked: false }
         ]
+    },
+    {
+        fieldname: "study_status", values: [
+            { label: "very good", isChecked: false },
+            { label: "good", isChecked: false },
+            { label: "not so good", isChecked: false },
+            { label: "bad", isChecked: false }
+        ]
     }
+
 ]

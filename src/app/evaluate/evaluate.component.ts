@@ -33,7 +33,7 @@ export class EvaluateComponent implements OnInit {
     letters = ["R", "I", "A", "S", "E", "C"]
     constructor(public authService: AuthService, public router: Router, public data: DataService) { }
 
-    ngOnInit() {
+    async ngOnInit() {
         let resultPart1 = JSON.parse(localStorage.getItem("ph1Res"));
         let resultPart2 = JSON.parse(localStorage.getItem("selfEstiRes"));
 
@@ -78,9 +78,17 @@ export class EvaluateComponent implements OnInit {
 
         }
         //Get the ranking
+
+
+
+
+
+
         this.first = this.calculateShit();
         this.second = this.calculateShit();
-        this.third = this.calculateShit();
+        this.third = this.calculateShit()
+
+
 
         // Transform it into string
         this.first.forEach(element => this.firstString += element.letter + " ");
@@ -96,6 +104,7 @@ export class EvaluateComponent implements OnInit {
                 let secondLetter = this.second[k].letter;
                 for (let o = 0; o < this.third.length; o++) {
                     let thirdLetter = this.third[o].letter;
+
                     this.combinations.push(firstLetter + secondLetter + thirdLetter)
 
                 }
@@ -103,6 +112,7 @@ export class EvaluateComponent implements OnInit {
             }
 
         }
+        console.log(this.combinations)
 
         //Submit result to the database
         this.data.submitResult(this.combinations).subscribe(data => {
@@ -123,41 +133,52 @@ export class EvaluateComponent implements OnInit {
         let highestValue = {
             value: this.summaryHolder[0].value,
             index: 0,
-            letter: ""
+            letter: "",
+            kuha: false
         }
         for (let i = 0; i < this.summaryHolder.length; i++) {
+
             if (highestValue.value < this.summaryHolder[i].value) {
                 highestValue.value = this.summaryHolder[i].value;
                 highestValue.index = i;
+                console.log(this.summaryHolder[i].letter)
                 highestValue.letter = this.summaryHolder[i].letter;
+                highestValue.kuha = true;
 
-
-
+            } else {
+                highestValue.kuha = false;
             }
 
         }
+
+
         //Remove the current highest in the array
-        this.summaryHolder.splice(highestValue.index, 1)
+        if (highestValue.kuha) {
+            this.summaryHolder.splice(highestValue.index, 1)
+            myStorage.push({
+                value: highestValue.value,
+                letter: highestValue.letter
+            });
+        }
 
 
-        myStorage.push({
-            value: highestValue.value,
-            letter: highestValue.letter
-        });
 
 
-        for (let i = 0; i < this.summaryHolder.length; i++) {
-            if (highestValue.value == this.summaryHolder[i].value) {
+
+
+        for (let k = 0; k < this.summaryHolder.length; k++) {
+            if (highestValue.value == this.summaryHolder[k].value) {
                 myStorage.push({
-                    value: this.summaryHolder[i].value,
-                    letter: this.summaryHolder[i].letter
+                    value: this.summaryHolder[k].value,
+                    letter: this.summaryHolder[k].letter
                 });
-                this.summaryHolder.splice(i, 1);
+                this.summaryHolder.splice(k, 1);
 
 
             }
 
         }
+        console.log(myStorage)
 
         return myStorage;
     }

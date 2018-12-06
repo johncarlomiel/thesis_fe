@@ -1,21 +1,13 @@
 <div class="ui small menu">
-  <a class="active item">
+  <a class="item active" routerLink="/admin/home">
     Home
   </a>
-  <a class="item">
-    Messages
+  <a class="item" routerLink="/admin/graph">
+    Graphs
   </a>
   <div class="right menu">
-    <div class="ui dropdown item">
-      Language <i class="dropdown icon"></i>
-      <div class="menu">
-        <a class="item">English</a>
-        <a class="item">Russian</a>
-        <a class="item">Spanish</a>
-      </div>
-    </div>
     <div class="item">
-      <div class="ui primary button">Sign Up</div>
+      <div class="ui blue button">Logout</div>
     </div>
   </div>
 </div>
@@ -149,9 +141,9 @@
     <div class="content">
       <h2 class="center aligned" *ngIf="noInfo">No info about this person</h2>
       <div *ngIf="!noInfo">
-        <div class="ui segment" *ngFor="let proInfo of problemInfo">
+        <div class="ui segment" *ngFor="let proInfo of userProblem">
           <a [ngStyle]="{'background-color': true ? proInfo.color:'', 'color': true ? 'white': ''}" class="ui ribbon label large">{{proInfo.name}}</a>
-          <div *ngFor="let indivInfo of proInfo.value">
+          <div *ngFor="let indivInfo of proInfo.questions">
             <div class="ui divided items">
               <div class="item">
                 <div class="content">

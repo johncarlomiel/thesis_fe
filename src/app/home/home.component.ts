@@ -30,11 +30,16 @@ export class HomeComponent implements OnInit {
     if (localStorage.getItem("Authorization") != "" && localStorage.getItem("Authorization") != null) {
       this.authService.checkSession().subscribe((successData) => {
         this.userSession = true;
+
+
+
         console.log(this.userSession)
 
       },
         (error) => {
           this.userSession = false;
+
+
           console.log(this.userSession)
           console.log(error)
         });

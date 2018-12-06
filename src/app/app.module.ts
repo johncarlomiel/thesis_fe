@@ -31,8 +31,16 @@ import { InfoComponent } from './modal/info/info.component';
 import { ProblemsComponent } from './modal/problems/problems.component';
 import { MoreInfoComponent } from './modal/more-info/more-info.component';
 import { AdminGraphComponent } from './admin-graph/admin-graph.component';
+import { AuthGuard } from './auth.guard';
 
-FusionChartsModule.fcRoot(FusionCharts, Charts, FusionTheme);
+
+
+// Load themes
+
+import * as Candy from 'fusioncharts/themes/fusioncharts.theme.candy';
+
+
+FusionChartsModule.fcRoot(FusionCharts, Charts, FusionTheme, Candy);
 
 @NgModule({
   declarations: [
@@ -63,7 +71,7 @@ FusionChartsModule.fcRoot(FusionCharts, Charts, FusionTheme);
     NgxPaginationModule,
     FusionChartsModule
   ],
-  providers: [],
+  providers: [AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -2,14 +2,10 @@
   <a class="active item" routerLink="/">
     Home
   </a>
-  <a class="item">
-    Messages
-  </a>
-  <a class="item">
-    Friends
-  </a>
+
+
   <div class="right menu">
-    <a class="ui item" (click)="start()">
+    <a [ngClass]="{'disabled': sdsTaken || onSdsSession}" class="ui button item" (click)="start()">
       Start Now
     </a>
     <div class="ui item dropdown" suiDropdown *ngIf="userSession">

@@ -8,10 +8,25 @@ import { UserInfo } from '../interfaces/userInfo';
   providedIn: 'root'
 })
 export class AuthService {
-
+  private loggedInStatus: boolean = false;
   userInfo: Observable<UserInfo>;
 
-  constructor(private http: HttpClient) { }
+
+
+
+  constructor(private http: HttpClient) {
+
+  }
+
+  setLoggedIn(value) {
+    this.loggedInStatus = value;
+    console.log(this.loggedInStatus)
+  }
+
+  get isLoggedIn() {
+    return this.loggedInStatus;
+  }
+
 
 
   //Check user session

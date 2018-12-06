@@ -60,11 +60,13 @@ export class AuthenticationComponent implements OnInit {
       this.loader = true;
       setTimeout(() => {
         this.loader = false
+
         this.router.navigate(["/"]);
       }, 1500)
 
     },
       (error) => {
+
         swal({
           title: error.error.message,
           type: "error"

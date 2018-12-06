@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
 import swal from 'sweetalert2';
+import { UserService } from '../services/user.service';
 
 
 @Component({
@@ -11,12 +12,26 @@ import swal from 'sweetalert2';
 })
 export class HeaderComponent implements OnInit {
   userSession: Boolean = false;
+  sdsTaken: Boolean = false;
+  onSdsSession: Boolean = false;
+
   constructor(private authService: AuthService,
-    private router: Router) { }
+    private router: Router,
+    private userService: UserService) { }
 
   ngOnInit() {
+    console.log(this.router.url)
     if (localStorage.getItem("Authorization") != "" && localStorage.getItem("Authorization") != null) {
       this.checkUserSession();
+      this.checkSdsStatus();
+      if (this.router.url == "/questions" || this.router.url == "/self-estimates" || this.router.url == "/evaluate") {
+        this.onSdsSession = true;
+        console.log('true')
+
+      } else {
+
+        this.onSdsSession = false;
+      }
     }
   }
 
@@ -31,9 +46,20 @@ export class HeaderComponent implements OnInit {
       })
   }
 
+  checkSdsStatus() {
+    this.userService.checkSdsStatus().subscribe((successData) => {
+      if (successData.length == 0) {
+        this.sdsTaken = false;
+      } else {
+        this.sdsTaken = true;
+      }
+    }, (error) => console.log(error))
+  }
+
   logout() {
     localStorage.setItem("Authorization", "");
     this.userSession = false;
+    this.router.navigate(["/"])
   }
 
   start() {
@@ -45,7 +71,7 @@ export class HeaderComponent implements OnInit {
         type: "warning"
       });
       setTimeout(() => {
-        this.router.navigate(["login"]);
+        this.router.navigate(["authentication"]);
       }, 1000);
 
     }

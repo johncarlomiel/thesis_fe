@@ -3,6 +3,7 @@ import swal from 'sweetalert2';
 import { exportedQuestions } from '../configs/questions';
 import { DataService } from '../services/data.service';
 import { Router } from '@angular/router';
+import { AuthService } from '../services/auth.service';
 
 
 @Component({
@@ -39,7 +40,7 @@ export class QuestionComponent implements OnInit {
   currentQuestion: any;
   counter = 0;
   currentLike = 0;
-  constructor(public data: DataService, public router: Router) { }
+  constructor(public data: DataService, public router: Router, private authService: AuthService) { }
   proceed: Boolean = false;
   results = Array.apply(null, Array(18));
 
@@ -53,6 +54,8 @@ export class QuestionComponent implements OnInit {
     */
     this.questions = exportedQuestions;
     console.log(exportedQuestions)
+    this.checkSession();
+
 
 
 
@@ -165,6 +168,13 @@ export class QuestionComponent implements OnInit {
       }
     });
 
+  }
+
+
+  checkSession() {
+    this.authService.checkSession().subscribe((successData) => {
+
+    }, (error) => this.router.navigate(["/"]))
   }
 
 

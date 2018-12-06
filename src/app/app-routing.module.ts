@@ -12,20 +12,57 @@ import { ProfileComponent } from './profile/profile.component';
 import { AuthenticationComponent } from './authentication/authentication.component';
 import { AdminHomeComponent } from './admin-home/admin-home.component';
 import { AdminGraphComponent } from './admin-graph/admin-graph.component';
+import { AuthGuard } from './auth.guard';
 
 
 const routes: Routes = [
-  { path: '', component: HomeComponent },
-  { path: 'auth', component: AuthFormComponent },
-  { path: 'questions', component: QuestionComponent },
-  { path: 'register', component: RegisterComponent },
-  { path: 'login', component: LoginComponent },
-  { path: 'self-estimates', component: EstimatesComponent },
-  { path: 'evaluate', component: EvaluateComponent },
-  { path: 'profile', component: ProfileComponent },
-  { path: 'authentication', component: AuthenticationComponent },
-  { path: 'admin/home', component: AdminHomeComponent },
-  { path: 'admin/graph', component: AdminGraphComponent }
+  {
+    path: '',
+    component: HomeComponent
+  },
+  {
+    path: 'auth',
+    component: AuthFormComponent
+  },
+  {
+    path: 'questions',
+    component: QuestionComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'register',
+    component: RegisterComponent
+  },
+  {
+    path: 'login',
+    component: LoginComponent
+  },
+  {
+    path: 'self-estimates',
+    component: EstimatesComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'evaluate',
+    component: EvaluateComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'profile',
+    component: ProfileComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'authentication',
+    component: AuthenticationComponent
+  },
+  {
+    path: 'admin/home',
+    component: AdminHomeComponent
+  },
+  {
+    path: 'admin/graph', component: AdminGraphComponent
+  }
 
 ];
 
