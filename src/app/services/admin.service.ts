@@ -84,6 +84,19 @@ export class AdminService {
     return this.http.get(url, httpOptions)
 
   }
+  getEform(id) {
+    const url = this.server_url + "api/admin/getEform";
+    let params = new HttpParams().set('id', id);
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*'
+      }),
+      params: params
+
+    }
+    return this.http.get<Eform>(url, httpOptions)
+  }
   search(keyword) {
     const url = this.server_url + "api/admin/searchUsers";
     let params = new HttpParams().set('keyword', keyword);
@@ -116,7 +129,10 @@ export class AdminService {
   }
 
 }
-
+interface Eform {
+  hasEform: boolean,
+  url: string
+}
 
 interface Users {
   id: number,

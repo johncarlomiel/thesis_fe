@@ -13,12 +13,13 @@ import { title } from '../models/problemTitle';
   styleUrls: ['./admin-home.component.css']
 })
 export class AdminHomeComponent implements OnInit {
-
+  eformURL: string = "";
   pages: any;
   page: number = 1;
   showInfoModal: Boolean = false;
   showMoreInfoModal: Boolean = false;
   showProblemModal: Boolean = false;
+  showEformModal: Boolean = false;
   noInfo: Boolean = false;
   alertModal: Boolean = false;
   deleteConfirm: Boolean = false;
@@ -100,6 +101,19 @@ export class AdminHomeComponent implements OnInit {
       }
     }, (error) => console.log(error))
 
+  }
+
+  getEform(i) {
+    this.adminService.getEform(i).subscribe((successData) => {
+      console.log(successData)
+      if (successData.hasEform) {
+        this.eformURL = successData.url;
+        this.noInfo = false;
+      } else {
+        this.noInfo = true;
+      }
+
+    }, (error) => console.log(error))
   }
   getMoreInfo(i) {
     this.moreInfo = Array.apply(null, Array());

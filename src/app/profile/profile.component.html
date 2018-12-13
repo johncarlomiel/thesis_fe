@@ -3,55 +3,83 @@
 <br>
 
 
+<div class="ui container">
 
-<div class="ui two column grid container">
+    <h1 class="ui header bolder primary underlined">Profile Page</h1>
+    <div class="ui breadcrumb">
+        <a class="section" routerLink="/">Home</a>
+        <i class="right arrow icon divider"></i>
+        <div class="active section">Profile</div>
+    </div>
+    <hr>
+</div>
+
+<br>
+<div class="ui two column grid container padding">
     <div class="column">
-        <h2 class="ui icon header center aligned">
-            <i class="settings icon"></i>
+        <div class="ui card" style="width:100%">
             <div class="content">
-                Account Settings
-                <div class="sub header">Manage your account settings here</div>
-            </div>
-        </h2>
-        <div class="ui raised segment">
-            <a class="ui red ribbon label">Overview</a>
-            <span>Account Details</span>
-            <h1 class="ui header primary bolder">{{userInfo.name}}</h1>
+                <h2 class="ui icon header center aligned">
+                    <i class="user icon"></i>
+                    <div class="content">
+                        User Details
+                        <div class="sub header">Details of your account</div>
+                    </div>
+                </h2>
 
+            </div>
+            <div class="content">
+                <div class="ui list">
+                    <div class="item">
+                        <h2><span class="primary bolder">Name:</span>{{userInfo.name}}</h2>
+                    </div>
+                    <div class="item">Pears</div>
+                    <div class="item">Oranges</div>
+                </div>
+
+            </div>
         </div>
     </div>
     <div class="column">
-        <h2 class="ui icon header center aligned">
-            <i class="settings icon"></i>
+        <div class="ui card" style="width:100%">
             <div class="content">
-                Account Settings
-                <div class="sub header">Manage your account settings here</div>
+                <h2 class="ui icon header center aligned">
+                    <i class="briefcase icon"></i>
+                    <div class="content">
+                        SDS Result
+                        <div class="sub header">Career Assestment Result</div>
+                    </div>
+                </h2>
             </div>
-        </h2>
-        <div class="ui segment" *ngFor="let code of codes">
-            <a class="ui red right ribbon label large">{{code.name}}</a>
-            <div *ngFor="let indivCode of code.result">
-                <div class="ui divided items">
-                    <div class="item">
-                        <div class="content">
-                            <a class="header">{{indivCode.occupation}}</a>
-                            <div class="description">
-                                <p>{{indivCode.description}}</p>
-                            </div>
+            <div class="content">
+                <div class="ui segment" *ngFor="let code of codes">
+                    <a class="ui red right ribbon label large">{{code.name}}</a>
+                    <div *ngFor="let indivCode of code.result">
+                        <div class="ui divided items">
+                            <div class="item">
+                                <div class="content">
+                                    <a class="header">{{indivCode.occupation}}</a>
+                                    <div class="description">
+                                        <p>{{indivCode.description}}</p>
+                                    </div>
 
-                            <div class="extra">
-                                <a href="{{indivCode.link}}" class="ui right floated blue button">
-                                    See more details here
-                                    <i class="right chevron icon"></i>
-                                </a>
-                            </div>
+                                    <div class="extra">
+                                        <a href="{{indivCode.link}}" class="ui right floated blue button">
+                                            See more details here
+                                            <i class="right chevron icon"></i>
+                                        </a>
+                                    </div>
 
-                            <hr>
+                                    <hr>
+                                </div>
+                            </div>
                         </div>
                     </div>
+
                 </div>
             </div>
-
         </div>
+
+
     </div>
 </div>

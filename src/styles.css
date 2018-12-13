@@ -16,8 +16,15 @@
 .right{
     text-align: right;
 }
-
-
-
+.underlined{
+    text-decoration:underline;
+}
+.padding{
+    padding:20px;
+}
+.item{
+    font-size:1rem !important;
+    font-weight: 500 !important;
+}
 
 /* Loader */

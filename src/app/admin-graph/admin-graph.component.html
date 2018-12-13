@@ -1,9 +1,6 @@
-<div class="ui small menu">
-  <a class="item" routerLink="/admin/home">
-    Home
-  </a>
-  <a class="item active" routerLink="/admin/graph">
-    Graphs
+<div class="ui top attached demo menu">
+  <a class="item" (click)="sidebar.toggle()">
+    <i class="sidebar icon"></i>
   </a>
   <div class="right menu">
     <div class="item">
@@ -12,54 +9,161 @@
   </div>
 </div>
 
+<sui-sidebar-container class="ui bottom attached segment">
+  <sui-sidebar class="inverted vertical" #sidebar>
+    <a class="item" routerLink="/admin/home">
+      Home
+    </a>
+    <a class="item active" routerLink="/admin/graph">
+      Graphs
+    </a>
+  </sui-sidebar>
+  <sui-sidebar-sibling [isDimmedWhenVisible]="true">
+    <div class="ui basic segment" style="padding:35px;">
+      <h1 class="ui header primary bolder underlined">Graph Reports</h1>
+      <div class="ui grid">
 
-<div class="ui grid" style="padding:10px;">
-  <div class="three wide column">
-    <div class="ui form">
-      <div class="ui active dimmer" *ngIf="loader">
-        <div class="ui mini text loader">Loading</div>
-      </div>
-      <div class="grouped fields" *ngFor="let indivCriteria of criteria">
-        <label>{{indivCriteria.fieldname}}</label>
-        <div class="field" *ngFor="let value of indivCriteria.values">
-          <sui-checkbox [(ngModel)]="value.isChecked" (ngModelChange)="try()">{{value.label}}</sui-checkbox>
-        </div>
-
-
-      </div>
-    </div>
-  </div>
-
-  <div class="ten wide column">
-    <p class="center" *ngIf="withResult"><button class="ui button blue" (click)="print($event)">Export to PDF</button></p>
-    <fusioncharts *ngIf="withResult" width="900" height="500" type="Column2d" [dataSource]="dataSource">
-    </fusioncharts>
-
-    <h1 *ngIf="!withResult" class="center primary bolder">No result</h1>
-  </div>
-
-  <div class="three wide column">
-    <div class="ui active dimmer" *ngIf="loader">
-      <div class="ui mini text loader">Loading</div>
-    </div>
-    <sui-accordion [closeOthers]="false">
-      <sui-accordion-panel [isOpen]="false" *ngFor="let indivProblems of problems">
-        <div title>
-          <i class="dropdown icon"></i>
-          {{indivProblems.name}}
-        </div>
-        <div content>
-          <div class="ui form">
-            <div class="grouped fields">
-              <div class="field" *ngFor="let problem of indivProblems.questions">
-                <sui-checkbox [(ngModel)]="problem.value" (ngModelChange)="try()">{{problem.label}}</sui-checkbox>
+        <div class="three wide column">
+          <div class="ui card">
+            <div class="content">
+              <div class="ui header primary bolder">Criteria</div>
+            </div>
+            <div class="content">
+              <div class="ui active dimmer" *ngIf="loader">
+                <div class="ui mini text loader">Loading</div>
               </div>
+              <sui-accordion [closeOthers]="false">
+                <sui-accordion-panel [isOpen]="false" *ngFor="let indivCriteria of criteria">
+                  <div title>
+                    <i class="dropdown icon"></i>
+                    {{indivCriteria.fieldname}}
+                  </div>
+                  <div content>
+                    <div class="ui form">
+                      <div class="grouped fields">
+                        <div class="field" *ngFor="let value of indivCriteria.values">
+                          <sui-checkbox [(ngModel)]="value.isChecked" (ngModelChange)="try()">{{value.label}}</sui-checkbox>
+                        </div>
 
 
+                      </div>
+                    </div>
+                  </div>
+                </sui-accordion-panel>
+              </sui-accordion>
             </div>
           </div>
+
+
+
         </div>
-      </sui-accordion-panel>
-    </sui-accordion>
+
+        <div class="ten wide column">
+          <div class="ui card" style="width:100%">
+            <div class="content">
+              <div *ngIf="withResult">
+                <div class="ui form">
+                  <div class="inline fields">
+                    <label for="fruit">Select chart:</label>
+                    <div class="field">
+                      <div class="ui radio checkbox">
+                        <input type="radio" name='options' [value]="'column2d'" [checked]='chart === "column2d"'
+                          (change)="onSelectionChange('column2d')">
+                        <label>Column2d</label>
+                      </div>
+                    </div>
+                    <div class="field">
+                      <div class="ui radio checkbox">
+                        <input type="radio" name='options' [value]="'bar2d'" [checked]='chart === "bar2d"' (change)="onSelectionChange('bar2d')">
+                        <label>Bar2d</label>
+                      </div>
+                    </div>
+                    <div class="field">
+                      <div class="ui radio checkbox">
+                        <input type="radio" name='options' [value]="'pie2d'" [checked]='chart === "pie2d"' (change)="onSelectionChange('pie2d')">
+                        <label>Pie2d</label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <p class="center" *ngIf="withResult"><button class="ui button blue" (click)="print($event)">Export to
+                    PDF</button></p>
+
+              </div>
+              <fusioncharts *ngIf="withResult" (initialized)="initialized($event)" width="100%" height="500" type="column2d"
+                [dataSource]="dataSource">
+              </fusioncharts>
+
+
+
+              <h1 *ngIf="!withResult" class="center primary bolder">No result</h1>
+            </div>
+          </div>
+
+
+
+        </div>
+
+        <div class="three wide column">
+          <div class="ui card">
+            <div class="content">
+              <div class="ui header bolder primary">Problems</div>
+            </div>
+            <div class="content">
+              <div class="ui active dimmer" *ngIf="loader">
+                <div class="ui mini text loader">Loading</div>
+              </div>
+              <sui-accordion [closeOthers]="false">
+                <sui-accordion-panel [isOpen]="false" *ngFor="let indivProblems of problems">
+                  <div title>
+                    <i class="dropdown icon"></i>
+                    {{indivProblems.name}}
+                  </div>
+                  <div content>
+                    <div class="ui form">
+                      <div class="grouped fields">
+                        <div class="field" *ngFor="let problem of indivProblems.questions">
+                          <sui-checkbox [(ngModel)]="problem.value" (ngModelChange)="try()">{{problem.label}}</sui-checkbox>
+                        </div>
+
+
+                      </div>
+                    </div>
+                  </div>
+                </sui-accordion-panel>
+              </sui-accordion>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </sui-sidebar-sibling>
+</sui-sidebar-container>
+
+<sui-modal *ngIf="dataplotModal" [isClosable]="false" [mustScroll]="true" (dismissed)="dataplotModal = false"
+  #criWithProb>
+  <div class="header">{{category_header}}</div>
+  <div class="content">
+    <table class="ui celled table">
+      <thead>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Year</th>
+        <th>Course</th>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of dataPlotData">
+          <td>{{item.id}}</td>
+          <td>{{item.name}}</td>
+          <td>{{item.year}}</td>
+          <td>{{item.course}}</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
-</div>
+  <div class="actions">
+    <button class="ui red button" (click)="criWithProb.deny()">Close</button>
+  </div>
+</sui-modal>

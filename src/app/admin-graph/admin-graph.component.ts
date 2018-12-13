@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgZone } from '@angular/core';
 import { criteria } from '../data/criteria';
 import { problems } from '../data/problems';
 import { AdminService } from '../services/admin.service';
@@ -11,7 +11,17 @@ import * as FusionCharts from 'fusioncharts';
   styleUrls: ['./admin-graph.component.css']
 })
 export class AdminGraphComponent implements OnInit {
+  dataplotModal: Boolean = false;
+  dataPlotData = Array.apply(null, Array())
   withResult: Boolean = false;
+  chartObj: any;
+  chart: any = 'column2d';
+  message: string;
+  handler: any;
+  initMessage: any;
+  iMsg: string;
+  clickPlotMsg: string;
+  attached: boolean;
   dataSource = {
     chart: {
       caption: "",
@@ -19,9 +29,12 @@ export class AdminGraphComponent implements OnInit {
       xAxisName: "Labels",
       yAxisName: "Values",
       numberSuffix: "",
-      theme: "candy"
+      theme: "candy",
+      "palettecolors": "5d62b5,29c3be,f2726f"
     },
-    data: []
+    data: [],
+
+
   }
   problems;
   criteria;
@@ -30,7 +43,8 @@ export class AdminGraphComponent implements OnInit {
   caption: any;
   subCaption: any;
   loader: Boolean = false;
-  constructor(private adminService: AdminService) {
+  category_header: any;
+  constructor(private adminService: AdminService, private zone: NgZone) {
 
   }
 
@@ -148,6 +162,32 @@ export class AdminGraphComponent implements OnInit {
     FusionCharts.batchExport({
       exportFormat: 'pdf'
     })
+  }
+
+  initialized($event) {
+    this.chartObj = $event.chart; // saving chart instance
+    console.log(this.chartObj)
+    this.handler = this.dataplotClickHandler.bind(this);
+    this.initMessage = '';
+    this.message = this.clickPlotMsg;
+    this.attached = true;
+    this.chartObj.addEventListener('dataplotClick', this.handler);
+  }
+  onSelectionChange(chart) {
+    this.chart = chart;
+    this.chartObj.chartType(chart); // Changing chart type using chart instance
+  }
+
+
+  dataplotClickHandler(eventObj, dataObj) {
+    this.zone.run(() => {
+      this.dataplotModal = true;
+      this.category_header = dataObj.categoryLabel;
+      this.dataPlotData = this.dataSource.data[dataObj.dataIndex].data;
+      console.log(this.dataPlotData)
+      console.log(dataObj)
+      console.log(this.dataSource)
+    });
   }
 
 }
