@@ -60,6 +60,10 @@ export class HeaderComponent implements OnInit {
     localStorage.setItem("Authorization", "");
     this.userSession = false;
     this.router.navigate(["/"])
+    swal({
+      title: "Logout Success",
+      type: "success"
+    })
   }
 
   start() {

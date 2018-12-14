@@ -3,6 +3,7 @@ import { criteria } from '../data/criteria';
 import { problems } from '../data/problems';
 import { AdminService } from '../services/admin.service';
 import * as FusionCharts from 'fusioncharts';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -47,7 +48,7 @@ export class AdminGraphComponent implements OnInit {
   subCaption: any;
   loader: Boolean = false;
   category_header: any;
-  constructor(private adminService: AdminService, private zone: NgZone) {
+  constructor(private adminService: AdminService, private zone: NgZone, private router: Router) {
 
   }
 
@@ -229,6 +230,9 @@ export class AdminGraphComponent implements OnInit {
     this.printing = true;
     setTimeout(_ => window.print(), 1000)
     setTimeout(_ => this.printing = false, 1500)
+  }
+  logout() {
+    this.router.navigate(["/"])
   }
 
 }

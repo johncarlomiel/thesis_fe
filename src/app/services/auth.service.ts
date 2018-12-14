@@ -3,6 +3,7 @@ import { map } from 'rxjs/operators';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { UserInfo } from '../interfaces/userInfo';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,7 @@ export class AuthService {
 
 
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private router: Router) {
 
   }
 
@@ -93,6 +94,8 @@ export class AuthService {
         'Access-Control-Allow-Origin': '*'
       })
     };
+
+
 
     return this.http.post(url, data, httpOptions).pipe(
       map((data) => {

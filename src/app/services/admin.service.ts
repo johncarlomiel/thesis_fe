@@ -97,6 +97,21 @@ export class AdminService {
     }
     return this.http.get<Eform>(url, httpOptions)
   }
+
+  getMySDS(id) {
+    const url = this.server_url + "api/admin/getSDS";
+    let params = new HttpParams().set('id', id);
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*'
+      }),
+      params: params
+
+    }
+    return this.http.get<SDS[]>(url, httpOptions)
+
+  }
   search(keyword) {
     const url = this.server_url + "api/admin/searchUsers";
     let params = new HttpParams().set('keyword', keyword);
@@ -128,6 +143,10 @@ export class AdminService {
 
   }
 
+}
+interface SDS {
+  name: string,
+  result: [{ code: string, description: string, id: number, link: string, occupation: string, type: string }]
 }
 interface Eform {
   hasEform: boolean,

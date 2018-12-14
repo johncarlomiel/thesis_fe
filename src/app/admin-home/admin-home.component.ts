@@ -4,6 +4,7 @@ import swal from 'sweetalert2';
 import { problems } from '../models/problems';
 import { labels } from '../models/problemLabel';
 import { title } from '../models/problemTitle';
+import { Router } from '@angular/router';
 
 
 
@@ -16,6 +17,8 @@ export class AdminHomeComponent implements OnInit {
   eformURL: string = "";
   pages: any;
   page: number = 1;
+  codes: any;
+  showSDSModal = false;
   showInfoModal: Boolean = false;
   showMoreInfoModal: Boolean = false;
   showProblemModal: Boolean = false;
@@ -36,7 +39,7 @@ export class AdminHomeComponent implements OnInit {
   userProblem: any;
 
 
-  constructor(private adminService: AdminService) { }
+  constructor(private adminService: AdminService, private router: Router) { }
 
   ngOnInit() {
 
@@ -49,6 +52,19 @@ export class AdminHomeComponent implements OnInit {
     this.adminService.getUsers().subscribe((successData) => {
       this.pages = successData;
     }, (error) => console.log(error))
+  }
+  getSDS(i) {
+    this.adminService.getMySDS(i).subscribe((successData) => {
+      console.log(successData)
+      if (successData.length == 0) {
+        this.noInfo = true;
+      } else {
+        this.codes = successData;
+        this.noInfo = false;
+      }
+
+
+    }, (error) => { console.log(error); this.noInfo = true; })
   }
 
 
@@ -216,5 +232,9 @@ export class AdminHomeComponent implements OnInit {
     this.adminService.search(searchValue).subscribe((successData) => {
       this.pages = successData
     }, (error) => console.log(error))
+  }
+
+  logout() {
+    this.router.navigate(["/"])
   }
 }

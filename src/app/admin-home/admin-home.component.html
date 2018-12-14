@@ -4,7 +4,7 @@
   </a>
   <div class="right menu">
     <div class="item">
-      <div class="ui blue button">Logout</div>
+      <div class="ui blue button" (click)="logout()">Logout</div>
     </div>
   </div>
 </div>
@@ -99,6 +99,7 @@
                       <button class="ui green basic button" (click)="showMoreInfoModal = true; getMoreInfo(myPage.id)">More
                         Info</button>
                       <button class="ui violet basic button" (click)="showEformModal = true; getEform(myPage.id)">Eform</button>
+                      <button class="ui black basic button" (click)="showSDSModal = true; getSDS(myPage.id)">SDS Result</button>
                     </div>
                   </td>
 
@@ -238,6 +239,47 @@
           </div>
         </sui-modal>
         <!-- Eform Modal -->
+
+        <!-- SDS Modal -->
+        <sui-modal *ngIf="showSDSModal" [mustScroll]="true" [isClosable]="true" (dismissed)="showSDSModal = false; codes = []"
+          #sdsModal>
+          <div class="content">
+
+            <h2 class="center aligned" *ngIf="noInfo">No info about this person</h2>
+            <div class="ui" *ngIf="!noInfo">
+              <div class="ui segment" *ngFor="let code of codes">
+                <a class="ui red right ribbon label large">{{code.name}}</a>
+                <div *ngFor="let indivCode of code.result">
+                  <div class="ui divided items">
+                    <div class="item">
+                      <div class="content">
+                        <a class="header">{{indivCode.occupation}}</a>
+                        <div class="description">
+                          <p>{{indivCode.description}}</p>
+                        </div>
+
+                        <div class="extra">
+                          <a href="{{indivCode.link}}" class="ui right floated blue button">
+                            See more details here
+                            <i class="right chevron icon"></i>
+                          </a>
+                        </div>
+
+                        <hr>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+          </div>
+          <div class="actions">
+            <button class="ui red button" (click)="sdsModal.deny()">Close</button>
+          </div>
+        </sui-modal>
+        <!-- SDS Modal -->
 
       </div>
     </div>
