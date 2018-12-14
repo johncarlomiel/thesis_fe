@@ -11,6 +11,9 @@ import * as FusionCharts from 'fusioncharts';
   styleUrls: ['./admin-graph.component.css']
 })
 export class AdminGraphComponent implements OnInit {
+  printing: Boolean = false;
+  chartWidth = "100%";
+
   dataplotModal: Boolean = false;
   dataPlotData = Array.apply(null, Array())
   withResult: Boolean = false;
@@ -62,28 +65,52 @@ export class AdminGraphComponent implements OnInit {
     this.caption = Array.apply(null, Array());
     this.subCaption = Array.apply(null, Array());
     this.criteria.forEach((first, firstIndex) => {
+      let counter = 0;
+      let gotValue = false;
       first.values.forEach((second, secondIndex) => {
+
         if (second.isChecked) {
-          this.caption.push(second.label)
+          gotValue = true;
+          if (counter == 0) {
+            this.caption.push(first.fieldname + ": " + second.label)
+            counter++;
+          } else {
+            this.caption.push(second.label)
+          }
         }
       });
+      if (gotValue) {
+
+        this.caption.push("<br>")
+      }
 
     });
+    console.log(this.criteria)
 
 
     this.problems.forEach((first, firstIndex) => {
       first.questions.forEach((second, secondIndex) => {
         if (second.value) {
-          this.subCaption.push(second.label)
+          this.subCaption.push(" " + second.label)
         }
       });
     });
 
-    console.log(this.caption);
-    console.log(this.subCaption);
-    this.dataSource.chart["caption"] = this.caption.toString();
-    this.dataSource.chart["subCaption"] = this.subCaption.toString();
+    if (this.caption.length != 0) {
+      let caption = this.replaceAll(this.caption.toString(), ",", " ")
+      console.log(caption)
+      this.dataSource.chart["caption"] = "All students that have the ff criteria: <br>" + caption;
+      this.dataSource.chart["subCaption"] = "With problems of the ff: <br>" + this.subCaption.toString();
+    } else {
+      this.dataSource.chart["caption"] = "All students that have the ff problem(s)"
+      this.dataSource.chart["subCaption"] = this.subCaption.toString();
+    }
 
+
+
+  }
+  replaceAll(str, find, replace) {
+    return str.replace(new RegExp(find, 'g'), replace);
   }
 
 
@@ -126,6 +153,8 @@ export class AdminGraphComponent implements OnInit {
       });
 
     });
+    console.log(this.criteria_variables)
+    console.log(this.problem_variables)
 
 
     //Place it to formated variable before sending to service for fetching
@@ -159,9 +188,16 @@ export class AdminGraphComponent implements OnInit {
 
   }
   print(e) {
-    FusionCharts.batchExport({
-      exportFormat: 'pdf'
-    })
+    this.loader = true;
+    this.chartWidth = "550";
+    setTimeout(_ => {
+      FusionCharts.batchExport({
+        exportFormat: 'pdf'
+      })
+      this.loader = false;
+    }, 1000)
+    setTimeout(_ => this.chartWidth = "100%", 1000);
+
   }
 
   initialized($event) {
@@ -188,6 +224,11 @@ export class AdminGraphComponent implements OnInit {
       console.log(dataObj)
       console.log(this.dataSource)
     });
+  }
+  maPrint() {
+    this.printing = true;
+    setTimeout(_ => window.print(), 1000)
+    setTimeout(_ => this.printing = false, 1500)
   }
 
 }
