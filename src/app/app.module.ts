@@ -38,6 +38,8 @@ import { AuthGuard } from './auth.guard';
 // Load themes
 
 import * as Candy from 'fusioncharts/themes/fusioncharts.theme.candy';
+import { AdminGraphGeneralComponent } from './admin-graph-general/admin-graph-general.component';
+import { AdminAuthComponent } from './admin-auth/admin-auth.component';
 
 
 FusionChartsModule.fcRoot(FusionCharts, Charts, FusionTheme, Candy);
@@ -59,7 +61,9 @@ FusionChartsModule.fcRoot(FusionCharts, Charts, FusionTheme, Candy);
     InfoComponent,
     ProblemsComponent,
     MoreInfoComponent,
-    AdminGraphComponent
+    AdminGraphComponent,
+    AdminGraphGeneralComponent,
+    AdminAuthComponent
   ],
   imports: [
     BrowserModule,

@@ -28,6 +28,7 @@ export class ProfileComponent implements OnInit {
     this.authService.checkSession().subscribe((successData) => {
 
       this.userInfo = successData
+      this.userInfo.name = this.capitalizeFirstLetter(this.userInfo.name)
       console.log(this.userInfo)
     },
       (error) => {
@@ -47,6 +48,14 @@ export class ProfileComponent implements OnInit {
       (error) => {
         console.log(error)
       });
+  }
+  capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
+  randColor() {
+    let colors = ["red", "orange",
+      "olive", "green", "teal", "blue", "violet", "purple", "pink", "brown", "grey",]
+    return colors[Math.floor((Math.random() * colors.length) + 0)]
   }
 
 

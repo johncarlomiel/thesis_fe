@@ -13,6 +13,8 @@ import { AuthenticationComponent } from './authentication/authentication.compone
 import { AdminHomeComponent } from './admin-home/admin-home.component';
 import { AdminGraphComponent } from './admin-graph/admin-graph.component';
 import { AuthGuard } from './auth.guard';
+import { AdminGraphGeneralComponent } from './admin-graph-general/admin-graph-general.component';
+import { AdminAuthComponent } from './admin-auth/admin-auth.component';
 
 
 const routes: Routes = [
@@ -61,7 +63,15 @@ const routes: Routes = [
     component: AdminHomeComponent
   },
   {
-    path: 'admin/graph', component: AdminGraphComponent
+    path: 'admin/graph/specific', component: AdminGraphComponent
+  },
+  {
+    path: 'admin/graph/general',
+    component: AdminGraphGeneralComponent
+  },
+  {
+    path: 'admin/auth',
+    component: AdminAuthComponent
   }
 
 ];

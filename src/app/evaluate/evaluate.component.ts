@@ -80,13 +80,32 @@ export class EvaluateComponent implements OnInit {
         //Get the ranking
 
 
+        // For testing purpose
+        // console.log(this.summaryHolder)
+        // this.summaryHolder = [
+        //     { value: 10, letter: "R" },
+        //     { value: 33, letter: "I" },
+        //     { value: 50, letter: "A" },
+        //     { value: 50, letter: "S" },
+        //     { value: 41, letter: "E" },
+        //     { value: 55, letter: "C" },
+        // ]
+        // For testing purpose
 
 
 
 
-        this.first = this.calculateShit();
-        this.second = this.calculateShit();
-        this.third = this.calculateShit()
+
+
+
+        this.first = await this.calculateShit();
+        this.second = await this.calculateShit();
+        this.third = await this.calculateShit()
+
+
+        console.log(this.first)
+        console.log(this.second)
+        console.log(this.third)
 
 
 
@@ -112,7 +131,6 @@ export class EvaluateComponent implements OnInit {
             }
 
         }
-        console.log(this.combinations)
 
         //Submit result to the database
         this.data.submitResult(this.combinations).subscribe(data => {
@@ -133,8 +151,8 @@ export class EvaluateComponent implements OnInit {
         let highestValue = {
             value: this.summaryHolder[0].value,
             index: 0,
-            letter: "",
-            kuha: false
+            letter: this.summaryHolder[0].letter,
+            kuha: true
         }
         for (let i = 0; i < this.summaryHolder.length; i++) {
 
@@ -150,15 +168,15 @@ export class EvaluateComponent implements OnInit {
             }
 
         }
-
+        this.summaryHolder.splice(highestValue.index, 1)
+        myStorage.push({
+            value: highestValue.value,
+            letter: highestValue.letter
+        });
 
         //Remove the current highest in the array
         if (highestValue.kuha) {
-            this.summaryHolder.splice(highestValue.index, 1)
-            myStorage.push({
-                value: highestValue.value,
-                letter: highestValue.letter
-            });
+
         }
 
 
@@ -167,20 +185,42 @@ export class EvaluateComponent implements OnInit {
 
 
         for (let k = 0; k < this.summaryHolder.length; k++) {
+            console.log(highestValue.value)
+            console.log(this.summaryHolder[k].value)
             if (highestValue.value == this.summaryHolder[k].value) {
                 myStorage.push({
                     value: this.summaryHolder[k].value,
                     letter: this.summaryHolder[k].letter
                 });
-                this.summaryHolder.splice(k, 1);
 
 
             }
 
+
         }
+        // this.summaryHolder.forEach((firstElement, firstIndex) => {
+
+        //     myStorage.forEach((secondElement, secondIndex) => {
+        //         console.log(firstElement.letter + " " + secondElement.letter)
+        //         if (firstElement.letter == secondElement.letter) {
+        //             alert("tama")
+        //             this.summaryHolder.splice(firstIndex, 1);
+
+
+        //         }
+        //     });
+        // });
+        this.summaryHolder = this.summaryHolder.filter((value, index, arr) => {
+            if (value.value != highestValue.value) {
+                return value;
+            }
+        });
+
+        console.log(this.summaryHolder)
         console.log(myStorage)
 
         return myStorage;
+
     }
 
 

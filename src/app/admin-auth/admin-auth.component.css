@@ -1,0 +1,19 @@
+
+.mainContent{
+    
+    padding: 0 30% 0 30%;
+    
+    height: 100%;
+    width: 100%;
+    
+
+    
+    
+}
+
+.card{
+    width:100%;
+}
+label{
+    font-size:1.2rem !important;
+}

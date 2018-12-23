@@ -143,6 +143,19 @@ export class AdminService {
 
   }
 
+  login(data) {
+    const url = this.server_url + "api/admin/login";
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*'
+      })
+
+    }
+    return this.http.post<String>(url, data, httpOptions);
+
+  }
+
 }
 interface SDS {
   name: string,
