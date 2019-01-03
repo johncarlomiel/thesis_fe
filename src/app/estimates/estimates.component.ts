@@ -131,7 +131,7 @@ export class EstimatesComponent implements OnInit {
       this.part2Results[5] = this.office.val;
 
       console.log(this.selfEstiRes);
-      localStorage.setItem('selfEstiRes', JSON.stringify(this.selfEstiRes));
+      localStorage.setItem('selfEstiRes', btoa(JSON.stringify(this.selfEstiRes)));
       this.view = false;
       this.loader = true;
       setTimeout(() => {

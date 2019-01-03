@@ -16,6 +16,8 @@ export class QuestionComponent implements OnInit {
 
   view: Boolean = true;
   loader: Boolean = false;
+  label_true = "Like";
+  label_false = "Dislike";
   titles = [
     "Activities(R)",
     "Activities(I)",
@@ -100,16 +102,27 @@ export class QuestionComponent implements OnInit {
         this.results[this.counter] = this.currentLike;
         //Increment counter
         this.counter++;
-        //Check if this is the end of the array
-        if (this.counter == this.questions.length) {
-          localStorage.setItem('ph1Res', JSON.stringify(this.results));
-          this.router.navigate(["self-estimates"])
-        }
         //Change question
         this.currentQuestion = this.questions[this.counter];
 
         //Change title
         this.title = this.titles[this.counter];
+        console.log(this.title)
+        //Check if this is the end of the array
+        if (this.counter == this.questions.length) {
+          localStorage.setItem('ph1Res', btoa(JSON.stringify(this.results)));
+          this.router.navigate(["self-estimates"])
+        } else {
+          if (this.title.includes("Competencies")) {
+            this.label_true = "Yes";
+            this.label_false = "No";
+          } else {
+            this.label_true = "Like";
+            this.label_false = "Dislike";
+          }
+        }
+
+
         //Change current counter for like for next questions
         this.currentLike = 0;
 

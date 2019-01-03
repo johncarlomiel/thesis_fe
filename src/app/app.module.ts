@@ -17,7 +17,6 @@ import * as FusionTheme from 'fusioncharts/themes/fusioncharts.theme.fusion';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
-import { AuthFormComponent } from './auth-form/auth-form.component';
 import { QuestionComponent } from './question/question.component';
 import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
@@ -51,7 +50,6 @@ FusionChartsModule.fcRoot(FusionCharts, Charts, FusionTheme, Candy);
   declarations: [
     AppComponent,
     HomeComponent,
-    AuthFormComponent,
     QuestionComponent,
     RegisterComponent,
     LoginComponent,

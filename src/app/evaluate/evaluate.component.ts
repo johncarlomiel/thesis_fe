@@ -34,8 +34,8 @@ export class EvaluateComponent implements OnInit {
     constructor(public authService: AuthService, public router: Router, public data: DataService) { }
 
     async ngOnInit() {
-        let resultPart1 = JSON.parse(localStorage.getItem("ph1Res"));
-        let resultPart2 = JSON.parse(localStorage.getItem("selfEstiRes"));
+        let resultPart1 = JSON.parse(atob(localStorage.getItem("ph1Res")));
+        let resultPart2 = JSON.parse(atob(localStorage.getItem("selfEstiRes")));
 
         this.activities[0] = resultPart1[0];
         this.activities[1] = resultPart1[1];
