@@ -156,6 +156,31 @@ export class AdminService {
 
   }
 
+  generalGraph(data) {
+    console.log(data)
+    const url = this.server_url + "api/admin/genGraph";
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*'
+      })
+
+    }
+    return this.http.post<[]>(url, data, httpOptions);
+  }
+  getUsersProblem(problem) {
+    console.log(problem)
+    const url = this.server_url + "api/admin/indivProb";
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*'
+      })
+
+    }
+    return this.http.post<[]>(url, problem, httpOptions);
+  }
+
 }
 interface SDS {
   name: string,

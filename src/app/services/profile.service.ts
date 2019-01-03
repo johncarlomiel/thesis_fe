@@ -7,11 +7,11 @@ import { UserInfo } from '../interfaces/userInfo';
   providedIn: 'root'
 })
 export class ProfileService {
-
+  server_url = "http://localhost:5000/";
   constructor(private http: HttpClient) { }
 
   getMyCode() {
-    const url = "http://localhost:5000/api/getMyCode";
+    const url = this.server_url + "api/getMyCode";
     const httpOptions = {
       headers: new HttpHeaders({
         'authorization': localStorage.getItem("Authorization"),

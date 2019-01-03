@@ -7,7 +7,7 @@ import { UserInfo } from '../interfaces/userInfo';
   providedIn: 'root'
 })
 export class DataService {
-
+  server_url = "http://localhost:5000/";
 
   constructor(private http: HttpClient) { }
 
@@ -15,7 +15,7 @@ export class DataService {
 
 
   submitResult(result) {
-    const url = "http://localhost:5000/api/submitResult";
+    const url = this.server_url + "api/submitResult";
     const data = {
       result
     }

@@ -43,6 +43,7 @@ export class HeaderComponent implements OnInit {
       (error) => {
         console.log(error)
         this.userSession = false;
+        localStorage.removeItem("Authorization")
       })
   }
 
@@ -57,7 +58,8 @@ export class HeaderComponent implements OnInit {
   }
 
   logout() {
-    localStorage.setItem("Authorization", "");
+
+    localStorage.removeItem("Authorization")
     this.userSession = false;
     this.router.navigate(["/"])
     swal({
@@ -68,6 +70,8 @@ export class HeaderComponent implements OnInit {
 
   start() {
     if (this.userSession) {
+      localStorage.setItem("inSession", btoa("true"));
+
       this.router.navigate(["questions"]);
     } else {
       swal({

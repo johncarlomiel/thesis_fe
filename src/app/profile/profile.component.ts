@@ -2,6 +2,7 @@ import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { ProfileService } from '../services/profile.service';
 import { Router } from '@angular/router';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-profile',
@@ -9,6 +10,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
+  emptyResult = true;
   codes: any;
   userInfo = {
     name: "",
@@ -18,11 +20,25 @@ export class ProfileComponent implements OnInit {
     exp: 0
 
   };
-  constructor(private authService: AuthService, private profileService: ProfileService, private router: Router) {
+  colors = [];
+  constructor(private authService: AuthService,
+    private profileService: ProfileService,
+    private router: Router,
+    private userService: UserService) {
 
   }
 
   ngOnInit() {
+
+    //Check SDS Result
+    this.userService.checkSdsStatus().subscribe((successData) => {
+      if (successData.length == 0) {
+        this.emptyResult = true;
+      } else {
+        this.emptyResult = false;
+      }
+    }, (error) => console.log(error))
+    //Check SDS Result
 
     //Check session
     this.authService.checkSession().subscribe((successData) => {
@@ -43,7 +59,10 @@ export class ProfileComponent implements OnInit {
     //Get user code information
     this.profileService.getMyCode().subscribe((successData) => {
       this.codes = successData;
-      console.log(this.codes)
+      console.log(this.codes.length)
+      for (let i = 0; i < this.codes.length; i++) {
+        this.colors.push(this.randColor());
+      }
     },
       (error) => {
         console.log(error)
@@ -53,9 +72,9 @@ export class ProfileComponent implements OnInit {
     return string.charAt(0).toUpperCase() + string.slice(1);
   }
   randColor() {
-    let colors = ["red", "orange",
+    let mycolors = ["red", "orange",
       "olive", "green", "teal", "blue", "violet", "purple", "pink", "brown", "grey",]
-    return colors[Math.floor((Math.random() * colors.length) + 0)]
+    return mycolors[Math.floor((Math.random() * mycolors.length) + 0)]
   }
 
 

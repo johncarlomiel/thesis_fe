@@ -19,6 +19,151 @@
     <div class="ui basic segment">
       <h3 class="ui header">Content</h3>
 
+      <div class="ui grid">
+        <div class="four wide column">
+
+
+
+          <div class="ui card">
+            <div class="content">
+              <div class="ui header primary bolder left floated">Criteria</div>
+              <button class="ui primary mini basic button left floated" (click)="selectAllCriteria();criteriaChange()">Select
+                All</button>
+              <button class="ui primary mini basic button left floated" (click)="deselectAllCriteria();criteriaChange()">Reset</button>
+            </div>
+            <div class="content">
+              <div class="ui active dimmer" *ngIf="loader">
+                <div class="ui mini text loader">Loading</div>
+              </div>
+              <sui-accordion [closeOthers]="false">
+                <sui-accordion-panel [isOpen]="isPanelOpen" *ngFor="let indivCriteria of criteria; let i = index">
+                  <div title>
+                    <i class="dropdown icon"></i>
+                    {{indivCriteria.fieldname}}
+                    <button class="ui primary mini basic button right floated" (click)="uncheckSectCriteria(i);criteriaChange()">Uncheck</button>
+                    <button class="ui primary mini basic button right floated" (click)="selectSectCriteria(i);criteriaChange()">Check
+                      All</button>
+
+                  </div>
+                  <div content>
+                    <div class="ui form">
+                      <div class="grouped fields">
+                        <div class="field" *ngFor="let value of indivCriteria.values">
+                          <sui-checkbox [(ngModel)]="value.isChecked" (ngModelChange)="criteriaChange()">{{value.label}}</sui-checkbox>
+                        </div>
+
+
+                      </div>
+                    </div>
+                  </div>
+                </sui-accordion-panel>
+              </sui-accordion>
+            </div>
+          </div>
+
+
+
+
+        </div>
+
+        <div class="twelve wide column">
+
+          <div class="ui card" style="width:100%">
+            <div class="content">
+              <div class="ui active dimmer" *ngIf="loader">
+                <div class="ui mini text loader">Loading</div>
+              </div>
+              <div *ngIf="withResult">
+                <div class="ui form">
+                  <div class="inline fields">
+                    <label for="fruit">Select chart:</label>
+                    <div class="field">
+                      <div class="ui radio checkbox">
+                        <input type="radio" name='options' [value]="'column2d'" [checked]='chart === "column2d"'
+                          (change)="onSelectionChange('column2d')">
+                        <label>Column2d</label>
+                      </div>
+                    </div>
+                    <div class="field">
+                      <div class="ui radio checkbox">
+                        <input type="radio" name='options' [value]="'bar2d'" [checked]='chart === "bar2d"' (change)="onSelectionChange('bar2d')">
+                        <label>Bar2d</label>
+                      </div>
+                    </div>
+                    <div class="field">
+                      <div class="ui radio checkbox">
+                        <input type="radio" name='options' [value]="'pie2d'" [checked]='chart === "pie2d"' (change)="onSelectionChange('pie2d')">
+                        <label>Pie2d</label>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="inline fields">
+                    <label for="options">Filter Quantity</label>
+                    <sui-select placeholder="Choose" class="selection" [(ngModel)]="filterValue" (ngModelChange)="filterQuantity(filterValue)">
+                      <sui-select-option value="10"></sui-select-option>
+                      <sui-select-option value="30"></sui-select-option>
+                      <sui-select-option value="50"></sui-select-option>
+                      <sui-select-option value="86"></sui-select-option>
+                    </sui-select>
+                  </div>
+
+
+                </div>
+                <p class="center" *ngIf="withResult"><button class="ui button blue" (click)="print($event)">Export to
+                    PDF</button></p>
+
+              </div>
+              <br>
+              <fusioncharts *ngIf="withResult" (initialized)="initialized($event)" [width]="chartWidth" height="700"
+                type="column2d" [dataSource]="dataSource">
+              </fusioncharts>
+
+
+
+              <h1 *ngIf="!withResult" class="center primary bolder">No result</h1>
+            </div>
+          </div>
+
+
+
+
+        </div>
+      </div>
+
     </div>
   </sui-sidebar-sibling>
 </sui-sidebar-container>
+
+
+
+<!-- Categories Modal -->
+<sui-modal [isClosable]="false" [mustScroll]="true" (dismissed)="catModal = false" #catModall *ngIf="catModal">
+  <div class="header">{{catModalHeader}}</div>
+  <div class="content">
+    <table class="ui celled table">
+      <thead>
+        <tr>
+          <th>Username</th>
+          <th>Name</th>
+          <th>Course</th>
+          <th>Year</th>
+          <th>Gender</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let data of catModalData">
+          <td>{{data.username}}</td>
+          <td>{{data.name}}</td>
+          <td>{{data.course}}</td>
+          <td>{{data.year}}</td>
+          <td>{{data.gender}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="actions">
+    <button class="ui red button" (click)="catModall.deny()">Close</button>
+  </div>
+</sui-modal>

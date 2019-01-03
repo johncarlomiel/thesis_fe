@@ -40,6 +40,9 @@ import { AuthGuard } from './auth.guard';
 import * as Candy from 'fusioncharts/themes/fusioncharts.theme.candy';
 import { AdminGraphGeneralComponent } from './admin-graph-general/admin-graph-general.component';
 import { AdminAuthComponent } from './admin-auth/admin-auth.component';
+import { AdminGuard } from './admin.guard';
+import { Page404Component } from './page404/page404.component';
+import { SdsSessionGuard } from './sds-session.guard';
 
 
 FusionChartsModule.fcRoot(FusionCharts, Charts, FusionTheme, Candy);
@@ -63,7 +66,8 @@ FusionChartsModule.fcRoot(FusionCharts, Charts, FusionTheme, Candy);
     MoreInfoComponent,
     AdminGraphComponent,
     AdminGraphGeneralComponent,
-    AdminAuthComponent
+    AdminAuthComponent,
+    Page404Component
   ],
   imports: [
     BrowserModule,
@@ -75,7 +79,7 @@ FusionChartsModule.fcRoot(FusionCharts, Charts, FusionTheme, Candy);
     NgxPaginationModule,
     FusionChartsModule
   ],
-  providers: [AuthGuard],
+  providers: [AuthGuard, AdminGuard, SdsSessionGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import swal from 'sweetalert2';
 import { Router } from '@angular/router';
@@ -12,6 +12,11 @@ import { Router } from '@angular/router';
 export class AuthenticationComponent implements OnInit {
   login: Boolean = true;
   loader: Boolean = false;
+
+
+  @ViewChild('registerUsername') regUser: ElementRef;
+  @ViewChild('registerPassword') regPass: ElementRef;
+  @ViewChild('registerFullname') regName: ElementRef;
   constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit() {
@@ -25,28 +30,39 @@ export class AuthenticationComponent implements OnInit {
 
 
   register(username, password, name) {
-    this.authService.register(username, password, name).subscribe((data) => {
-      this.loader = true;
-      setTimeout(() => {
-        this.loader = false
-        swal({
-          title: 'Registered Successfully',
-          text: 'You may now login your account',
-          type: 'success',
+    if (username != "" && password != "" && name != "") {
+      this.authService.register(username, password, name).subscribe((data) => {
 
-        })
-      }, 1500)
+        this.loader = true;
+        setTimeout(() => {
+          this.loader = false
+          swal({
+            title: 'Registered Successfully',
+            text: 'You may now login your account',
+            type: 'success',
+
+          })
+        }, 1500)
+        this.regUser.nativeElement.value = "";
+        this.regPass.nativeElement.value = "";
+        this.regName.nativeElement.value = "";
 
 
 
-    },
-      error => {
-        swal({
-          title: 'Username already taken',
-          type: 'error',
+      },
+        error => {
+          swal({
+            title: 'Username already taken',
+            type: 'error',
 
-        })
-      });
+          })
+        });
+    } else {
+      swal({
+        title: "Please fill all fields",
+        type: "error"
+      })
+    }
 
   }
 

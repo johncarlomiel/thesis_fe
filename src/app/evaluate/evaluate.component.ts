@@ -135,6 +135,8 @@ export class EvaluateComponent implements OnInit {
         //Submit result to the database
         this.data.submitResult(this.combinations).subscribe(data => {
             console.log(data)
+            localStorage.removeItem("inSession");
+
 
         },
             (error) => {

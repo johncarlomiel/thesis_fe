@@ -15,6 +15,9 @@ import { AdminGraphComponent } from './admin-graph/admin-graph.component';
 import { AuthGuard } from './auth.guard';
 import { AdminGraphGeneralComponent } from './admin-graph-general/admin-graph-general.component';
 import { AdminAuthComponent } from './admin-auth/admin-auth.component';
+import { AdminGuard } from './admin.guard';
+import { Page404Component } from './page404/page404.component';
+import { SdsSessionGuard } from './sds-session.guard';
 
 
 const routes: Routes = [
@@ -29,7 +32,7 @@ const routes: Routes = [
   {
     path: 'questions',
     component: QuestionComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard, SdsSessionGuard]
   },
   {
     path: 'register',
@@ -42,12 +45,12 @@ const routes: Routes = [
   {
     path: 'self-estimates',
     component: EstimatesComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard, SdsSessionGuard]
   },
   {
     path: 'evaluate',
     component: EvaluateComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard, SdsSessionGuard]
   },
   {
     path: 'profile',
@@ -60,19 +63,29 @@ const routes: Routes = [
   },
   {
     path: 'admin/home',
-    component: AdminHomeComponent
+    component: AdminHomeComponent,
+    canActivate: [AdminGuard]
   },
   {
-    path: 'admin/graph/specific', component: AdminGraphComponent
+    path: 'admin/graph/specific',
+    component: AdminGraphComponent,
+    canActivate: [AdminGuard]
   },
   {
     path: 'admin/graph/general',
-    component: AdminGraphGeneralComponent
+    component: AdminGraphGeneralComponent,
+    canActivate: [AdminGuard]
   },
   {
     path: 'admin/auth',
     component: AdminAuthComponent
-  }
+  },
+  {
+    path: '404',
+    component: Page404Component
+  },
+  { path: "", redirectTo: "404", pathMatch: "full" },
+  { path: '**', redirectTo: '404' }
 
 ];
 
