@@ -235,6 +235,6 @@ export class AdminHomeComponent implements OnInit {
   }
 
   logout() {
-    this.router.navigate(["/"])
+    this.router.navigate(["/admin/auth"])
   }
 }

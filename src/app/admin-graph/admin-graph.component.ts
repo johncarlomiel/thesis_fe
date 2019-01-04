@@ -232,7 +232,7 @@ export class AdminGraphComponent implements OnInit {
     setTimeout(_ => this.printing = false, 1500)
   }
   logout() {
-    this.router.navigate(["/"])
+    this.router.navigate(["/admin/auth"])
   }
 
 }

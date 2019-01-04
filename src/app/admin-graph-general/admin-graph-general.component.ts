@@ -5,6 +5,7 @@ import { tables } from '../models/tables';
 import { GraphLabel } from '../models/graphLabel';
 import * as FusionCharts from 'fusioncharts';
 import { AdminService } from '../services/admin.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-admin-graph-general',
@@ -51,7 +52,7 @@ export class AdminGraphGeneralComponent implements OnInit {
     data: [],
   }
   sql = "";
-  constructor(private adminService: AdminService, private zone: NgZone, ) { }
+  constructor(private adminService: AdminService, private zone: NgZone, private router: Router) { }
 
   ngOnInit() {
     this.criteria = criteria;
@@ -248,6 +249,10 @@ export class AdminGraphGeneralComponent implements OnInit {
     }, 1000)
     setTimeout(_ => this.chartWidth = "100%", 1000);
 
+  }
+
+  logout() {
+    this.router.navigate(["/admin/auth"])
   }
 
 }
