@@ -83,11 +83,11 @@ export class EvaluateComponent implements OnInit {
         // For testing purpose
         // console.log(this.summaryHolder)
         // this.summaryHolder = [
-        //     { value: 10, letter: "R" },
+        //     { value: 33, letter: "R" },
         //     { value: 33, letter: "I" },
         //     { value: 50, letter: "A" },
-        //     { value: 50, letter: "S" },
-        //     { value: 41, letter: "E" },
+        //     { value: 55, letter: "S" },
+        //     { value: 55, letter: "E" },
         //     { value: 55, letter: "C" },
         // ]
         // For testing purpose

@@ -13,6 +13,10 @@ import { AuthService } from '../services/auth.service';
 })
 export class QuestionComponent implements OnInit {
   questions: any;
+  instruction = {
+    first: "Check the Like box for those activities you would like to do.",
+    second: "Check the Dislike box for those activities you would dislike doing or would be indifferent to."
+  };
 
   view: Boolean = true;
   loader: Boolean = false;
@@ -113,6 +117,20 @@ export class QuestionComponent implements OnInit {
           localStorage.setItem('ph1Res', btoa(JSON.stringify(this.results)));
           this.router.navigate(["self-estimates"])
         } else {
+          if (this.title.includes("Activities")) {
+            this.instruction["first"] = "Check the Like box for those activities you would like to do.";
+            this.instruction["second"] = "Check the Dislike box for those activities you would dislike doing or would be indifferent to.";
+          } else if (this.title.includes("Competencies")) {
+            this.instruction["first"] = "Check the Yes box for those activities you can do well or competently.";
+            this.instruction["second"] = "Check the No box for those activities you have never performed or perform poorly.";
+          } else {
+            this.instruction["first"] = "The following is a list of occupations. Check the like box for those occupations that interest or appeal to you.";
+            this.instruction["second"] = "Check the dislike box for those occupations that you dislike or find uninteresting.";
+
+          }
+
+
+
           if (this.title.includes("Competencies")) {
             this.label_true = "Yes";
             this.label_false = "No";

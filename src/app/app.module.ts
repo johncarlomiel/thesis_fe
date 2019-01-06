@@ -42,6 +42,9 @@ import { AdminAuthComponent } from './admin-auth/admin-auth.component';
 import { AdminGuard } from './admin.guard';
 import { Page404Component } from './page404/page404.component';
 import { SdsSessionGuard } from './sds-session.guard';
+import { NewResultsComponent } from './new-results/new-results.component';
+import { ArchiveComponent } from './archive/archive.component';
+import { AdminSettingsComponent } from './admin-settings/admin-settings.component';
 
 
 FusionChartsModule.fcRoot(FusionCharts, Charts, FusionTheme, Candy);
@@ -65,7 +68,11 @@ FusionChartsModule.fcRoot(FusionCharts, Charts, FusionTheme, Candy);
     AdminGraphComponent,
     AdminGraphGeneralComponent,
     AdminAuthComponent,
-    Page404Component
+    Page404Component,
+    NewResultsComponent,
+    ArchiveComponent,
+    AdminSettingsComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -75,7 +82,9 @@ FusionChartsModule.fcRoot(FusionCharts, Charts, FusionTheme, Candy);
     BrowserAnimationsModule,
     SuiModule,
     NgxPaginationModule,
-    FusionChartsModule
+    FusionChartsModule,
+
+
   ],
   providers: [AuthGuard, AdminGuard, SdsSessionGuard],
   bootstrap: [AppComponent]

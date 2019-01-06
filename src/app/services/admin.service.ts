@@ -15,6 +15,7 @@ export class AdminService {
     const url = this.server_url + "api/admin/users";
     const httpOptions = {
       headers: new HttpHeaders({
+        'authorization': localStorage.getItem("AdminAuthorization"),
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*'
       }),
@@ -26,15 +27,52 @@ export class AdminService {
   }
   getUsers() {
     const url = this.server_url + "api/admin/users";
+    let params = new HttpParams().set('type', "user");
     const httpOptions = {
       headers: new HttpHeaders({
+        'authorization': localStorage.getItem("AdminAuthorization"),
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*'
-      })
+      }),
+      params: params
     }
 
     return this.http.get<Users>(url, httpOptions);
 
+
+  }
+  getAllUsers() {
+    const url = this.server_url + "api/admin/users";
+    let params = new HttpParams().set('type', "all");
+    const httpOptions = {
+      headers: new HttpHeaders({
+
+        'authorization': localStorage.getItem("AdminAuthorization"),
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*'
+      }),
+      params: params
+    }
+
+    return this.http.get<Users>(url, httpOptions);
+  }
+
+  changeType(type, id) {
+    const url = this.server_url + "api/admin/account";
+    let body = {
+      fieldname: "type",
+      value: type,
+      id
+    }
+    const httpOptions = {
+      headers: new HttpHeaders({
+
+        'authorization': localStorage.getItem("AdminAuthorization"),
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*'
+      })
+    }
+    return this.http.put(url, body, httpOptions);
 
   }
 
@@ -44,6 +82,8 @@ export class AdminService {
 
     const httpOptions = {
       headers: new HttpHeaders({
+
+        'authorization': localStorage.getItem("AdminAuthorization"),
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*'
       }),
@@ -61,6 +101,8 @@ export class AdminService {
     let params = new HttpParams().set('id', id);
     const httpOptions = {
       headers: new HttpHeaders({
+
+        'authorization': localStorage.getItem("AdminAuthorization"),
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*'
       }),
@@ -75,6 +117,8 @@ export class AdminService {
     let params = new HttpParams().set('id', id);
     const httpOptions = {
       headers: new HttpHeaders({
+
+        'authorization': localStorage.getItem("AdminAuthorization"),
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*'
       }),
@@ -89,6 +133,8 @@ export class AdminService {
     let params = new HttpParams().set('id', id);
     const httpOptions = {
       headers: new HttpHeaders({
+
+        'authorization': localStorage.getItem("AdminAuthorization"),
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*'
       }),
@@ -103,6 +149,8 @@ export class AdminService {
     let params = new HttpParams().set('id', id);
     const httpOptions = {
       headers: new HttpHeaders({
+
+        'authorization': localStorage.getItem("AdminAuthorization"),
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*'
       }),
@@ -112,11 +160,13 @@ export class AdminService {
     return this.http.get<SDS[]>(url, httpOptions)
 
   }
-  search(keyword) {
+  search(type, keyword) {
     const url = this.server_url + "api/admin/searchUsers";
-    let params = new HttpParams().set('keyword', keyword);
+    let params = new HttpParams().set('keyword', keyword).set('type', type);
     const httpOptions = {
       headers: new HttpHeaders({
+
+        'authorization': localStorage.getItem("AdminAuthorization"),
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*'
       }),
@@ -133,6 +183,8 @@ export class AdminService {
     const url = this.server_url + "api/admin/graph";
     const httpOptions = {
       headers: new HttpHeaders({
+
+        'authorization': localStorage.getItem("AdminAuthorization"),
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*'
       })
@@ -161,6 +213,8 @@ export class AdminService {
     const url = this.server_url + "api/admin/genGraph";
     const httpOptions = {
       headers: new HttpHeaders({
+
+        'authorization': localStorage.getItem("AdminAuthorization"),
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*'
       })
@@ -173,12 +227,74 @@ export class AdminService {
     const url = this.server_url + "api/admin/indivProb";
     const httpOptions = {
       headers: new HttpHeaders({
+
+        'authorization': localStorage.getItem("AdminAuthorization"),
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*'
       })
 
     }
     return this.http.post<[]>(url, problem, httpOptions);
+  }
+
+  getNewResults() {
+    const url = this.server_url + "api/admin/newResults";
+    const httpOptions = {
+      headers: new HttpHeaders({
+
+        'authorization': localStorage.getItem("AdminAuthorization"),
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*'
+      })
+
+    }
+    return this.http.get<[]>(url, httpOptions);
+  }
+
+  getOldResults() {
+    const url = this.server_url + "api/admin/oldResults";
+    const httpOptions = {
+      headers: new HttpHeaders({
+
+        'authorization': localStorage.getItem("AdminAuthorization"),
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*'
+      })
+
+    }
+    return this.http.get<[]>(url, httpOptions);
+
+  }
+
+  setSinglePrint(i) {
+    const url = this.server_url + "api/admin/singleResult";
+    const data = {
+      id: i
+    }
+    const httpOptions = {
+      headers: new HttpHeaders({
+
+        'authorization': localStorage.getItem("AdminAuthorization"),
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*'
+      }),
+
+    }
+    return this.http.put(url, data, httpOptions)
+
+  }
+  setAllPrint() {
+    const url = this.server_url + "api/admin/allResult";
+    const httpOptions = {
+      headers: new HttpHeaders({
+
+        'authorization': localStorage.getItem("AdminAuthorization"),
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*'
+      }),
+
+    }
+    return this.http.put(url, httpOptions);
   }
 
 }

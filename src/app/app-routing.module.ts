@@ -17,11 +17,14 @@ import { AdminAuthComponent } from './admin-auth/admin-auth.component';
 import { AdminGuard } from './admin.guard';
 import { Page404Component } from './page404/page404.component';
 import { SdsSessionGuard } from './sds-session.guard';
+import { NewResultsComponent } from './new-results/new-results.component';
+import { ArchiveComponent } from './archive/archive.component';
+import { AdminSettingsComponent } from './admin-settings/admin-settings.component';
 
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'home',
     component: HomeComponent
   },
   {
@@ -76,11 +79,26 @@ const routes: Routes = [
     component: AdminAuthComponent
   },
   {
+    path: "admin/print",
+    component: NewResultsComponent
+  },
+  {
+    path: "admin/archive",
+    component: ArchiveComponent
+  },
+  {
+    path: "admin/settings",
+    component: AdminSettingsComponent
+  },
+  {
     path: '404',
     component: Page404Component
   },
-  { path: "", redirectTo: "404", pathMatch: "full" },
-  { path: '**', redirectTo: '404' }
+  {
+    path: '', redirectTo: 'home', pathMatch: "full"
+  },
+  { path: '**', redirectTo: '404' },
+
 
 ];
 

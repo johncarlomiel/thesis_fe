@@ -59,7 +59,7 @@ export class HeaderComponent implements OnInit {
 
   logout() {
 
-    localStorage.removeItem("Authorization")
+    localStorage.clear();
     this.userSession = false;
     this.router.navigate(["/"])
     swal({

@@ -9,7 +9,7 @@
   </div>
 </div>
 <sui-sidebar-container class="ui bottom attached segment">
-  <sui-sidebar class="inverted vertical" #saydbar>
+  <sui-sidebar class="vertical" #saydbar>
     <a class="item" routerLink="/admin/home">
       Home
     </a>
@@ -19,10 +19,43 @@
     <a class="item" routerLink="/admin/graph/general">
       General Reports
     </a>
+    <a class="item" routerLink="/admin/print">
+      Print Section
+    </a>
+    <a class="item" routerLink="/admin/archive">
+      Archive Section
+    </a>
+    <a class="item" routerLink="/admin/settings">
+      Accounts Settings
+    </a>
   </sui-sidebar>
   <sui-sidebar-sibling [isDimmedWhenVisible]="true">
     <div class="ui basic segment" style="padding:35px;" *ngIf="!printing">
-      <h1 class="ui header primary bolder underlined">Graph Reports</h1>
+
+      <h2 class="ui icon header center aligned">
+        <i class="circular info icon"></i>
+        <div class="content">
+          Specific Report Section
+          <div class="sub header">Generate/Analyze a report for a specific problem(s)</div>
+        </div>
+
+
+      </h2>
+      <div class="ui info message container">
+        <div class="header">
+          Some of the action you can do in this section
+        </div>
+        <ul class="list">
+          <li>Generate a visual report about specific problem(s)</li>
+          <li>Modify the criteria of the students</li>
+
+          <li>Change chart style</li>
+          <li>Export to PDF the generated visual report</li>
+        </ul>
+      </div>
+
+
+
       <div class="ui grid">
 
         <div class="three wide column">

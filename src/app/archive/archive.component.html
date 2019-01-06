@@ -1,0 +1,191 @@
+<div *ngIf="!isSinglePrinting">
+  <div class="ui top attached demo menu">
+    <a class="item" (click)="sidebar.toggle()">
+      <i class="sidebar icon"></i>
+    </a>
+    <div class="right menu">
+      <div class="item">
+        <div class="ui blue button" (click)="logout()">Logout</div>
+      </div>
+    </div>
+  </div>
+
+  <sui-sidebar-container class="ui bottom attached segment">
+    <sui-sidebar class="vertical" #sidebar>
+      <a class="item" routerLink="/admin/home">
+        Home
+      </a>
+      <a class="item" routerLink="/admin/graph/specific">
+        Specific Reports
+      </a>
+      <a class="item" routerLink="/admin/graph/general">
+        General Reports
+      </a>
+      <a class="item" routerLink="/admin/print">
+        Print Section
+      </a>
+      <a class="item active" routerLink="/admin/archive">
+        Archive Section
+      </a>
+      <a class="item" routerLink="/admin/settings">
+        Accounts Settings
+      </a>
+    </sui-sidebar>
+
+    <sui-sidebar-sibling [isDimmedWhenVisible]="true">
+      <div class="ui basic segment container">
+        <h2 class="ui center aligned icon header">
+          <i class="circular archive icon"></i>
+          Archive Section
+
+          <div class="sub header">This page is for handling printed self-directed-search result of every student</div>
+        </h2>
+
+        <div class="ui info message">
+          <div class="header">
+            Some of the action you can do in this section
+          </div>
+          <ul class="list">
+
+            <li> You can individually print the result(s) by clicking the "View result" button once the modal is
+              open
+              you will see the print button on the upper right corner of the modal</li>
+          </ul>
+        </div>
+
+        <div class="ui huge header center aligned" *ngIf="noResult">No printed self-directed-search result</div>
+        <table class="ui celled table" *ngIf="!noResult">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Username</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr *ngFor="let item of oldResultData | paginate: { itemsPerPage: 10, currentPage: page } ; let i = index">
+              <td>{{item.name}}</td>
+              <td>{{item.username}}</td>
+              <td>
+                <div class="center">
+                  <button class="ui blue button" (click)="viewSingleResult(item.id, item.name)">
+                    View result
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+
+          <tfoot>
+            <tr>
+              <th colspan="5">
+                <div class="ui right floated pagination menu">
+                  <a></a>
+                  <pagination-controls (pageChange)="page = $event"></pagination-controls>
+                </div>
+              </th>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+
+
+    </sui-sidebar-sibling>
+  </sui-sidebar-container>
+</div>
+
+<!-- View single result modal -->
+<sui-modal [isClosable]="true" (dismissed)="resultModal = false" *ngIf="resultModal && !isSinglePrinting" #mymodal>
+  <div class="header">
+    <div class="right">
+      <button class="ui labeled icon button blue" (click)="printSingleResult(singleResultId);">
+        <i class="print icon"></i>
+        Print
+      </button>
+    </div>
+  </div>
+  <div class="content">
+
+    <div class="ui">
+      <div class="ui segment" *ngFor="let code of singleResultData">
+        <a class="ui red right ribbon label large">{{code.name}}</a>
+        <div *ngFor="let indivCode of code.result">
+          <div class="ui divided items">
+            <div class="item">
+              <div class="content">
+                <a class="header">{{indivCode.occupation}}</a>
+                <div class="description">
+                  <p>{{indivCode.description}}</p>
+                </div>
+
+                <div class="extra">
+                  <a href="{{indivCode.link}}" class="ui right floated blue button">
+                    See more details here
+                    <i class="right chevron icon"></i>
+                  </a>
+                </div>
+
+                <hr>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+  <div class="actions">
+    <button class="ui red button" (click)="mymodal.deny()">Close</button>
+  </div>
+
+</sui-modal>
+
+<!-- Single Print -->
+<div *ngIf="isSinglePrinting" class="printContent">
+  <div class="ui active dimmer" *ngIf="loader">
+    <div class="ui massive text loader">Loading</div>
+  </div>
+  <div class="ui container">
+    <div class="center">
+      <img src="assets/images/gclogoprint.png" alt="" width="48" height="48">
+    </div>
+    <h5 class="center" style="letter-spacing:0.2em;font-weight: bold;color:grey;">OFFICIAL RESULT</h5>
+    <p class="center" style="font-weight:600;">City of Olongapo</p>
+    <h4 class="center" style="font-weight:bolder">GORDON COLLEGE</h4>
+    <h4 class="center" style="font-weight:bolder">STUDENT WELFARE OFFICE</h4>
+
+    <hr>
+
+    <span style="float:right;font: weight 600;">{{dateNow}}</span>
+    <h2 style="font-weight:bolder;">{{singleResultName}}</h2>
+    <hr>
+
+    <div class="ui card template" *ngFor="let item of singleResultData" style="width:100%">
+      <!-- Header -->
+      <div class="content">
+        <div class="header">[{{item.name}}]</div>
+      </div>
+      <!-- Body -->
+      <div class="content data-content">
+        <table class="ui celled table">
+          <thead>
+            <tr>
+              <th class="center">Occupation</th>
+              <th class="center">Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let itemRes of item.result">
+              <td>{{itemRes.occupation}}</td>
+              <td>{{itemRes.description}}</td>
+            </tr>
+          </tbody>
+        </table>
+
+      </div>
+    </div>
+
+  </div>
+</div>

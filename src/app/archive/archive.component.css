@@ -1,0 +1,40 @@
+@import url('https://fonts.googleapis.com/css?family=Staatliches');
+h4,h5{
+    margin:0;
+    font-family: 'Staatliches', cursive;
+}
+h3{
+    margin: 0 0 0 0;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+.printContent{
+    width:100vw;
+    height:100vh;
+    page-break-inside:avoid !important;
+}
+
+
+@media print {
+    * { margin: 1px !important;  }
+    html, body {
+      /*changing width to 100% causes huge overflow and wrap*/
+      height:100%; 
+      overflow: hidden;
+      background: #FFF; 
+      font-size: 9pt;
+    }
+    table{
+        page-break-inside: avoid;
+    }
+    
+  
+    .template { width: auto; left:0; top:0; }
+
+  }
+  .onepage {
+    page-break-after: always;
+  }
+  
+  .onepage:last-child {
+    page-break-after: avoid;
+  }

@@ -2,9 +2,14 @@
   <a class="item" (click)="sidebar.toggle()">
     <i class="sidebar icon"></i>
   </a>
+  <div class="right menu">
+    <div class="item">
+      <div class="ui blue button" (click)="logout()">Logout</div>
+    </div>
+  </div>
 </div>
 <sui-sidebar-container class="ui bottom attached segment">
-  <sui-sidebar class="inverted vertical" #sidebar>
+  <sui-sidebar class="vertical" #sidebar>
     <a class="item" routerLink="/admin/home">
       Home
     </a>
@@ -14,10 +19,38 @@
     <a class="item active" routerLink="/admin/graph/general">
       General Reports
     </a>
+    <a class="item" routerLink="/admin/print">
+      Print Section
+    </a>
+    <a class="item" routerLink="/admin/archive">
+      Archive Section
+    </a>
+    <a class="item" routerLink="/admin/settings">
+      Accounts Settings
+    </a>
   </sui-sidebar>
   <sui-sidebar-sibling [isDimmedWhenVisible]="true">
     <div class="ui basic segment">
-      <h3 class="ui header">Content</h3>
+
+      <h2 class="ui center aligned icon header">
+        <i class="circular info icon"></i>
+        General Report Section
+
+        <div class="sub header">Generate/Analyze a report using student attribute(s)</div>
+      </h2>
+
+      <div class="ui info message container">
+        <div class="header">
+          Some of the action you can do in this section
+        </div>
+        <ul class="list">
+          <li>Generate a visual report using student attribute(s)</li>
+          <li>Modify the attribute of the students</li>
+          <li>Filter quantity of the showing problem(s)</li>
+          <li>Change chart style</li>
+          <li>Export to PDF the generated visual report</li>
+        </ul>
+      </div>
 
       <div class="ui grid">
         <div class="four wide column">

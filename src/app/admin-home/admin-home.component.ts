@@ -229,12 +229,14 @@ export class AdminHomeComponent implements OnInit {
   }
 
   onSearchChange(searchValue: string) {
-    this.adminService.search(searchValue).subscribe((successData) => {
+    this.adminService.search("user", searchValue).subscribe((successData) => {
       this.pages = successData
     }, (error) => console.log(error))
   }
 
   logout() {
+    localStorage.clear();
     this.router.navigate(["/admin/auth"])
+
   }
 }

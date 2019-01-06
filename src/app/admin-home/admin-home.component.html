@@ -10,7 +10,7 @@
 </div>
 
 <sui-sidebar-container class="ui bottom attached segment">
-  <sui-sidebar class="inverted vertical" #sidebar>
+  <sui-sidebar class="vertical" #sidebar style="height:100%">
     <a class="item active" routerLink="/admin/home">
       Home
     </a>
@@ -20,52 +20,55 @@
     <a class="item" routerLink="/admin/graph/general">
       General Reports
     </a>
+    <a class="item" routerLink="/admin/print">
+      Print Section
+    </a>
+    <a class="item" routerLink="/admin/archive">
+      Archive Section
+    </a>
+    <a class="item" routerLink="/admin/settings">
+      Accounts Settings
+    </a>
   </sui-sidebar>
   <sui-sidebar-sibling [isDimmedWhenVisible]="true">
+
     <div class="ui basic segment">
+
+
       <div class="ui grid" class="mainContent">
-        <h1 class="ui header primary bolder underlined">Dashboard</h1>
+        <h2 class="ui center aligned icon header">
+          <i class="circular home icon"></i>
+          Home Section
 
-        <div class="row">
-          <div class="column">
-            <div class="ui three statistics">
+          <div class="sub header">Manage/View students information</div>
+        </h2>
 
-              <div class="statistic">
-                <div class="value">
-                  <i class="users icon"></i> 1000
-                </div>
-                <div class="label">
-                  Users
-                </div>
-              </div>
-              <div class="statistic">
-                <div class="value">
-                  <i class="android icon"></i> 100
-                </div>
-                <div class="label">
-                  Downloads
-                </div>
-              </div>
-              <div class="statistic">
-                <div class="value">
-                  <i class="briefcase icon"></i> 100000
-                </div>
-                <div class="label">
-                  Career Assestments
-                </div>
-              </div>
-            </div>
+        <div class="ui info message container">
+          <div class="header">
+            Some of the action you can do in this section
           </div>
+          <ul class="list">
+            <li>Use username(s) only as search value when searching for a certain student</li>
+            <li>Search using the search bar on the upper right corner of the table</li>
+            <li>View all of the information about every student e.g(basic info, problems and etc)</li>
+          </ul>
         </div>
+
+        <div class="ui negative message container">
+          <div class="header">
+            Note:
+          </div>
+          <p>You can delete a student account but please proceed with caution
+          </p>
+        </div>
+
 
 
 
 
         <div class="ui card" style="width:100%">
           <div class="content">
-            <h2 class="ui header primary bolder underlined">
-              Students Info
-            </h2>
+
             <div class="ui input myTextbox">
               <input type="text" placeholder="Search..." (input)="onSearchChange($event.target.value)">
             </div>
