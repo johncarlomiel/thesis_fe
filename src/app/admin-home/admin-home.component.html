@@ -133,7 +133,7 @@
 
 
         <!-- Info Modal -->
-        <sui-modal *ngIf="showInfoModal" [mustScroll]="true" [isClosable]="true" (dismissed)="showInfoModal = false"
+        <sui-modal *ngIf="showInfoModal" [mustScroll]="true" [isFullScreen]="true" [isClosable]="true" (dismissed)="showInfoModal = false"
           #infoModal>
           <div class="content">
             <h2 class="center aligned" *ngIf="noInfo">No info about this person</h2>

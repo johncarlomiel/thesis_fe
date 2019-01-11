@@ -23,24 +23,24 @@ export class QuestionComponent implements OnInit {
   label_true = "Like";
   label_false = "Dislike";
   titles = [
-    "Activities(R)",
-    "Activities(I)",
-    "Activities(A)",
-    "Activities(S)",
-    "Activities(E)",
-    "Activities(C)",
-    "Competencies(R)",
-    "Competencies(I)",
-    "Competencies(A)",
-    "Competencies(S)",
-    "Competencies(E)",
-    "Competencies(C)",
-    "Occupations(R)",
-    "Occupations(I)",
-    "Occupations(A)",
-    "Occupations(S)",
-    "Occupations(E)",
-    "Occupations(C)",
+    "Activities(Realistic)",
+    "Activities(Investigative)",
+    "Activities(Artistic)",
+    "Activities(Social)",
+    "Activities(Enterprising)",
+    "Activities(Conventional)",
+    "Competencies(Realistic)",
+    "Competencies(Investigative)",
+    "Competencies(Artistic)",
+    "Competencies(Social)",
+    "Competencies(Enterprising)",
+    "Competencies(Conventional)",
+    "Occupations(Realistic)",
+    "Occupations(Investigative)",
+    "Occupations(Artistic)",
+    "Occupations(Social)",
+    "Occupations(Enterprising)",
+    "Occupations(Conventional)",
   ];
   title: String;
   currentQuestion: any;
@@ -59,7 +59,7 @@ export class QuestionComponent implements OnInit {
 
     */
     this.questions = exportedQuestions;
-    console.log(exportedQuestions)
+
     this.checkSession();
 
 
@@ -68,8 +68,9 @@ export class QuestionComponent implements OnInit {
 
 
 
-    this.currentQuestion = this.questions[this.counter];
+    this.currentQuestion = this.questions[this.counter].data;
     this.title = this.titles[this.counter]
+    console.log(this.currentQuestion)
 
     //Check title
 
@@ -85,9 +86,9 @@ export class QuestionComponent implements OnInit {
     this.proceed = false;
     if (this.counter != this.questions.length) {
       //Iterate thru the array of object check if all of them is Touched
-      for (let i = 0; i < this.questions[this.counter].length; i++) {
-        console.log(this.questions[this.counter][i].isTouched)
-        if (this.questions[this.counter][i].isTouched) {
+      for (let i = 0; i < this.questions[this.counter].data.length; i++) {
+        console.log(this.questions[this.counter].data[i].isTouched)
+        if (this.questions[this.counter].data[i].isTouched) {
           this.proceed = true;
         } else {
           this.proceed = false;
@@ -107,7 +108,7 @@ export class QuestionComponent implements OnInit {
         //Increment counter
         this.counter++;
         //Change question
-        this.currentQuestion = this.questions[this.counter];
+        this.currentQuestion = this.questions[this.counter].data;
 
         //Change title
         this.title = this.titles[this.counter];
@@ -117,6 +118,8 @@ export class QuestionComponent implements OnInit {
           localStorage.setItem('ph1Res', btoa(JSON.stringify(this.results)));
           this.router.navigate(["self-estimates"])
         } else {
+
+
           if (this.title.includes("Activities")) {
             this.instruction["first"] = "Check the Like box for those activities you would like to do.";
             this.instruction["second"] = "Check the Dislike box for those activities you would dislike doing or would be indifferent to.";
@@ -178,22 +181,22 @@ export class QuestionComponent implements OnInit {
 
 
   like(i) {
-    this.questions[this.counter][i].like = true;
-    this.questions[this.counter][i].isTouched = true;
-    console.log(this.questions[this.counter][i])
+    this.questions[this.counter].data[i].like = true;
+    this.questions[this.counter].data[i].isTouched = true;
+    console.log(this.questions[this.counter].data[i])
     this.count();
   }
   dislike(i) {
-    this.questions[this.counter][i].like = false;
-    this.questions[this.counter][i].isTouched = true;
-    console.log(this.questions[this.counter][i])
+    this.questions[this.counter].data[i].like = false;
+    this.questions[this.counter].data[i].isTouched = true;
+    console.log(this.questions[this.counter].data[i])
     this.count();
 
   }
 
   count() {
     this.currentLike = 0;
-    this.questions[this.counter].forEach(element => {
+    this.questions[this.counter].data.forEach(element => {
       if (element.like) {
         this.currentLike++;
       }
