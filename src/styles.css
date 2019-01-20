@@ -29,3 +29,24 @@
 }
 
 /* Loader */
+
+
+/* Color Theme */
+.r_text{
+    color:#f1463c;
+}
+.i_text{
+    color: #F7941D;
+}
+.a_text{
+    color: #FFCE02;
+}
+.s_text{
+    color: #00763F;
+}
+.e_text{
+    color: #00763F;
+}
+.c_text{
+    color: #9279B7;
+}

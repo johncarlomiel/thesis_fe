@@ -1,4 +1,4 @@
-<div *ngIf="!isSinglePrinting">
+<div *ngIf="!isSinglePrinting && !isNewPrinting">
   <div class="ui top attached demo menu">
     <a class="item" (click)="sidebar.toggle()">
       <i class="sidebar icon"></i>
@@ -29,11 +29,11 @@
         Print Section
         <div class="ui red horizontal label">New</div>
       </a>
-      <a class="item active" routerLink="/admin/archive">
+      <a class="item" routerLink="/admin/archive">
         Archive Section
         <div class="ui grey horizontal label">Old</div>
       </a>
-      <a class="item" routerLink="/admin/new-archive">
+      <a class="item active" routerLink="/admin/new-archive">
         Archive Section
         <div class="ui red horizontal label">New</div>
       </a>
@@ -82,7 +82,7 @@
               <td>{{item.username}}</td>
               <td>
                 <div class="center">
-                  <button class="ui blue button" (click)="viewSingleResult(item.id, item.name)">
+                  <button class="ui blue button" (click)="viewSingleResult(item.id, item.name, item.summary_code)">
                     View result
                   </button>
                 </div>
@@ -112,7 +112,7 @@
 <sui-modal [isClosable]="true" (dismissed)="resultModal = false" *ngIf="resultModal && !isSinglePrinting" #mymodal>
   <div class="header">
     <div class="right">
-      <button class="ui labeled icon button blue" (click)="printSingleResult(singleResultId);">
+      <button class="ui labeled icon button blue" (click)="printNewSingleResult(singleResultId);">
         <i class="print icon"></i>
         Print
       </button>
@@ -156,13 +156,10 @@
 </sui-modal>
 
 <!-- Single Print -->
-<!-- Single Print -->
-<div *ngIf="isSinglePrinting">
+<div class="newPrint" *ngIf="isNewPrinting">
   <div class="ui active dimmer" *ngIf="loader">
     <div class="ui massive text loader">Loading</div>
   </div>
-
-
   <div class="head">
     <div style="margin-bottom:10px;padding-right:20px;padding-left:20px;">
       <div id="logo_header" class="ui">
@@ -176,9 +173,6 @@
     </div>
   </div>
 
-
-
-
   <div class="body">
 
     <div style="margin-left:20px; margin-right:20px;">
@@ -191,18 +185,17 @@
     <h2 class="center container" id="print_header">OFFICIAL RESULT</h2>
     <div class="ui grid" style="margin-left:20px; margin-right:20px;">
       <div class="eight wide column">
-        <div class="ui card" style="height:100%;width:100%;">
-          <div class="content">
-            <h3 class="ui header center bolder">Summary Code Occupations</h3>
+        <div class="ui segment">
+          <div class="code-rate" *ngFor="let letter of riasec">
+            <img src="assets/icons/{{letter.letter}}_icon.png" alt="" class="ui centered mini image image-icon">
 
-            <div class="ui bulleted divided list">
-              <div class="item" *ngFor="let item of allOccupations">{{item.occupation}}</div>
+            <sui-progress id="{{letter.letter}}" [value]="letter.value" [maximum]="88">
+              {{letter.word}}
 
-            </div>
-
-
-
+            </sui-progress>
           </div>
+
+
         </div>
       </div>
       <div class="eight wide column">
@@ -214,35 +207,32 @@
 
               <img src="assets/icons/riasec-logo.png" class="img-summary" alt="" width="200" height="200">
               <div class="center-text">
-                <span *ngFor="let code of summaryCode" style="font-weight:bolder;font-size:1.5em" [ngStyle]="{'color': true ? getColor(code) : ''}">
-                  {{code}}
+                <span *ngFor="let code of summaryCode" style="font-weight:bolder;font-size:1.5em" [ngStyle]="{'color': true ? getColor(code.letter) : ''}">
+                  {{code.letter}}
                 </span>
               </div>
             </div>
 
             <div *ngFor="let code of summaryCode">
               <div class="ui divider"></div>
-              <img class="ui middle aligned tiny image" src="assets/icons/{{code}}_icon.png">
-              <span style="font-weight: bolder; font-size:1.5em; margin-left: 10px;letter-spacing: 5px;" [ngStyle]="{'color': true ? getColor(code) : ''}">
-                {{getWord(code)}}</span>
+              <img class="ui middle aligned tiny image" src="assets/icons/{{code.letter}}_icon.png">
+              <span style="font-weight: bolder; font-size:1.5em; margin-left: 10px;letter-spacing: 5px;" [ngStyle]="{'color': true ? getColor(code.letter) : ''}">
+                {{code.word}}</span>
             </div>
 
 
 
 
 
-
+            <div class="ui tiny message">
+              <p style="font-style:italic">Note: You can use your summary code to search all of the occupation(s)
+                available on your code
+                in https://www.onetonline.org/ </p>
+            </div>
           </div>
         </div>
 
       </div>
     </div>
-
-    <div class="ui tiny message" style="margin-left:20px; margin-right:20px;">
-      <p style="font-style:italic">Note: You can use your summary code to search all of the occupation(s)
-        available on your code
-        in https://www.onetonline.org/ </p>
-    </div>
   </div>
-
 </div>

@@ -8,8 +8,8 @@
 
     <h2 class="ui icon header center aligned primary">
 
-        <img src="{{questions[counter].icon_path}}" class="ui circular image">
-        <div class="content">
+        <img src="{{currentLogo}}" class="ui image">
+        <div class="content" [ngStyle]="{'color': currentColor}">
             {{title}}
             <div class="sub header">{{label_true}}: {{currentLike}}</div>
         </div>

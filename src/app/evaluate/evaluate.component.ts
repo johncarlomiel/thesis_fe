@@ -30,7 +30,32 @@ export class EvaluateComponent implements OnInit {
     third: any;
     combinations = Array.apply(null, Array());
     @ViewChild('dito') ditoConfetti;
-    letters = ["R", "I", "A", "S", "E", "C"]
+    letters = [
+        {
+            acronym: "R",
+            word: "Realistic"
+        },
+        {
+            acronym: "I",
+            word: "Investigative"
+        },
+        {
+            acronym: "A",
+            word: "Artistic"
+        },
+        {
+            acronym: "S",
+            word: "Social"
+        },
+        {
+            acronym: "E",
+            word: "Enterprising"
+        },
+        {
+            acronym: "C",
+            word: "Convensional"
+        },
+    ]
     constructor(public authService: AuthService, public router: Router, public data: DataService) { }
 
     async ngOnInit() {
@@ -67,13 +92,15 @@ export class EvaluateComponent implements OnInit {
                 value: this.activities[i] +
                     this.competencies[i] + this.jobs[i]
                     + this.self_estimates1[i] + this.self_estimates2[i],
-                letter: this.letters[i]
+                letter: this.letters[i].acronym,
+                word: this.letters[i].word
             }
             this.summaryHolder[i] = {
                 value: this.activities[i] +
                     this.competencies[i] + this.jobs[i]
                     + this.self_estimates1[i] + this.self_estimates2[i],
-                letter: this.letters[i]
+                letter: this.letters[i].acronym,
+                word: this.letters[i].word
             }
 
         }
@@ -95,17 +122,25 @@ export class EvaluateComponent implements OnInit {
 
 
 
-
-
-
         this.first = await this.calculateShit();
         this.second = await this.calculateShit();
         this.third = await this.calculateShit()
 
-
+        console.log(this.summarys)
         console.log(this.first)
         console.log(this.second)
         console.log(this.third)
+
+        //Submit RIASEC Results into the server
+        this.data.submitLetters(this.summarys).subscribe((successData) => {
+            console.log(successData);
+        }, (error) => console.log(error));
+
+        //Submit the Summary Code into the server
+        this.data.submitSummaryCode(this.first[0].letter, this.second[0].letter, this.third[0].letter).subscribe((successData) => {
+            console.log(successData);
+        }, (error) => console.log(error));
+
 
 
 

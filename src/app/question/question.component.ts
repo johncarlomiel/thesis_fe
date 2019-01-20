@@ -17,6 +17,8 @@ export class QuestionComponent implements OnInit {
     first: "Check the Like box for those activities you would like to do.",
     second: "Check the Dislike box for those activities you would dislike doing or would be indifferent to."
   };
+  currentLogo: string;
+  currentColor: string;
 
   view: Boolean = true;
   loader: Boolean = false;
@@ -70,7 +72,9 @@ export class QuestionComponent implements OnInit {
 
     this.currentQuestion = this.questions[this.counter].data;
     this.title = this.titles[this.counter]
-    console.log(this.currentQuestion)
+    this.changeClassColor(this.counter)
+    this.changeCurrentImage(this.counter)
+    console.log(this.questions)
 
     //Check title
 
@@ -103,21 +107,26 @@ export class QuestionComponent implements OnInit {
 
       //Check if the variable proceed is thru to proceed to the next question
       if (this.proceed) {
-        //Store the likes in the array
-        this.results[this.counter] = this.currentLike;
-        //Increment counter
-        this.counter++;
-        //Change question
-        this.currentQuestion = this.questions[this.counter].data;
-
-        //Change title
-        this.title = this.titles[this.counter];
-        console.log(this.title)
         //Check if this is the end of the array
-        if (this.counter == this.questions.length) {
+        if (this.counter == this.questions.length - 1) {
           localStorage.setItem('ph1Res', btoa(JSON.stringify(this.results)));
           this.router.navigate(["self-estimates"])
         } else {
+          console.log("Current Count:" + this.counter);
+          console.log("Current Length:" + this.questions.length);
+
+          //Store the likes in the array
+          this.results[this.counter] = this.currentLike;
+          //Increment counter
+          this.counter++;
+          //Change question
+          this.currentQuestion = this.questions[this.counter].data;
+
+          //Change title
+          this.title = this.titles[this.counter];
+          console.log(this.title)
+          this.changeClassColor(this.counter)
+          this.changeCurrentImage(this.counter)
 
 
           if (this.title.includes("Activities")) {
@@ -210,6 +219,14 @@ export class QuestionComponent implements OnInit {
 
     }, (error) => this.router.navigate(["/"]))
   }
+
+  changeClassColor(index) {
+    this.currentColor = this.questions[index].color;
+  }
+  changeCurrentImage(index) {
+    this.currentLogo = this.questions[index].icon_path;
+  }
+
 
 
 

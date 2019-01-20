@@ -157,7 +157,7 @@ export class AdminService {
       params: params
 
     }
-    return this.http.get<SDS[]>(url, httpOptions)
+    return this.http.get<sds[]>(url, httpOptions)
 
   }
   search(type, keyword) {
@@ -175,6 +175,22 @@ export class AdminService {
     }
     return this.http.get(url, httpOptions)
 
+  }
+  dynamicSearch(condition: string, keyword: string) {
+    const url = this.server_url + "api/admin/resultSearch";
+
+    let params = new HttpParams().set('keyword', keyword).set('condition', condition)
+    const httpOptions = {
+      headers: new HttpHeaders({
+
+        'authorization': localStorage.getItem("AdminAuthorization"),
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*'
+      }),
+      params: params
+
+    }
+    return this.http.get<[]>(url, httpOptions)
   }
 
 
@@ -251,6 +267,34 @@ export class AdminService {
     return this.http.get<[]>(url, httpOptions);
   }
 
+  getTempResults() {
+    const url = this.server_url + "api/admin/results";
+    const httpOptions = {
+      headers: new HttpHeaders({
+
+        'authorization': localStorage.getItem("AdminAuthorization"),
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*'
+      })
+
+    }
+    return this.http.get<[]>(url, httpOptions);
+  }
+
+  getTempOldResults() {
+    const url = this.server_url + "api/admin/oldTempResults";
+    const httpOptions = {
+      headers: new HttpHeaders({
+
+        'authorization': localStorage.getItem("AdminAuthorization"),
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*'
+      })
+
+    }
+    return this.http.get<[]>(url, httpOptions);
+
+  }
   getOldResults() {
     const url = this.server_url + "api/admin/oldResults";
     const httpOptions = {
@@ -263,7 +307,6 @@ export class AdminService {
 
     }
     return this.http.get<[]>(url, httpOptions);
-
   }
 
   setSinglePrint(i) {
@@ -296,9 +339,24 @@ export class AdminService {
     }
     return this.http.put(url, httpOptions);
   }
+  getLetters(id) {
+    const url = this.server_url + "api/admin/getLetters";
+    let params = new HttpParams().set('id', id);
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'authorization': localStorage.getItem("AdminAuthorization"),
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+      }),
+      params
+
+    }
+    return this.http.get<RIASEC[]>(url, httpOptions);
+  }
 
 }
-interface SDS {
+interface sds {
   name: string,
   result: [{ code: string, description: string, id: number, link: string, occupation: string, type: string }]
 }
@@ -334,6 +392,11 @@ interface Info {
   study_helper: string,
   study_status: string,
   transpo: string,
+}
+interface RIASEC {
+  user_id: number,
+  value: number,
+  letter: string,
 }
 
 interface MoreInfo {

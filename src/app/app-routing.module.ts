@@ -20,6 +20,8 @@ import { SdsSessionGuard } from './sds-session.guard';
 import { NewResultsComponent } from './new-results/new-results.component';
 import { ArchiveComponent } from './archive/archive.component';
 import { AdminSettingsComponent } from './admin-settings/admin-settings.component';
+import { PrintNewComponent } from './print-new/print-new.component';
+import { ArchiveNewComponent } from './archive-new/archive-new.component';
 
 
 const routes: Routes = [
@@ -89,6 +91,14 @@ const routes: Routes = [
   {
     path: "admin/settings",
     component: AdminSettingsComponent
+  },
+  {
+    path: "admin/new-print",
+    component: PrintNewComponent
+  },
+  {
+    path: "admin/new-archive",
+    component: ArchiveNewComponent
   },
   {
     path: '404',

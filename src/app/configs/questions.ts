@@ -1,7 +1,7 @@
 export let exportedQuestions = [
     //Activities Section R
     {
-        icon_path: "assets/icons/r_icon.png",
+        icon_path: "assets/icons/R_icon.png",
         data: [
             { qst: "Repair electrical things", like: false, isTouched: false },
             { qst: "Repair cars", like: false, isTouched: false },
@@ -17,10 +17,11 @@ export let exportedQuestions = [
             { qst: "Build things", like: false, isTouched: false },
             { qst: "Work with tools", like: false, isTouched: false },
 
-        ]
+        ],
+        color: "#f1463c"
     },
     {
-        icon_path: "assets/icons/i_icon.png",
+        icon_path: "assets/icons/I_icon.png",
         data: [   //Activities Section I
             { qst: "Read scientific books or magazine", like: false, isTouched: false },
             { qst: "Work in a research office or laboratory", like: false, isTouched: false },
@@ -36,10 +37,11 @@ export let exportedQuestions = [
             { qst: "Investigate the cause of a problem", like: false, isTouched: false },
             { qst: "Develop a research study", like: false, isTouched: false },
             { qst: "Find solutions to complex problems", like: false, isTouched: false },
-        ]
+        ],
+        color: "#F7941D"
     },
     {
-        icon_path: "assets/icons/a_icon.png",
+        icon_path: "assets/icons/A_icon.png",
         data: [   //Activities Section A
             { qst: "Sketch, draw, paint", like: false, isTouched: false },
             { qst: "Design furniture, clothing or printed materials", like: false, isTouched: false },
@@ -55,10 +57,11 @@ export let exportedQuestions = [
             { qst: "Write for a magazine or newspaper", like: false, isTouched: false },
             { qst: "Read or write poetry", like: false, isTouched: false },
             { qst: "Edit a book or magazine", like: false, isTouched: false },
-        ]
+        ],
+        color: "#FFCE02"
     },
     {
-        icon_path: "assets/icons/s_icon.png",
+        icon_path: "assets/icons/S_icon.png",
         data: [   //Activities Section S
             { qst: "Meet important educators or therapists", like: false, isTouched: false },
             { qst: "Work for a charity", like: false, isTouched: false },
@@ -74,10 +77,11 @@ export let exportedQuestions = [
             { qst: "Help people with their physical or emotional needs", like: false, isTouched: false },
             { qst: "Work or volunteer for a non-profit organization", like: false, isTouched: false },
             { qst: "Help people with special needs", like: false, isTouched: false },
-        ]
+        ],
+        color: "#00763F"
     },
     {
-        icon_path: "assets/icons/e_icon.png",
+        icon_path: "assets/icons/E_icon.png",
         data: [   //Activities Section E
             { qst: "Learn strategies for business success", like: false, isTouched: false },
             { qst: "Meet important executives and leaders", like: false, isTouched: false },
@@ -93,10 +97,11 @@ export let exportedQuestions = [
             { qst: "Serve as an officer of a group", like: false, isTouched: false },
             { qst: "Start my own business", like: false, isTouched: false },
             { qst: "Attend sales meetings or conferences", like: false, isTouched: false },
-        ]
+        ],
+        color: "#0073A4"
     },
     {
-        icon_path: "assets/icons/c_icon.png",
+        icon_path: "assets/icons/C_icon.png",
         data: [   //Activities Section C
             { qst: "Fill out detailed forms", like: false, isTouched: false },
             { qst: "Perform math calculations in bookkeeping or business", like: false, isTouched: false },
@@ -112,10 +117,11 @@ export let exportedQuestions = [
             { qst: "Develop an organizational system", like: false, isTouched: false },
             { qst: "Schedule and organize meetings", like: false, isTouched: false },
             { qst: "Take a bookkeeping course", like: false, isTouched: false },
-        ]
+        ],
+        color: "#9279B7"
     },
     {
-        icon_path: "assets/icons/r_icon.png",
+        icon_path: "assets/icons/R_icon.png",
         data: [   //Competencies Section R
             { qst: "I have used carpentry tools such as a power saw, lathe, or sander", like: false, isTouched: false },
             { qst: "I can make a scale drawing", like: false, isTouched: false },
@@ -131,10 +137,11 @@ export let exportedQuestions = [
             { qst: "I can read blueprints", like: false, isTouched: false },
             { qst: "I can make simple repairs to home appliances (e.g., dishwasher, TV)", like: false, isTouched: false },
             { qst: "I have used a computerized drafting program", like: false, isTouched: false },
-        ]
+        ],
+        color: "#F0483E"
     },
     {
-        icon_path: "assets/icons/i_icon.png",
+        icon_path: "assets/icons/I_icon.png",
         data: [   //Competencies Section I
             { qst: "I can use formulas to solve mathematical problems", like: false, isTouched: false },
             { qst: "I can perform a scientific experiment or survey", like: false, isTouched: false },
@@ -150,10 +157,11 @@ export let exportedQuestions = [
             { qst: "I understand the phases of mitosis", like: false, isTouched: false },
             { qst: "I can use a scientific calculator", like: false, isTouched: false },
             { qst: "I can solve puzzles that involve logical thinking", like: false, isTouched: false },
-        ]
+        ],
+        color: "#F7941D"
     },
     {
-        icon_path: "assets/icons/a_icon.png",
+        icon_path: "assets/icons/A_icon.png",
         data: [   //Competencies Section A
             { qst: "I can play a musical instrument", like: false, isTouched: false },
             { qst: "I can act in a play", like: false, isTouched: false },
@@ -169,10 +177,11 @@ export let exportedQuestions = [
             { qst: "I can create graphic art", like: false, isTouched: false },
             { qst: "I can design the packaging for a product", like: false, isTouched: false },
             { qst: "I can write advertising copy", like: false, isTouched: false },
-        ]
+        ],
+        color: "#FFCE02"
     },
     {
-        icon_path: "assets/icons/s_icon.png",
+        icon_path: "assets/icons/S_icon.png",
         data: [   //Competencies Section S
             { qst: "I find it easy to talk with all kinds of people", like: false, isTouched: false },
             { qst: "I am good at explaining things to others", like: false, isTouched: false },
@@ -188,10 +197,11 @@ export let exportedQuestions = [
             { qst: "I can easily read people's non-verbal cues", like: false, isTouched: false },
             { qst: "I am good at helping people plan their futures", like: false, isTouched: false },
             { qst: "I can facilitate group discussions", like: false, isTouched: false },
-        ]
+        ],
+        color: "#00763F"
     },
     {
-        icon_path: "assets/icons/e_icon.png",
+        icon_path: "assets/icons/E_icon.png",
         data: [   //Competencies Section E
             { qst: "I know how to be a successful leader", like: false, isTouched: false },
             { qst: "I am a good public speaker", like: false, isTouched: false },
@@ -207,10 +217,11 @@ export let exportedQuestions = [
             { qst: "I can successfully negotiate a deal", like: false, isTouched: false },
             { qst: "I am good at motivating others", like: false, isTouched: false },
             { qst: "I am good at managing the work of others", like: false, isTouched: false },
-        ]
+        ],
+        color: "#0073A4"
     },
     {
-        icon_path: "assets/icons/c_icon.png",
+        icon_path: "assets/icons/C_icon.png",
         data: [   //Competencies Section C
             { qst: "I can file paperwork", like: false, isTouched: false },
             { qst: "I can do a lot of paperwork in a short time", like: false, isTouched: false },
@@ -226,10 +237,11 @@ export let exportedQuestions = [
             { qst: "I can organize/schedule business meetings", like: false, isTouched: false },
             { qst: "I can direct/transfer phone calls", like: false, isTouched: false },
             { qst: "I can keep records of financial transactions", like: false, isTouched: false },
-        ]
+        ],
+        color: "#9279B7"
     },
     {
-        icon_path: "assets/icons/r_icon.png",
+        icon_path: "assets/icons/R_icon.png",
         data: [   //Occupations Section R
             { qst: "Aircraft mechanic", like: false, isTouched: false },
             { qst: "Automobile mechanic", like: false, isTouched: false },
@@ -245,10 +257,11 @@ export let exportedQuestions = [
             { qst: "Roofer", like: false, isTouched: false },
             { qst: "Wildlife control agent", like: false, isTouched: false },
             { qst: "Plumber", like: false, isTouched: false },
-        ]
+        ],
+        color: "#F0483E"
     },
     {
-        icon_path: "assets/icons/i_icon.png",
+        icon_path: "assets/icons/I_icon.png",
         data: [   //Occupations Section I
             { qst: "Meteorologist", like: false, isTouched: false },
             { qst: "Biologist", like: false, isTouched: false },
@@ -264,10 +277,11 @@ export let exportedQuestions = [
             { qst: "Pharmacist", like: false, isTouched: false },
             { qst: "Physician", like: false, isTouched: false },
             { qst: "Veterinarian", like: false, isTouched: false },
-        ]
+        ],
+        color: "#F7941D"
     },
     {
-        icon_path: "assets/icons/a_icon.png",
+        icon_path: "assets/icons/A_icon.png",
         data: [   //Occupations Section A
             { qst: "Musician", like: false, isTouched: false },
             { qst: "Writer", like: false, isTouched: false },
@@ -283,10 +297,11 @@ export let exportedQuestions = [
             { qst: "Art instructor", like: false, isTouched: false },
             { qst: "Film/video editor", like: false, isTouched: false },
             { qst: "Lyricist", like: false, isTouched: false },
-        ]
+        ],
+        color: "#FFCE02"
     },
     {
-        icon_path: "assets/icons/s_icon.png",
+        icon_path: "assets/icons/S_icon.png",
         data: [   //Occupations Section S
             { qst: "Career counselor", like: false, isTouched: false },
             { qst: "School teacher", like: false, isTouched: false },
@@ -302,10 +317,11 @@ export let exportedQuestions = [
             { qst: "Nanny", like: false, isTouched: false },
             { qst: "Recreation worker", like: false, isTouched: false },
             { qst: "School principal", like: false, isTouched: false },
-        ]
+        ],
+        color: "#00763F"
     },
     {
-        icon_path: "assets/icons/e_icon.png",
+        icon_path: "assets/icons/E_icon.png",
         data: [   //Occupations Section E
             { qst: "Buyer", like: false, isTouched: false },
             { qst: "Manufacturer's representative", like: false, isTouched: false },
@@ -321,10 +337,11 @@ export let exportedQuestions = [
             { qst: "Hotel/motel manager", like: false, isTouched: false },
             { qst: "Marketing executive/director", like: false, isTouched: false },
             { qst: "Financial planner", like: false, isTouched: false },
-        ]
+        ],
+        color: "#0073A4"
     },
     {
-        icon_path: "assets/icons/c_icon.png",
+        icon_path: "assets/icons/C_icon.png",
         data: [   //Occupations Section C
             { qst: "Bookkeeper", like: false, isTouched: false },
             { qst: "Accountant", like: false, isTouched: false },
@@ -340,7 +357,8 @@ export let exportedQuestions = [
             { qst: "Customer service representative", like: false, isTouched: false },
             { qst: "Court clerk", like: false, isTouched: false },
             { qst: "Medical records technician", like: false, isTouched: false },
-        ]
+        ],
+        color: "#9279B7"
     },
 
 

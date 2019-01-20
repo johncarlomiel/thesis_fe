@@ -13,19 +13,28 @@ import { Router } from '@angular/router';
   }
 })
 export class NewResultsComponent implements OnInit {
+  riasec: any;
+  summaryCode = Array.apply(null, Array());
+  val = 25;
+  value = 50;
+  r = "r";
   page: number = 1;
   loader = false;
   dateNow = new Date().toLocaleDateString();
 
   isSinglePrinting = false;
   isAllPrinting = false;
-
+  isNewPrinting = false;
+  isEmpty = false;
 
   newResultData: [];
 
   singleResultData: any;
-  singleResultName: String;
+  singleResultName: string;
   singleResultId = 0;
+  singleResultCode: string;
+
+  allOccupations = Array.apply(null, Array())
 
 
   resultModal = false;
@@ -36,14 +45,32 @@ export class NewResultsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.getNewResult();
+    this.getTempResults();
 
   }
 
-  getNewResult() {
-    this.adminService.getNewResults().subscribe((successData) => {
+  onSearchChange(searchValue: string) {
+
+    this.adminService.dynamicSearch("print-section-old", searchValue).subscribe((successData) => {
       this.newResultData = successData;
       console.log(this.newResultData)
+      if (successData.length > 0) {
+        this.isEmpty = false;
+      } else {
+        this.isEmpty = true;
+      }
+    }, (error) => console.log(error))
+  }
+
+  getTempResults() {
+    this.adminService.getTempResults().subscribe((successData) => {
+      this.newResultData = successData;
+      console.log(this.newResultData)
+      if (successData.length > 0) {
+        this.isEmpty = false;
+      } else {
+        this.isEmpty = true;
+      }
     }, (error) => console.log(error))
   }
 
@@ -51,10 +78,13 @@ export class NewResultsComponent implements OnInit {
     console.log(i)
     //Get Sds result
     this.adminService.getMySDS(i).subscribe((successData) => {
-      console.log(successData);
+      console.log(successData)
       this.singleResultData = successData;
+      this.allOccupations = successData[0].result;
       this.singleResultName = name;
       this.singleResultId = i;
+      this.singleResultCode = successData[0].name;
+      console.log(this.singleResultCode)
 
 
       //Open the modal
@@ -66,29 +96,31 @@ export class NewResultsComponent implements OnInit {
   printSingleResult(i) {
     this.loader = true;
     this.isSinglePrinting = true;
-    setTimeout(_ => this.loader = false, 900)
-    setTimeout(_ => {
 
+    this.summaryCode = this.singleResultCode.split("");
+
+    setTimeout(() => this.loader = false, 500);
+    setTimeout(() => {
       window.print();
-
       this.adminService.setSinglePrint(i).subscribe((successData) => {
         swal({
           title: `Printed Sds result of ${this.singleResultName}`,
           type: "success"
         });
-        this.getNewResult();
 
-      }, (error) => console.log(error))
+        this.resultModal = false;
+        this.getTempResults();
+      }, (error) => console.log(error));
 
 
-
-
-      this.isSinglePrinting = false
-      this.resultModal = false;
+      this.isSinglePrinting = false;
     }, 1000);
 
-  }
 
+
+
+
+  }
   printAll() {
 
     swal({
@@ -110,7 +142,7 @@ export class NewResultsComponent implements OnInit {
 
 
           this.adminService.setAllPrint().subscribe((successData) => {
-            this.getNewResult();
+            this.getTempResults();
           }, (error) => console.log(error))
 
 
@@ -124,11 +156,59 @@ export class NewResultsComponent implements OnInit {
     })
 
   }
+
   logout() {
     localStorage.clear();
     this.router.navigate(["/admin/auth"])
-
   }
+  getColor(letter) {
+    if (letter == "R") {
+      return "#F1463C";
+    } else if (letter == "I") {
+      return "#F79517";
+
+    }
+    else if (letter == "A") {
+      return "#FFCF00";
+
+    }
+    else if (letter == "S") {
+      return "#01723B";
+
+    }
+    else if (letter == "E") {
+      return "#0073A5";
+
+    } else {
+      return "#9279B7";
+
+    }
+  }
+  getWord(letter) {
+    if (letter == "R") {
+      return "Realistic";
+    } else if (letter == "I") {
+      return "Investigative";
+
+    }
+    else if (letter == "A") {
+      return "Artistic";
+
+    }
+    else if (letter == "S") {
+      return "Social";
+
+    }
+    else if (letter == "E") {
+      return "Enterprising";
+
+    } else {
+      return "Conventional";
+
+    }
+  }
+
+
 
 
 

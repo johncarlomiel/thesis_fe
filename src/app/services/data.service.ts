@@ -30,4 +30,44 @@ export class DataService {
 
 
   }
+  submitLetters(letters) {
+    console.log(letters)
+
+
+    const url = this.server_url + "api/submitLetters";
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'authorization': localStorage.getItem("Authorization"),
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*'
+      })
+    };
+
+    let data = {
+      letters
+    };
+
+    return this.http.post(url, data, httpOptions);
+
+
+
+  }
+
+  submitSummaryCode(firstLetter, secondLetter, thirdLetter) {
+    const url = this.server_url + "api/submitSummaryCode";
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'authorization': localStorage.getItem("Authorization"),
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*'
+      })
+    };
+    let data = {
+      code: firstLetter + secondLetter + thirdLetter
+    };
+    console.log(firstLetter)
+
+    return this.http.post(url, data, httpOptions);
+  }
 }
