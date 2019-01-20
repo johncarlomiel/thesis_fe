@@ -21,6 +21,7 @@ export class PrintNewComponent implements OnInit {
   loader = false;
   isNewPrinting = false;
   riasec = Array.apply(null, Array());
+  max = [55, 56, 56, 56, 56, 56];
   summaryCode = Array.apply(null, Array());
   constructor(private adminService: AdminService,
     private router: Router) { }

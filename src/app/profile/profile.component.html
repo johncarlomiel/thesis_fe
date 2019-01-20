@@ -34,7 +34,7 @@
             <div class="content">
                 <div class="ui grid ">
                     <div class="ui segment sixteen wide column " *ngFor="let code of codes;let i = index;" style="margin:20px;">
-                        <a class="ui right ribbon label large" [ngStyle]="{'background-color': true ? colors[i]: ''}">{{code.name}}</a>
+                        <a class="ui right ribbon label large" style="color:ghostwhite" [ngStyle]="{'background-color': true ? colors[i]: ''}">{{code.name}}</a>
                         <div *ngFor="let indivCode of code.result">
                             <div class="ui divided items">
                                 <div class="item">

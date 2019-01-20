@@ -19,6 +19,7 @@ export class ArchiveNewComponent implements OnInit {
   riasec = Array.apply(null, Array());
   summaryCode = Array.apply(null, Array());
 
+  max = [55, 56, 56, 56, 56, 56];
   resultModal = false;
   isSinglePrinting = false;
   isNewPrinting = false;
@@ -97,7 +98,7 @@ export class ArchiveNewComponent implements OnInit {
       }
       this.loader = false;
       setTimeout(() => window.print(), 500)
-      setTimeout(() => this.isNewPrinting = false, 1000)
+      setTimeout(() => this.isNewPrinting = false, 1000);
       console.log(this.summaryCode)
     }, (error) => console.log(error))
 

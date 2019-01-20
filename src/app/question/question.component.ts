@@ -52,7 +52,17 @@ export class QuestionComponent implements OnInit {
   proceed: Boolean = false;
   results = Array.apply(null, Array(18));
 
+  testQuestions: any;
+  testIndex: number;
 
+
+  checkProgress(section) {
+    if (section == localStorage.getItem("tsprog")) {
+      return true;
+    }
+
+    return false;
+  }
   ngOnInit() {
     /*
     First question: Activities(R)
@@ -60,7 +70,23 @@ export class QuestionComponent implements OnInit {
     Second question: Activities(A)
 
     */
-    this.questions = exportedQuestions;
+
+    //Check progress
+    if (!this.checkProgress("questions")) {
+      this.router.navigate([localStorage.getItem("tsprog")]);
+    }
+    //Check progress
+
+
+    this.testQuestions = JSON.parse(localStorage.getItem("tsqts"));
+    this.testIndex = Number(localStorage.getItem("qtsIndex"));
+    this.results = JSON.parse(localStorage.getItem("qstResult"));
+    console.log(this.results)
+
+
+    console.log(this.testQuestions)
+    console.log(this.testIndex)
+    // this.questions = exportedQuestions;
 
     this.checkSession();
 
@@ -69,17 +95,19 @@ export class QuestionComponent implements OnInit {
 
 
 
+    //Set default value
+    // this.currentQuestion = this.questions[this.counter].data;
+    // this.title = this.titles[this.counter]
+    // this.changeClassColor(this.counter)
+    // this.changeCurrentImage(this.counter)
 
-    this.currentQuestion = this.questions[this.counter].data;
-    this.title = this.titles[this.counter]
-    this.changeClassColor(this.counter)
-    this.changeCurrentImage(this.counter)
-    console.log(this.questions)
-
-    //Check title
+    //Testing
+    this.currentQuestion = this.testQuestions[this.testIndex].data;
+    this.title = this.titles[this.testIndex]
+    this.changeClassColor(this.testIndex)
+    this.changeCurrentImage(this.testIndex)
 
 
-    //Check if current questions are touched already
 
   }
   change() {
@@ -88,11 +116,11 @@ export class QuestionComponent implements OnInit {
 
 
     this.proceed = false;
-    if (this.counter != this.questions.length) {
+    if (this.testIndex != this.testQuestions.length) {
       //Iterate thru the array of object check if all of them is Touched
-      for (let i = 0; i < this.questions[this.counter].data.length; i++) {
-        console.log(this.questions[this.counter].data[i].isTouched)
-        if (this.questions[this.counter].data[i].isTouched) {
+      for (let i = 0; i < this.testQuestions[this.testIndex].data.length; i++) {
+        console.log(this.testQuestions[this.testIndex].data[i].isTouched)
+        if (this.testQuestions[this.testIndex].data[i].isTouched) {
           this.proceed = true;
         } else {
           this.proceed = false;
@@ -108,27 +136,35 @@ export class QuestionComponent implements OnInit {
       //Check if the variable proceed is thru to proceed to the next question
       if (this.proceed) {
         //Check if this is the end of the array
-        if (this.counter == this.questions.length - 1) {
+        if (this.testIndex == this.testQuestions.length - 1) {
           //Store the likes in the array
-          this.results[this.counter] = this.currentLike;
+          this.results[this.testIndex] = this.currentLike;
           localStorage.setItem('ph1Res', btoa(JSON.stringify(this.results)));
-          this.router.navigate(["self-estimates"])
+          localStorage.setItem("tsprog", "self-estimates");
+          this.router.navigate(["self-estimates"]);
         } else {
-          console.log("Current Count:" + this.counter);
-          console.log("Current Length:" + this.questions.length);
+          console.log("Current Count:" + this.testIndex);
+          console.log("Current Length:" + this.testQuestions.length);
 
           //Store the likes in the array
-          this.results[this.counter] = this.currentLike;
-          //Increment counter
-          this.counter++;
+          this.results[this.testIndex] = this.currentLike;
+          localStorage.setItem("qstResult", JSON.stringify(this.results));
+          //Increment counter update the current value into localStorage
+          this.testIndex++;
+          localStorage.setItem("qtsIndex", this.testIndex.toString());
           //Change question
-          this.currentQuestion = this.questions[this.counter].data;
+          this.currentQuestion = this.testQuestions[this.testIndex].data;
+
+          //Update the questions into localStorage
+          localStorage.setItem("tsqts", JSON.stringify(this.testQuestions));
 
           //Change title
-          this.title = this.titles[this.counter];
+          this.title = this.titles[this.testIndex];
           console.log(this.title)
-          this.changeClassColor(this.counter)
-          this.changeCurrentImage(this.counter)
+
+          // console.log(this.questions)
+          this.changeClassColor(this.testIndex)
+          this.changeCurrentImage(this.testIndex)
 
 
           if (this.title.includes("Activities")) {
@@ -192,22 +228,22 @@ export class QuestionComponent implements OnInit {
 
 
   like(i) {
-    this.questions[this.counter].data[i].like = true;
-    this.questions[this.counter].data[i].isTouched = true;
-    console.log(this.questions[this.counter].data[i])
+    this.testQuestions[this.testIndex].data[i].like = true;
+    this.testQuestions[this.testIndex].data[i].isTouched = true;
+    console.log(this.testQuestions[this.testIndex].data[i])
     this.count();
   }
   dislike(i) {
-    this.questions[this.counter].data[i].like = false;
-    this.questions[this.counter].data[i].isTouched = true;
-    console.log(this.questions[this.counter].data[i])
+    this.testQuestions[this.testIndex].data[i].like = false;
+    this.testQuestions[this.testIndex].data[i].isTouched = true;
+    console.log(this.testQuestions[this.testIndex].data[i])
     this.count();
 
   }
 
   count() {
     this.currentLike = 0;
-    this.questions[this.counter].data.forEach(element => {
+    this.testQuestions[this.testIndex].data.forEach(element => {
       if (element.like) {
         this.currentLike++;
       }
@@ -223,10 +259,10 @@ export class QuestionComponent implements OnInit {
   }
 
   changeClassColor(index) {
-    this.currentColor = this.questions[index].color;
+    this.currentColor = this.testQuestions[index].color;
   }
   changeCurrentImage(index) {
-    this.currentLogo = this.questions[index].icon_path;
+    this.currentLogo = this.testQuestions[index].icon_path;
   }
 
 

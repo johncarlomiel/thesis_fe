@@ -34,8 +34,17 @@ export class EstimatesComponent implements OnInit {
   selfEstiRes = { part1: this.part1Results, part2: this.part2Results }
 
   constructor(public data: DataService, public router: Router) { }
+  checkProgress(section) {
+    if (section == localStorage.getItem("tsprog")) {
+      return true;
+    }
 
+    return false;
+  }
   ngOnInit() {
+    if (!this.checkProgress("self-estimates")) {
+      this.router.navigate([localStorage.getItem("tsprog")]);
+    }
   }
   setValue(name, value) {
     if (name == 'mechanical') {
@@ -137,6 +146,7 @@ export class EstimatesComponent implements OnInit {
       setTimeout(() => {
         this.loader = false;
         this.view = true;
+        localStorage.setItem("tsprog", "evaluate");
         this.router.navigate(["evaluate"]);
 
       }, 2000)

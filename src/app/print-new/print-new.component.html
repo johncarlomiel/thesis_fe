@@ -1,4 +1,4 @@
-<div *ngIf="!isSinglePrinting && !isAllPrinting && !isNewPrinting">
+<div *ngIf="!isNewPrinting">
   <div class="ui top attached demo menu">
     <a class="item" (click)="saydbar.toggle()">
       <i class="sidebar icon"></i>
@@ -211,10 +211,10 @@
     <div class="ui grid" style="margin-left:20px; margin-right:20px;">
       <div class="eight wide column">
         <div class="ui segment">
-          <div class="code-rate" *ngFor="let letter of riasec">
+          <div class="code-rate" *ngFor="let letter of riasec;let i = index;">
             <img src="assets/icons/{{letter.letter}}_icon.png" alt="" class="ui centered mini image image-icon">
 
-            <sui-progress id="{{letter.letter}}" [value]="letter.value" [maximum]="88">
+            <sui-progress id="{{letter.letter}}" [value]="letter.value" [maximum]="max[i]">
               {{letter.word}}
 
             </sui-progress>

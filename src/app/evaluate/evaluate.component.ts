@@ -57,129 +57,145 @@ export class EvaluateComponent implements OnInit {
         },
     ]
     constructor(public authService: AuthService, public router: Router, public data: DataService) { }
-
-    async ngOnInit() {
-        let resultPart1 = JSON.parse(atob(localStorage.getItem("ph1Res")));
-        let resultPart2 = JSON.parse(atob(localStorage.getItem("selfEstiRes")));
-
-        this.activities[0] = resultPart1[0];
-        this.activities[1] = resultPart1[1];
-        this.activities[2] = resultPart1[2];
-        this.activities[3] = resultPart1[3];
-        this.activities[4] = resultPart1[4];
-        this.activities[5] = resultPart1[5];
-
-        this.competencies[0] = resultPart1[6];
-        this.competencies[1] = resultPart1[7];
-        this.competencies[2] = resultPart1[8];
-        this.competencies[3] = resultPart1[9];
-        this.competencies[4] = resultPart1[10];
-        this.competencies[5] = resultPart1[11];
-
-        this.jobs[0] = resultPart1[12];
-        this.jobs[1] = resultPart1[13];
-        this.jobs[2] = resultPart1[14];
-        this.jobs[3] = resultPart1[15];
-        this.jobs[4] = resultPart1[16];
-        this.jobs[5] = resultPart1[17];
-
-        this.self_estimates1 = resultPart2.part1;
-        this.self_estimates2 = resultPart2.part2;
-        console.log(this.jobs)
-        //Get the summary
-        for (let i = 0; i < this.summarys.length; i++) {
-            this.summarys[i] = {
-                value: this.activities[i] +
-                    this.competencies[i] + this.jobs[i]
-                    + this.self_estimates1[i] + this.self_estimates2[i],
-                letter: this.letters[i].acronym,
-                word: this.letters[i].word
-            }
-            this.summaryHolder[i] = {
-                value: this.activities[i] +
-                    this.competencies[i] + this.jobs[i]
-                    + this.self_estimates1[i] + this.self_estimates2[i],
-                letter: this.letters[i].acronym,
-                word: this.letters[i].word
-            }
-
+    checkProgress(section) {
+        if (section == localStorage.getItem("tsprog")) {
+            return true;
         }
-        //Get the ranking
+
+        return false;
+    }
+    ngOnInit() {
+
+        if (!this.checkProgress("evaluate")) {
+            this.router.navigate([localStorage.getItem("tsprog")]);
+        } else {
+            let resultPart1 = JSON.parse(atob(localStorage.getItem("ph1Res")));
+            let resultPart2 = JSON.parse(atob(localStorage.getItem("selfEstiRes")));
+
+            this.activities[0] = resultPart1[0];
+            this.activities[1] = resultPart1[1];
+            this.activities[2] = resultPart1[2];
+            this.activities[3] = resultPart1[3];
+            this.activities[4] = resultPart1[4];
+            this.activities[5] = resultPart1[5];
+
+            this.competencies[0] = resultPart1[6];
+            this.competencies[1] = resultPart1[7];
+            this.competencies[2] = resultPart1[8];
+            this.competencies[3] = resultPart1[9];
+            this.competencies[4] = resultPart1[10];
+            this.competencies[5] = resultPart1[11];
+
+            this.jobs[0] = resultPart1[12];
+            this.jobs[1] = resultPart1[13];
+            this.jobs[2] = resultPart1[14];
+            this.jobs[3] = resultPart1[15];
+            this.jobs[4] = resultPart1[16];
+            this.jobs[5] = resultPart1[17];
+
+            this.self_estimates1 = resultPart2.part1;
+            this.self_estimates2 = resultPart2.part2;
+            console.log(this.jobs)
+            //Get the summary
+            for (let i = 0; i < this.summarys.length; i++) {
+                this.summarys[i] = {
+                    value: this.activities[i] +
+                        this.competencies[i] + this.jobs[i]
+                        + this.self_estimates1[i] + this.self_estimates2[i],
+                    letter: this.letters[i].acronym,
+                    word: this.letters[i].word
+                }
+                this.summaryHolder[i] = {
+                    value: this.activities[i] +
+                        this.competencies[i] + this.jobs[i]
+                        + this.self_estimates1[i] + this.self_estimates2[i],
+                    letter: this.letters[i].acronym,
+                    word: this.letters[i].word
+                }
+
+            }
+            //Get the ranking
 
 
-        // For testing purpose
-        // console.log(this.summaryHolder)
-        // this.summaryHolder = [
-        //     { value: 33, letter: "R" },
-        //     { value: 33, letter: "I" },
-        //     { value: 50, letter: "A" },
-        //     { value: 55, letter: "S" },
-        //     { value: 55, letter: "E" },
-        //     { value: 55, letter: "C" },
-        // ]
-        // For testing purpose
+            // For testing purpose
+            // console.log(this.summaryHolder)
+            // this.summaryHolder = [
+            //     { value: 33, letter: "R" },
+            //     { value: 33, letter: "I" },
+            //     { value: 50, letter: "A" },
+            //     { value: 55, letter: "S" },
+            //     { value: 55, letter: "E" },
+            //     { value: 55, letter: "C" },
+            // ]
+            // For testing purpose
 
 
 
 
-        this.first = await this.calculateShit();
-        this.second = await this.calculateShit();
-        this.third = await this.calculateShit()
+            this.first = this.calculateShit();
+            this.second = this.calculateShit();
+            this.third = this.calculateShit()
 
-        console.log(this.summarys)
-        console.log(this.first)
-        console.log(this.second)
-        console.log(this.third)
+            console.log(this.summarys)
+            console.log(this.first)
+            console.log(this.second)
+            console.log(this.third)
 
-        //Submit RIASEC Results into the server
-        this.data.submitLetters(this.summarys).subscribe((successData) => {
-            console.log(successData);
-        }, (error) => console.log(error));
+            //Submit RIASEC Results into the server
+            this.data.submitLetters(this.summarys).subscribe((successData) => {
+                console.log(successData);
+            }, (error) => console.log(error));
 
-        //Submit the Summary Code into the server
-        this.data.submitSummaryCode(this.first[0].letter, this.second[0].letter, this.third[0].letter).subscribe((successData) => {
-            console.log(successData);
-        }, (error) => console.log(error));
-
-
-
-
-        // Transform it into string
-        this.first.forEach(element => this.firstString += element.letter + " ");
-        this.second.forEach(element => this.secondString += element.letter + " ");
-        this.third.forEach(element => this.thirdString += element.letter + " ");
+            //Submit the Summary Code into the server
+            this.data.submitSummaryCode(this.first[0].letter, this.second[0].letter, this.third[0].letter).subscribe((successData) => {
+                console.log(successData);
+            }, (error) => console.log(error));
 
 
 
-        //get all letter combination
-        for (let i = 0; i < this.first.length; i++) {
-            let firstLetter = this.first[i].letter;
-            for (let k = 0; k < this.second.length; k++) {
-                let secondLetter = this.second[k].letter;
-                for (let o = 0; o < this.third.length; o++) {
-                    let thirdLetter = this.third[o].letter;
 
-                    this.combinations.push(firstLetter + secondLetter + thirdLetter)
+            // Transform it into string
+            this.first.forEach(element => this.firstString += element.letter + " ");
+            this.second.forEach(element => this.secondString += element.letter + " ");
+            this.third.forEach(element => this.thirdString += element.letter + " ");
+
+
+
+            //get all letter combination
+            for (let i = 0; i < this.first.length; i++) {
+                let firstLetter = this.first[i].letter;
+                for (let k = 0; k < this.second.length; k++) {
+                    let secondLetter = this.second[k].letter;
+                    for (let o = 0; o < this.third.length; o++) {
+                        let thirdLetter = this.third[o].letter;
+
+                        this.combinations.push(firstLetter + secondLetter + thirdLetter)
+
+                    }
 
                 }
 
             }
 
+            //Submit result to the database
+            this.data.submitResult(this.combinations).subscribe(data => {
+                console.log(data)
+                localStorage.removeItem("inSession");
+                localStorage.removeItem("ph1Res");
+                localStorage.removeItem("qstResult");
+                localStorage.removeItem("qtsIndex");
+                localStorage.removeItem("selfEstiRes");
+                localStorage.removeItem("tsprog");
+                localStorage.removeItem("tsqts");
+
+
+            },
+                (error) => {
+                    console.log(error)
+                });
+
+
         }
-
-        //Submit result to the database
-        this.data.submitResult(this.combinations).subscribe(data => {
-            console.log(data)
-            localStorage.removeItem("inSession");
-
-
-        },
-            (error) => {
-                console.log(error)
-            });
-
-
-
     }
 
     calculateShit() {
