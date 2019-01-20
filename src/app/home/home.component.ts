@@ -14,6 +14,7 @@ export class HomeComponent implements OnInit {
   constructor(public authService: AuthService, public router: Router, public data: DataService) { }
 
   ngOnInit() {
+
     this.checkSession();
 
 

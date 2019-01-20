@@ -85,7 +85,7 @@ export class EvaluateComponent implements OnInit {
 
         this.self_estimates1 = resultPart2.part1;
         this.self_estimates2 = resultPart2.part2;
-
+        console.log(this.jobs)
         //Get the summary
         for (let i = 0; i < this.summarys.length; i++) {
             this.summarys[i] = {

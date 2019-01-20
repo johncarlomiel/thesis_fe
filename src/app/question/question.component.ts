@@ -109,6 +109,8 @@ export class QuestionComponent implements OnInit {
       if (this.proceed) {
         //Check if this is the end of the array
         if (this.counter == this.questions.length - 1) {
+          //Store the likes in the array
+          this.results[this.counter] = this.currentLike;
           localStorage.setItem('ph1Res', btoa(JSON.stringify(this.results)));
           this.router.navigate(["self-estimates"])
         } else {
