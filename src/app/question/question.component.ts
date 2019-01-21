@@ -81,11 +81,11 @@ export class QuestionComponent implements OnInit {
     this.testQuestions = JSON.parse(localStorage.getItem("tsqts"));
     this.testIndex = Number(localStorage.getItem("qtsIndex"));
     this.results = JSON.parse(localStorage.getItem("qstResult"));
-    console.log(this.results)
+    // console.log(this.results)
 
 
-    console.log(this.testQuestions)
-    console.log(this.testIndex)
+    // console.log(this.testQuestions)
+    // console.log(this.testIndex)
     // this.questions = exportedQuestions;
 
     this.checkSession();
@@ -119,7 +119,7 @@ export class QuestionComponent implements OnInit {
     if (this.testIndex != this.testQuestions.length) {
       //Iterate thru the array of object check if all of them is Touched
       for (let i = 0; i < this.testQuestions[this.testIndex].data.length; i++) {
-        console.log(this.testQuestions[this.testIndex].data[i].isTouched)
+        // console.log(this.testQuestions[this.testIndex].data[i].isTouched)
         if (this.testQuestions[this.testIndex].data[i].isTouched) {
           this.proceed = true;
         } else {
@@ -143,8 +143,8 @@ export class QuestionComponent implements OnInit {
           localStorage.setItem("tsprog", "self-estimates");
           this.router.navigate(["self-estimates"]);
         } else {
-          console.log("Current Count:" + this.testIndex);
-          console.log("Current Length:" + this.testQuestions.length);
+          // console.log("Current Count:" + this.testIndex);
+          // console.log("Current Length:" + this.testQuestions.length);
 
           //Store the likes in the array
           this.results[this.testIndex] = this.currentLike;
@@ -160,7 +160,7 @@ export class QuestionComponent implements OnInit {
 
           //Change title
           this.title = this.titles[this.testIndex];
-          console.log(this.title)
+          // console.log(this.title)
 
           // console.log(this.questions)
           this.changeClassColor(this.testIndex)
@@ -230,13 +230,13 @@ export class QuestionComponent implements OnInit {
   like(i) {
     this.testQuestions[this.testIndex].data[i].like = true;
     this.testQuestions[this.testIndex].data[i].isTouched = true;
-    console.log(this.testQuestions[this.testIndex].data[i])
+    // console.log(this.testQuestions[this.testIndex].data[i])
     this.count();
   }
   dislike(i) {
     this.testQuestions[this.testIndex].data[i].like = false;
     this.testQuestions[this.testIndex].data[i].isTouched = true;
-    console.log(this.testQuestions[this.testIndex].data[i])
+    // console.log(this.testQuestions[this.testIndex].data[i])
     this.count();
 
   }

@@ -7,7 +7,7 @@ import { UserInfo } from '../interfaces/userInfo';
   providedIn: 'root'
 })
 export class AdminService {
-  server_url = "http://localhost:5000/";
+  server_url = "http://192.168.215.185:5000/";
 
   constructor(private http: HttpClient) { }
 
@@ -195,7 +195,7 @@ export class AdminService {
 
 
   graph(data) {
-    console.log(data)
+    // console.log(data)
     const url = this.server_url + "api/admin/graph";
     const httpOptions = {
       headers: new HttpHeaders({
@@ -225,7 +225,7 @@ export class AdminService {
   }
 
   generalGraph(data) {
-    console.log(data)
+    // console.log(data)
     const url = this.server_url + "api/admin/genGraph";
     const httpOptions = {
       headers: new HttpHeaders({
@@ -239,7 +239,7 @@ export class AdminService {
     return this.http.post<[]>(url, data, httpOptions);
   }
   getUsersProblem(problem) {
-    console.log(problem)
+    // console.log(problem)
     const url = this.server_url + "api/admin/indivProb";
     const httpOptions = {
       headers: new HttpHeaders({

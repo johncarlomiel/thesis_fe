@@ -45,7 +45,7 @@ export class ProfileComponent implements OnInit {
 
       this.userInfo = successData
       this.userInfo.name = this.capitalizeFirstLetter(this.userInfo.name)
-      console.log(this.userInfo)
+      // console.log(this.userInfo)
     },
       (error) => {
         this.router.navigate(["/"])
@@ -59,7 +59,7 @@ export class ProfileComponent implements OnInit {
     //Get user code information
     this.profileService.getMyCode().subscribe((successData) => {
       this.codes = successData;
-      console.log(this.codes.length)
+      // console.log(this.codes.length)
       for (let i = 0; i < this.codes.length; i++) {
         this.colors.push(this.randColor());
       }

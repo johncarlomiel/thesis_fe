@@ -40,7 +40,7 @@ export class ArchiveNewComponent implements OnInit {
       } else {
         this.oldResultData = successData;
 
-        console.log(this.oldResultData)
+        // console.log(this.oldResultData)
         this.noResult = false;
       }
 
@@ -54,22 +54,22 @@ export class ArchiveNewComponent implements OnInit {
       } else {
         this.oldResultData = successData;
 
-        console.log(this.oldResultData)
+        // console.log(this.oldResultData)
         this.noResult = false;
       }
     }, (error) => console.log(error))
   }
 
   viewSingleResult(i, name, summary_code) {
-    console.log(i)
+    // console.log(i)
     //Get Sds result
     this.adminService.getMySDS(i).subscribe((successData) => {
-      console.log(successData);
+      // console.log(successData);
       this.singleResultData = successData;
       this.singleResultName = name;
       this.singleResultId = i;
       this.singleResultCode = summary_code;
-      console.log(this.singleResultCode)
+      // console.log(this.singleResultCode)
 
 
       //Open the modal
@@ -99,7 +99,7 @@ export class ArchiveNewComponent implements OnInit {
       this.loader = false;
       setTimeout(() => window.print(), 500)
       setTimeout(() => this.isNewPrinting = false, 1000);
-      console.log(this.summaryCode)
+      // console.log(this.summaryCode)
     }, (error) => console.log(error))
 
 

@@ -53,7 +53,7 @@ export class NewResultsComponent implements OnInit {
 
     this.adminService.dynamicSearch("print-section-old", searchValue).subscribe((successData) => {
       this.newResultData = successData;
-      console.log(this.newResultData)
+      // console.log(this.newResultData)
       if (successData.length > 0) {
         this.isEmpty = false;
       } else {
@@ -65,7 +65,7 @@ export class NewResultsComponent implements OnInit {
   getTempResults() {
     this.adminService.getTempResults().subscribe((successData) => {
       this.newResultData = successData;
-      console.log(this.newResultData)
+      // console.log(this.newResultData)
       if (successData.length > 0) {
         this.isEmpty = false;
       } else {
@@ -75,16 +75,16 @@ export class NewResultsComponent implements OnInit {
   }
 
   viewSingleResult(i, name) {
-    console.log(i)
+    // console.log(i)
     //Get Sds result
     this.adminService.getMySDS(i).subscribe((successData) => {
-      console.log(successData)
+      // console.log(successData)
       this.singleResultData = successData;
       this.allOccupations = successData[0].result;
       this.singleResultName = name;
       this.singleResultId = i;
       this.singleResultCode = successData[0].name;
-      console.log(this.singleResultCode)
+      // console.log(this.singleResultCode)
 
 
       //Open the modal

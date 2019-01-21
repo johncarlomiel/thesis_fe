@@ -35,14 +35,14 @@ export class HomeComponent implements OnInit {
 
 
 
-        console.log(this.userSession)
+        // console.log(this.userSession)
 
       },
         (error) => {
           this.userSession = false;
 
 
-          console.log(this.userSession)
+          // console.log(this.userSession)
           console.log(error)
         });
     }

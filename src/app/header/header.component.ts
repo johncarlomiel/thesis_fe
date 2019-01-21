@@ -25,7 +25,6 @@ export class HeaderComponent implements OnInit {
     private userService: UserService) { }
 
   ngOnInit() {
-    console.log(atob(localStorage.getItem("inSession")))
     if (localStorage.getItem("inSession") != null && localStorage.getItem("inSession") != "") {
       this.startLabel = "Continue Session";
 
@@ -39,7 +38,7 @@ export class HeaderComponent implements OnInit {
       this.checkSdsStatus();
       if (this.router.url == "/questions" || this.router.url == "/self-estimates" || this.router.url == "/evaluate") {
         this.onSdsSession = true;
-        console.log('true')
+
 
       } else {
 
@@ -51,7 +50,7 @@ export class HeaderComponent implements OnInit {
   checkUserSession() {
     this.authService.checkSession().subscribe((successData) => {
       this.userSession = true;
-      console.log(this.userSession)
+
     },
       (error) => {
         console.log(error)

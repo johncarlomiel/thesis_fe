@@ -7,7 +7,7 @@ import { UserInfo } from '../interfaces/userInfo';
   providedIn: 'root'
 })
 export class DataService {
-  server_url = "http://localhost:5000/";
+  server_url = "http://192.168.215.185:5000/";
 
   constructor(private http: HttpClient) { }
 
@@ -31,7 +31,7 @@ export class DataService {
 
   }
   submitLetters(letters) {
-    console.log(letters)
+    // console.log(letters)
 
 
     const url = this.server_url + "api/submitLetters";
@@ -66,7 +66,7 @@ export class DataService {
     let data = {
       code: firstLetter + secondLetter + thirdLetter
     };
-    console.log(firstLetter)
+    // console.log(firstLetter)
 
     return this.http.post(url, data, httpOptions);
   }

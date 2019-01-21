@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 export class AuthService {
   private loggedInStatus: boolean = false;
   userInfo: Observable<UserInfo>;
-  server_url = "http://localhost:5000/";
+  server_url = "http://192.168.215.185:5000/";
 
 
 
@@ -22,7 +22,7 @@ export class AuthService {
 
   setLoggedIn(value) {
     this.loggedInStatus = value;
-    console.log(this.loggedInStatus)
+    // console.log(this.loggedInStatus)
   }
 
   get isLoggedIn() {

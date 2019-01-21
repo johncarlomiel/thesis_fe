@@ -34,13 +34,13 @@ export class ArchiveComponent implements OnInit {
 
   onSearchChange(searchValue: string) {
     this.adminService.dynamicSearch("old-archive", searchValue).subscribe((successData) => {
-      console.log(successData);
+      // console.log(successData);
       if (successData.length == 0) {
         this.noResult = true;
       } else {
         this.oldResultData = successData;
 
-        console.log(this.oldResultData)
+        // console.log(this.oldResultData)
         this.noResult = false;
       }
     }, (error) => console.log(error))
@@ -53,7 +53,7 @@ export class ArchiveComponent implements OnInit {
       } else {
         this.oldResultData = successData;
 
-        console.log(this.oldResultData)
+        // console.log(this.oldResultData)
         this.noResult = false;
       }
     }, (error) => console.log(error))
@@ -61,15 +61,15 @@ export class ArchiveComponent implements OnInit {
 
 
   viewSingleResult(id, name) {
-    console.log(id);
+    // console.log(id);
     this.adminService.getMySDS(id).subscribe((successData) => {
-      console.log(successData)
+      // console.log(successData)
       this.singleResultData = successData;
       this.allOccupations = successData[0].result;
       this.singleResultName = name;
       this.singleResultId = id;
       this.singleResultCode = successData[0].name;
-      console.log(this.singleResultCode)
+      // console.log(this.singleResultCode)
 
 
       this.resultModal = true;

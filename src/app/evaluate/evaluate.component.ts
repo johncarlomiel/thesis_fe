@@ -95,7 +95,7 @@ export class EvaluateComponent implements OnInit {
 
             this.self_estimates1 = resultPart2.part1;
             this.self_estimates2 = resultPart2.part2;
-            console.log(this.jobs)
+            // console.log(this.jobs)
             //Get the summary
             for (let i = 0; i < this.summarys.length; i++) {
                 this.summarys[i] = {
@@ -136,19 +136,19 @@ export class EvaluateComponent implements OnInit {
             this.second = this.calculateShit();
             this.third = this.calculateShit()
 
-            console.log(this.summarys)
-            console.log(this.first)
-            console.log(this.second)
-            console.log(this.third)
+            // console.log(this.summarys)
+            // console.log(this.first)
+            // console.log(this.second)
+            // console.log(this.third)
 
             //Submit RIASEC Results into the server
             this.data.submitLetters(this.summarys).subscribe((successData) => {
-                console.log(successData);
+
             }, (error) => console.log(error));
 
             //Submit the Summary Code into the server
             this.data.submitSummaryCode(this.first[0].letter, this.second[0].letter, this.third[0].letter).subscribe((successData) => {
-                console.log(successData);
+
             }, (error) => console.log(error));
 
 
@@ -179,7 +179,7 @@ export class EvaluateComponent implements OnInit {
 
             //Submit result to the database
             this.data.submitResult(this.combinations).subscribe(data => {
-                console.log(data)
+
                 localStorage.removeItem("inSession");
                 localStorage.removeItem("ph1Res");
                 localStorage.removeItem("qstResult");
@@ -212,7 +212,7 @@ export class EvaluateComponent implements OnInit {
             if (highestValue.value < this.summaryHolder[i].value) {
                 highestValue.value = this.summaryHolder[i].value;
                 highestValue.index = i;
-                console.log(this.summaryHolder[i].letter)
+                // console.log(this.summaryHolder[i].letter)
                 highestValue.letter = this.summaryHolder[i].letter;
                 highestValue.kuha = true;
 
@@ -238,8 +238,8 @@ export class EvaluateComponent implements OnInit {
 
 
         for (let k = 0; k < this.summaryHolder.length; k++) {
-            console.log(highestValue.value)
-            console.log(this.summaryHolder[k].value)
+            // console.log(highestValue.value)
+            // console.log(this.summaryHolder[k].value)
             if (highestValue.value == this.summaryHolder[k].value) {
                 myStorage.push({
                     value: this.summaryHolder[k].value,
@@ -269,8 +269,8 @@ export class EvaluateComponent implements OnInit {
             }
         });
 
-        console.log(this.summaryHolder)
-        console.log(myStorage)
+        // console.log(this.summaryHolder)
+        // console.log(myStorage)
 
         return myStorage;
 

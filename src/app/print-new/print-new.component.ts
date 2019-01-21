@@ -33,7 +33,7 @@ export class PrintNewComponent implements OnInit {
   onSearchChange(searchValue: string) {
     this.adminService.dynamicSearch("print-section-new", searchValue).subscribe((successData) => {
       this.newResultData = successData;
-      console.log(this.newResultData)
+      // console.log(this.newResultData)
       if (successData.length > 0) {
         this.isEmpty = false;
       } else {
@@ -45,7 +45,7 @@ export class PrintNewComponent implements OnInit {
   getNewResult() {
     this.adminService.getNewResults().subscribe((successData) => {
       this.newResultData = successData;
-      console.log(this.newResultData)
+      // console.log(this.newResultData)
       if (successData.length > 0) {
         this.isEmpty = false;
       } else {
@@ -55,10 +55,10 @@ export class PrintNewComponent implements OnInit {
   }
 
   viewSingleResult(i, name) {
-    console.log(i)
+    // console.log(i)
     //Get Sds result
     this.adminService.getMySDS(i).subscribe((successData) => {
-      console.log(successData);
+      // console.log(successData);
       this.singleResultData = successData;
       this.singleResultName = name;
       this.singleResultId = i;
@@ -102,7 +102,7 @@ export class PrintNewComponent implements OnInit {
       }, 500)
 
       setTimeout(() => this.isNewPrinting = false, 1000)
-      console.log(this.summaryCode)
+      // console.log(this.summaryCode)
     }, (error) => console.log(error))
 
 

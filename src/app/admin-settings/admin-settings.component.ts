@@ -21,14 +21,14 @@ export class AdminSettingsComponent implements OnInit {
   getAllUsers() {
     this.adminService.getAllUsers().subscribe((successData) => {
       this.allUsers = successData;
-      console.log(this.allUsers)
+      // console.log(this.allUsers)
 
     }, (error) => console.log(error))
   }
 
   changeType(type, id) {
     this.adminService.changeType(type, id).subscribe((successData) => {
-      console.log(successData);
+      // console.log(successData);
       this.getAllUsers();
     }, (error) => console.log(error))
   }

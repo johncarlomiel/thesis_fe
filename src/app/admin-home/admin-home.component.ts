@@ -55,7 +55,7 @@ export class AdminHomeComponent implements OnInit {
   }
   getSDS(i) {
     this.adminService.getMySDS(i).subscribe((successData) => {
-      console.log(successData)
+      // console.log(successData)
       if (successData.length == 0) {
         this.noInfo = true;
       } else {
@@ -102,7 +102,7 @@ export class AdminHomeComponent implements OnInit {
 
         });
 
-        console.log(this.problemTitle)
+        // console.log(this.problemTitle)
         this.problemTitle.forEach((element, index) => {
           if (element.questions.length > 1) {
             this.userProblem.push(element)
@@ -121,7 +121,7 @@ export class AdminHomeComponent implements OnInit {
 
   getEform(i) {
     this.adminService.getEform(i).subscribe((successData) => {
-      console.log(successData)
+      // console.log(successData)
       if (successData.hasEform) {
         this.eformURL = successData.url;
         this.noInfo = false;
@@ -145,7 +145,7 @@ export class AdminHomeComponent implements OnInit {
           })
 
         });
-        console.log(this.moreInfo)
+        // console.log(this.moreInfo)
         this.noInfo = false;
       } else {
         this.noInfo = true
@@ -159,7 +159,7 @@ export class AdminHomeComponent implements OnInit {
     this.userInfo = Array.apply(null, Array())
     this.adminService.getInfo(i).subscribe((successData) => {
       if (successData != null || undefined) {
-        console.log(successData)
+        // console.log(successData)
         if (successData.have_friends) { successData.have_friends = "I do have" }
         else { successData.have_friends = "I don't have" }
         if (successData.not_livingwith_parents == "") successData.not_livingwith_parents = "(I'm living with my parents)"
@@ -181,7 +181,7 @@ export class AdminHomeComponent implements OnInit {
           })
         });
 
-        console.log(this.userInfo)
+        // console.log(this.userInfo)
         this.noInfo = false;
       } else {
         this.noInfo = true;
@@ -211,7 +211,7 @@ export class AdminHomeComponent implements OnInit {
     }).then((result) => {
       if (result.value) {
         this.adminService.deleteUser(i).subscribe((successData) => {
-          console.log(successData)
+          // console.log(successData)
 
           this.getUsers();
         }, (error) => console.log(error))
