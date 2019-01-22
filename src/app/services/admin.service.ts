@@ -252,7 +252,32 @@ export class AdminService {
     }
     return this.http.post<[]>(url, problem, httpOptions);
   }
+  getOldPrintResults() {
+    const url = this.server_url + "api/admin/old-print";
+    const httpOptions = {
+      headers: new HttpHeaders({
 
+        'authorization': localStorage.getItem("AdminAuthorization"),
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*'
+      })
+
+    }
+    return this.http.get<[]>(url, httpOptions);
+  }
+  getOldArchiveResults() {
+    const url = this.server_url + "api/admin/old-archive";
+    const httpOptions = {
+      headers: new HttpHeaders({
+
+        'authorization': localStorage.getItem("AdminAuthorization"),
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*'
+      })
+
+    }
+    return this.http.get<[]>(url, httpOptions);
+  }
   getNewResults() {
     const url = this.server_url + "api/admin/newResults";
     const httpOptions = {

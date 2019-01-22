@@ -47,6 +47,8 @@ import { ArchiveComponent } from './archive/archive.component';
 import { AdminSettingsComponent } from './admin-settings/admin-settings.component';
 import { PrintNewComponent } from './print-new/print-new.component';
 import { ArchiveNewComponent } from './archive-new/archive-new.component';
+import { PrintOldComponent } from './print-old/print-old.component';
+import { ArchiveOldComponent } from './archive-old/archive-old.component';
 
 
 FusionChartsModule.fcRoot(FusionCharts, Charts, FusionTheme, Candy);
@@ -76,6 +78,8 @@ FusionChartsModule.fcRoot(FusionCharts, Charts, FusionTheme, Candy);
     AdminSettingsComponent,
     PrintNewComponent,
     ArchiveNewComponent,
+    PrintOldComponent,
+    ArchiveOldComponent,
 
   ],
   imports: [

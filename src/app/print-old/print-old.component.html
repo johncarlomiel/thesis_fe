@@ -1,4 +1,4 @@
-<div *ngIf="!isSinglePrinting && !isAllPrinting && !isNewPrinting">
+<div *ngIf="!isSinglePrinting && !isAllPrinting">
   <div class="ui top attached demo menu">
     <a class="item" (click)="saydbar.toggle()">
       <i class="sidebar icon"></i>
@@ -21,7 +21,7 @@
       <a class="item" routerLink="/admin/graph/general">
         General Reports
       </a>
-      <a class="item" routerLink="/admin/old-print">
+      <a class="item active" routerLink="/admin/old-print">
         Print Section
         <div class="ui grey horizontal label">Old</div>
       </a>
@@ -29,7 +29,7 @@
         Archive Section
         <div class="ui grey horizontal label">Old</div>
       </a>
-      <a class="item active" routerLink="/admin/print">
+      <a class="item" routerLink="/admin/print">
         Print Section
         <div class="ui grey horizontal label">New</div>
       </a>
@@ -86,18 +86,11 @@
           </p>
         </div>
 
-        <div class="right">
-          <button class="button ui disabled" (click)="printAll()">
-            Print All
-          </button>
-        </div>
         <br>
         <div class="ui input" style="float:right">
           <input type="text" placeholder="Search..." (input)="onSearchChange($event.target.value)">
         </div>
-        <br>
-        <h2 class="ui red header center" *ngIf="isEmpty">No Result</h2>
-        <table class="ui celled table" *ngIf="!isEmpty">
+        <table class="ui celled table">
           <thead>
             <tr>
               <th>Name</th>
@@ -105,7 +98,7 @@
               <th>Actions</th>
             </tr>
           </thead>
-          <tbody *ngIf="!isEmpty">
+          <tbody>
             <tr *ngFor="let item of newResultData | paginate: { itemsPerPage: 10, currentPage: page } ; let i = index">
               <td>{{item.name}}</td>
               <td>{{item.username}}</td>
@@ -191,94 +184,51 @@
 
 
 <!-- Single Print -->
-<div *ngIf="isSinglePrinting">
+<div *ngIf="isSinglePrinting" class="printContent">
   <div class="ui active dimmer" *ngIf="loader">
     <div class="ui massive text loader">Loading</div>
   </div>
-
-
-  <div class="head">
-    <div style="margin-bottom:10px;padding-right:20px;padding-left:20px;">
-      <div id="logo_header" class="ui">
-        <img src="assets/images/gclogoprint.png" class="ui mini left floated image" alt="">
-        <img src="assets/icons/riasec-logo.png" class="ui mini right floated image" alt="">
-      </div>
-      <h4 class="center" style="font-weight:bolder">GORDON COLLEGE</h4>
-      <h4 class="center" style="font-weight:bolder">STUDENT WELFARE OFFICE</h4>
-      <p class="center" style="font-weight:bold">Tapinac Oval Sports Complex, East Tapinac, Olongapo City</p>
-
+  <div class="ui container">
+    <div class="center">
+      <img src="assets/images/gclogoprint.png" alt="" width="48" height="48">
     </div>
+    <h5 class="center" style="letter-spacing:0.2em;font-weight: bold;color:grey;">OFFICIAL RESULT</h5>
+    <p class="center" style="font-weight:600;">City of Olongapo</p>
+    <h4 class="center" style="font-weight:bolder">GORDON COLLEGE</h4>
+    <h4 class="center" style="font-weight:bolder">STUDENT WELFARE OFFICE</h4>
+
+    <hr>
+
+    <span style="float:right;font: weight 600;">{{dateNow}}</span>
+    <h2 style="font-weight:bolder;">{{singleResultName}}</h2>
+    <hr>
+
+    <div class="ui card template" *ngFor="let item of singleResultData" style="width:100%">
+      <!-- Header -->
+      <div class="content">
+        <div class="header">[{{item.name}}]</div>
+      </div>
+      <!-- Body -->
+      <div class="content data-content">
+        <table class="ui celled table">
+          <thead>
+            <tr>
+              <th class="center">Occupation</th>
+              <th class="center">Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let itemRes of item.result">
+              <td>{{itemRes.occupation}}</td>
+              <td>{{itemRes.description}}</td>
+            </tr>
+          </tbody>
+        </table>
+
+      </div>
+    </div>
+
   </div>
-
-
-
-
-  <div class="body">
-
-    <div style="margin-left:20px; margin-right:20px;">
-      <hr>
-      <div class="ui black message" id="message">
-        {{singleResultName}}
-        <span style="float:right">{{dateNow}}</span>
-      </div>
-    </div>
-    <h2 class="center container" id="print_header">OFFICIAL RESULT</h2>
-    <div class="ui grid" style="margin-left:20px; margin-right:20px;">
-      <div class="eight wide column">
-        <div class="ui card" style="height:100%;width:100%;">
-          <div class="content">
-            <h3 class="ui header center bolder">Summary Code Occupations</h3>
-
-            <div class="ui bulleted divided list">
-              <div class="item" *ngFor="let item of allOccupations">{{item.occupation}}</div>
-
-            </div>
-
-
-
-          </div>
-        </div>
-      </div>
-      <div class="eight wide column">
-        <div class="ui card" style="width:100%;height:100%;">
-          <div class="content">
-
-            <h3 class="ui header center bolder">My Summary Code</h3>
-            <div class="containerBox">
-
-              <img src="assets/icons/riasec-logo.png" class="img-summary" alt="" width="200" height="200">
-              <div class="center-text">
-                <span *ngFor="let code of summaryCode" style="font-weight:bolder;font-size:1.5em" [ngStyle]="{'color': true ? getColor(code) : ''}">
-                  {{code}}
-                </span>
-              </div>
-            </div>
-
-            <div *ngFor="let code of summaryCode">
-              <div class="ui divider"></div>
-              <img class="ui middle aligned tiny image" src="assets/icons/{{code}}_icon.png">
-              <span style="font-weight: bolder; font-size:1.5em; margin-left: 10px;letter-spacing: 5px;" [ngStyle]="{'color': true ? getColor(code) : ''}">
-                {{getWord(code)}}</span>
-            </div>
-
-
-
-
-
-
-          </div>
-        </div>
-
-      </div>
-    </div>
-
-    <div class="ui tiny message" style="margin-left:20px; margin-right:20px;">
-      <p style="font-style:italic">Note: You can use your summary code to search all of the occupation(s)
-        available on your code
-        in https://www.onetonline.org/ </p>
-    </div>
-  </div>
-
 </div>
 
 
@@ -337,16 +287,4 @@
 
     </div>
   </div>
-</div>
-
-
-
-
-
-<div class="newPrint" *ngIf="isNewPrinting">
-  <div class="ui active dimmer" *ngIf="loader">
-    <div class="ui massive text loader">Loading</div>
-  </div>
-
-
 </div>

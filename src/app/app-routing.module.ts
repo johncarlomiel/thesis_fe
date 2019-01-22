@@ -22,6 +22,8 @@ import { ArchiveComponent } from './archive/archive.component';
 import { AdminSettingsComponent } from './admin-settings/admin-settings.component';
 import { PrintNewComponent } from './print-new/print-new.component';
 import { ArchiveNewComponent } from './archive-new/archive-new.component';
+import { PrintOldComponent } from './print-old/print-old.component';
+import { ArchiveOldComponent } from './archive-old/archive-old.component';
 
 
 const routes: Routes = [
@@ -82,23 +84,38 @@ const routes: Routes = [
   },
   {
     path: "admin/print",
-    component: NewResultsComponent
+    component: NewResultsComponent,
+    canActivate: [AdminGuard]
   },
   {
     path: "admin/archive",
-    component: ArchiveComponent
+    component: ArchiveComponent,
+    canActivate: [AdminGuard]
   },
   {
     path: "admin/settings",
-    component: AdminSettingsComponent
+    component: AdminSettingsComponent,
+    canActivate: [AdminGuard]
   },
   {
     path: "admin/new-print",
-    component: PrintNewComponent
+    component: PrintNewComponent,
+    canActivate: [AdminGuard]
   },
   {
     path: "admin/new-archive",
-    component: ArchiveNewComponent
+    component: ArchiveNewComponent,
+    canActivate: [AdminGuard]
+  },
+  {
+    path: "admin/old-print",
+    component: PrintOldComponent,
+    canActivate: [AdminGuard]
+  },
+  {
+    path: "admin/old-archive",
+    component: ArchiveOldComponent,
+    canActivate: [AdminGuard]
   },
   {
     path: '404',

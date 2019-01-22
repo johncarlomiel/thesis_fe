@@ -1,4 +1,4 @@
-<div *ngIf="!isSinglePrinting && !isNewPrinting">
+<div *ngIf="!isSinglePrinting">
   <div class="ui top attached demo menu">
     <a class="item" (click)="sidebar.toggle()">
       <i class="sidebar icon"></i>
@@ -25,7 +25,7 @@
         Print Section
         <div class="ui grey horizontal label">Old</div>
       </a>
-      <a class="item" routerLink="/admin/old-archive">
+      <a class="item active" routerLink="/admin/old-archive">
         Archive Section
         <div class="ui grey horizontal label">Old</div>
       </a>
@@ -41,7 +41,7 @@
         Archive Section
         <div class="ui grey horizontal label">New</div>
       </a>
-      <a class="item active" routerLink="/admin/new-archive">
+      <a class="item" routerLink="/admin/new-archive">
         Archive Section
         <div class="ui red horizontal label">New</div>
       </a>
@@ -90,7 +90,7 @@
               <td>{{item.username}}</td>
               <td>
                 <div class="center">
-                  <button class="ui blue button" (click)="viewSingleResult(item.id, item.name, item.summary_code)">
+                  <button class="ui blue button" (click)="viewSingleResult(item.id, item.name)">
                     View result
                   </button>
                 </div>
@@ -120,7 +120,7 @@
 <sui-modal [isClosable]="true" (dismissed)="resultModal = false" *ngIf="resultModal && !isSinglePrinting" #mymodal>
   <div class="header">
     <div class="right">
-      <button class="ui labeled icon button blue" (click)="printNewSingleResult(singleResultId);">
+      <button class="ui labeled icon button blue" (click)="printSingleResult(singleResultId);">
         <i class="print icon"></i>
         Print
       </button>
@@ -164,83 +164,49 @@
 </sui-modal>
 
 <!-- Single Print -->
-<div class="newPrint" *ngIf="isNewPrinting">
+<div *ngIf="isSinglePrinting" class="printContent">
   <div class="ui active dimmer" *ngIf="loader">
     <div class="ui massive text loader">Loading</div>
   </div>
-  <div class="head">
-    <div style="margin-bottom:10px;padding-right:20px;padding-left:20px;">
-      <div id="logo_header" class="ui">
-        <img src="assets/images/gclogoprint.png" class="ui mini left floated image" alt="">
-        <img src="assets/icons/riasec-logo.png" class="ui mini right floated image" alt="">
-      </div>
-      <h4 class="center" style="font-weight:bolder">GORDON COLLEGE</h4>
-      <h4 class="center" style="font-weight:bolder">STUDENT WELFARE OFFICE</h4>
-      <p class="center" style="font-weight:bold">Tapinac Oval Sports Complex, East Tapinac, Olongapo City</p>
-
+  <div class="ui container">
+    <div class="center">
+      <img src="assets/images/gclogoprint.png" alt="" width="48" height="48">
     </div>
-  </div>
+    <h5 class="center" style="letter-spacing:0.2em;font-weight: bold;color:grey;">OFFICIAL RESULT</h5>
+    <p class="center" style="font-weight:600;">City of Olongapo</p>
+    <h4 class="center" style="font-weight:bolder">GORDON COLLEGE</h4>
+    <h4 class="center" style="font-weight:bolder">STUDENT WELFARE OFFICE</h4>
 
-  <div class="body">
+    <hr>
 
-    <div style="margin-left:20px; margin-right:20px;">
-      <hr>
-      <div class="ui black message" id="message">
-        {{singleResultName}}
-        <span style="float:right">{{dateNow}}</span>
+    <span style="float:right;font: weight 600;">{{dateNow}}</span>
+    <h2 style="font-weight:bolder;">{{singleResultName}}</h2>
+    <hr>
+
+    <div class="ui card template" *ngFor="let item of singleResultData" style="width:100%">
+      <!-- Header -->
+      <div class="content">
+        <div class="header">[{{item.name}}]</div>
       </div>
-    </div>
-    <h2 class="center container" id="print_header">OFFICIAL RESULT</h2>
-    <div class="ui grid" style="margin-left:20px; margin-right:20px;">
-      <div class="eight wide column">
-        <div class="ui segment">
-          <div class="code-rate" *ngFor="let letter of riasec;let i = index;">
-            <img src="assets/icons/{{letter.letter}}_icon.png" alt="" class="ui centered mini image image-icon">
-
-            <sui-progress id="{{letter.letter}}" [value]="letter.value" [maximum]="max[i]">
-              {{letter.word}}
-
-            </sui-progress>
-          </div>
-
-
-        </div>
-      </div>
-      <div class="eight wide column">
-        <div class="ui card" style="width:100%;height:100%;">
-          <div class="content">
-
-            <h3 class="ui header center bolder">My Summary Code</h3>
-            <div class="containerBox">
-
-              <img src="assets/icons/riasec-logo.png" class="img-summary" alt="" width="200" height="200">
-              <div class="center-text">
-                <span *ngFor="let code of summaryCode" style="font-weight:bolder;font-size:1.5em" [ngStyle]="{'color': true ? getColor(code.letter) : ''}">
-                  {{code.letter}}
-                </span>
-              </div>
-            </div>
-
-            <div *ngFor="let code of summaryCode">
-              <div class="ui divider"></div>
-              <img class="ui middle aligned tiny image" src="assets/icons/{{code.letter}}_icon.png">
-              <span style="font-weight: bolder; font-size:1.5em; margin-left: 10px;letter-spacing: 5px;" [ngStyle]="{'color': true ? getColor(code.letter) : ''}">
-                {{code.word}}</span>
-            </div>
-
-
-
-
-
-            <div class="ui tiny message">
-              <p style="font-style:italic">Note: You can use your summary code to search all of the occupation(s)
-                available on your code
-                in https://www.onetonline.org/ </p>
-            </div>
-          </div>
-        </div>
+      <!-- Body -->
+      <div class="content data-content">
+        <table class="ui celled table">
+          <thead>
+            <tr>
+              <th class="center">Occupation</th>
+              <th class="center">Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let itemRes of item.result">
+              <td>{{itemRes.occupation}}</td>
+              <td>{{itemRes.description}}</td>
+            </tr>
+          </tbody>
+        </table>
 
       </div>
     </div>
+
   </div>
 </div>
