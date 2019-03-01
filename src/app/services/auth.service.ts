@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 export class AuthService {
   private loggedInStatus: boolean = false;
   userInfo: Observable<UserInfo>;
-  server_url = "http://192.168.215.185:5000/";
+  server_url = "http://localhost:5000/";
 
 
 
@@ -36,7 +36,7 @@ export class AuthService {
     //Check if there is a token inside localStorage
     if (localStorage.getItem("Authorization") != null) {
       //Verify the token
-      const url = this.server_url + "api/checkSession";
+      const url = this.server_url + "auth/users/checkSession";
       const httpOptions = {
         headers: new HttpHeaders({
           'authorization': localStorage.getItem("Authorization"),
@@ -54,12 +54,14 @@ export class AuthService {
   }
 
   //Register
-  register(username, password, name) {
-    const url = this.server_url + "api/register";
+  register(username, password, name, gender, dp_path) {
+    const url = this.server_url + "auth/users/register";
     const data = {
       username,
       password,
-      name
+      name,
+      gender,
+      dp_path
     }
     const httpOptions = {
       headers: new HttpHeaders({
@@ -84,7 +86,7 @@ export class AuthService {
 
   //:Login
   login(username, password) {
-    const url = this.server_url + "api/login";
+    const url = this.server_url + "auth/users/login";
     const data = {
       username,
       password

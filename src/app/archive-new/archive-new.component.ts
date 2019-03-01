@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AdminService } from '../services/admin.service';
 import { Router } from '@angular/router';
+import swal from 'sweetalert2';
 
 @Component({
   selector: 'app-archive-new',
@@ -28,6 +29,9 @@ export class ArchiveNewComponent implements OnInit {
   singleResultName: string;
   singleResultCode: string;
 
+  recommendation: string;
+  psychometrician: string;
+
   constructor(private adminService: AdminService, private router: Router) { }
 
   ngOnInit() {
@@ -38,9 +42,10 @@ export class ArchiveNewComponent implements OnInit {
       if (successData.length == 0) {
         this.noResult = true;
       } else {
+
         this.oldResultData = successData;
 
-        // console.log(this.oldResultData)
+        console.log(this.oldResultData)
         this.noResult = false;
       }
 
@@ -54,17 +59,19 @@ export class ArchiveNewComponent implements OnInit {
       } else {
         this.oldResultData = successData;
 
-        // console.log(this.oldResultData)
+        console.log(this.oldResultData)
         this.noResult = false;
       }
     }, (error) => console.log(error))
   }
 
-  viewSingleResult(i, name, summary_code) {
+  viewSingleResult(i, name, summary_code, timestamp) {
     // console.log(i)
     //Get Sds result
     this.adminService.getMySDS(i).subscribe((successData) => {
-      // console.log(successData);
+      console.log(successData);
+      this.dateNow = timestamp.split("T")[0];
+      console.log(this.dateNow)
       this.singleResultData = successData;
       this.singleResultName = name;
       this.singleResultId = i;
@@ -78,29 +85,38 @@ export class ArchiveNewComponent implements OnInit {
     }, (error) => console.log(error))
   }
 
-  printNewSingleResult(i) {
-    this.riasec = [];
-    this.summaryCode = [];
-    this.loader = true;
-    this.isNewPrinting = true;
-    this.resultModal = false;
+  printNewSingleResult(i, recommendation, psychometrician) {
+    if (recommendation != "" && psychometrician != "") {
+      this.riasec = [];
+      this.summaryCode = [];
+      this.loader = true;
+      this.isNewPrinting = true;
+      this.resultModal = false;
+      this.recommendation = recommendation;
+      this.psychometrician = psychometrician;
 
-    //Get RIASEC Result
-    this.adminService.getLetters(i).subscribe((successData) => {
+      //Get RIASEC Result
+      this.adminService.getLetters(i).subscribe((successData) => {
 
 
-      this.riasec = successData.sort((a, b) => b.value - a.value);
+        this.riasec = successData.sort((a, b) => b.value - a.value);
 
-      // Get the summary code
-      for (let i = 0; i < 3; i++) {
-        this.summaryCode.push(this.riasec[i]);
+        // Get the summary code
+        for (let i = 0; i < 3; i++) {
+          this.summaryCode.push(this.riasec[i]);
 
-      }
-      this.loader = false;
-      setTimeout(() => window.print(), 500)
-      setTimeout(() => this.isNewPrinting = false, 1000);
-      // console.log(this.summaryCode)
-    }, (error) => console.log(error))
+        }
+        this.loader = false;
+        setTimeout(() => window.print(), 500)
+        setTimeout(() => this.isNewPrinting = false, 1000);
+        // console.log(this.summaryCode)
+      }, (error) => console.log(error))
+    } else {
+      swal({
+        title: "Please fill all fields",
+        type: "warning"
+      })
+    }
 
 
   }

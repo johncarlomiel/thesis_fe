@@ -7,12 +7,12 @@ import { UserInfo } from '../interfaces/userInfo';
   providedIn: 'root'
 })
 export class AdminService {
-  server_url = "http://192.168.215.185:5000/";
+  server_url = "http://localhost:5000/";
 
   constructor(private http: HttpClient) { }
 
   deleteUser(id) {
-    const url = this.server_url + "api/admin/users";
+    const url = this.server_url + "admin/users";
     const httpOptions = {
       headers: new HttpHeaders({
         'authorization': localStorage.getItem("AdminAuthorization"),
@@ -26,7 +26,7 @@ export class AdminService {
 
   }
   getUsers() {
-    const url = this.server_url + "api/admin/users";
+    const url = this.server_url + "admin/users";
     let params = new HttpParams().set('type', "user");
     const httpOptions = {
       headers: new HttpHeaders({
@@ -42,7 +42,7 @@ export class AdminService {
 
   }
   getAllUsers() {
-    const url = this.server_url + "api/admin/users";
+    const url = this.server_url + "admin/users";
     let params = new HttpParams().set('type', "all");
     const httpOptions = {
       headers: new HttpHeaders({
@@ -58,7 +58,7 @@ export class AdminService {
   }
 
   changeType(type, id) {
-    const url = this.server_url + "api/admin/account";
+    const url = this.server_url + "admin/account";
     let body = {
       fieldname: "type",
       value: type,
@@ -77,7 +77,7 @@ export class AdminService {
   }
 
   getInfo(id) {
-    const url = this.server_url + "api/admin/getInfo";
+    const url = this.server_url + "admin/getInfo";
     let params = new HttpParams().set('id', id);
 
     const httpOptions = {
@@ -97,7 +97,7 @@ export class AdminService {
   }
 
   getMoreInfo(id) {
-    const url = this.server_url + "api/admin/getMoreInfo";
+    const url = this.server_url + "admin/getMoreInfo";
     let params = new HttpParams().set('id', id);
     const httpOptions = {
       headers: new HttpHeaders({
@@ -113,7 +113,7 @@ export class AdminService {
   }
 
   getProblems(id) {
-    const url = this.server_url + "api/admin/getProblems";
+    const url = this.server_url + "admin/getProblems";
     let params = new HttpParams().set('id', id);
     const httpOptions = {
       headers: new HttpHeaders({
@@ -129,7 +129,7 @@ export class AdminService {
 
   }
   getEform(id) {
-    const url = this.server_url + "api/admin/getEform";
+    const url = this.server_url + "admin/getEform";
     let params = new HttpParams().set('id', id);
     const httpOptions = {
       headers: new HttpHeaders({
@@ -145,7 +145,7 @@ export class AdminService {
   }
 
   getMySDS(id) {
-    const url = this.server_url + "api/admin/getSDS";
+    const url = this.server_url + "admin/getSDS";
     let params = new HttpParams().set('id', id);
     const httpOptions = {
       headers: new HttpHeaders({
@@ -161,7 +161,7 @@ export class AdminService {
 
   }
   search(type, keyword) {
-    const url = this.server_url + "api/admin/searchUsers";
+    const url = this.server_url + "admin/searchUsers";
     let params = new HttpParams().set('keyword', keyword).set('type', type);
     const httpOptions = {
       headers: new HttpHeaders({
@@ -177,7 +177,7 @@ export class AdminService {
 
   }
   dynamicSearch(condition: string, keyword: string) {
-    const url = this.server_url + "api/admin/resultSearch";
+    const url = this.server_url + "admin/resultSearch";
 
     let params = new HttpParams().set('keyword', keyword).set('condition', condition)
     const httpOptions = {
@@ -196,7 +196,7 @@ export class AdminService {
 
   graph(data) {
     // console.log(data)
-    const url = this.server_url + "api/admin/graph";
+    const url = this.server_url + "admin/graph";
     const httpOptions = {
       headers: new HttpHeaders({
 
@@ -212,7 +212,7 @@ export class AdminService {
   }
 
   login(data) {
-    const url = this.server_url + "api/admin/login";
+    const url = this.server_url + "auth/admin/login";
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -226,7 +226,7 @@ export class AdminService {
 
   generalGraph(data) {
     // console.log(data)
-    const url = this.server_url + "api/admin/genGraph";
+    const url = this.server_url + "admin/genGraph";
     const httpOptions = {
       headers: new HttpHeaders({
 
@@ -240,7 +240,7 @@ export class AdminService {
   }
   getUsersProblem(problem) {
     // console.log(problem)
-    const url = this.server_url + "api/admin/indivProb";
+    const url = this.server_url + "admin/indivProb";
     const httpOptions = {
       headers: new HttpHeaders({
 
@@ -253,7 +253,7 @@ export class AdminService {
     return this.http.post<[]>(url, problem, httpOptions);
   }
   getOldPrintResults() {
-    const url = this.server_url + "api/admin/old-print";
+    const url = this.server_url + "admin/old-print";
     const httpOptions = {
       headers: new HttpHeaders({
 
@@ -266,7 +266,7 @@ export class AdminService {
     return this.http.get<[]>(url, httpOptions);
   }
   getOldArchiveResults() {
-    const url = this.server_url + "api/admin/old-archive";
+    const url = this.server_url + "admin/old-archive";
     const httpOptions = {
       headers: new HttpHeaders({
 
@@ -279,7 +279,7 @@ export class AdminService {
     return this.http.get<[]>(url, httpOptions);
   }
   getNewResults() {
-    const url = this.server_url + "api/admin/newResults";
+    const url = this.server_url + "admin/newResults";
     const httpOptions = {
       headers: new HttpHeaders({
 
@@ -293,7 +293,7 @@ export class AdminService {
   }
 
   getTempResults() {
-    const url = this.server_url + "api/admin/results";
+    const url = this.server_url + "admin/results";
     const httpOptions = {
       headers: new HttpHeaders({
 
@@ -307,7 +307,7 @@ export class AdminService {
   }
 
   getTempOldResults() {
-    const url = this.server_url + "api/admin/oldTempResults";
+    const url = this.server_url + "admin/oldTempResults";
     const httpOptions = {
       headers: new HttpHeaders({
 
@@ -321,7 +321,7 @@ export class AdminService {
 
   }
   getOldResults() {
-    const url = this.server_url + "api/admin/oldResults";
+    const url = this.server_url + "admin/oldResults";
     const httpOptions = {
       headers: new HttpHeaders({
 
@@ -335,7 +335,7 @@ export class AdminService {
   }
 
   setSinglePrint(i) {
-    const url = this.server_url + "api/admin/singleResult";
+    const url = this.server_url + "admin/singleResult";
     const data = {
       id: i
     }
@@ -352,7 +352,7 @@ export class AdminService {
 
   }
   setAllPrint() {
-    const url = this.server_url + "api/admin/allResult";
+    const url = this.server_url + "admin/allResult";
     const httpOptions = {
       headers: new HttpHeaders({
 
@@ -365,7 +365,7 @@ export class AdminService {
     return this.http.put(url, httpOptions);
   }
   getLetters(id) {
-    const url = this.server_url + "api/admin/getLetters";
+    const url = this.server_url + "admin/getLetters";
     let params = new HttpParams().set('id', id);
 
     const httpOptions = {
@@ -378,6 +378,66 @@ export class AdminService {
 
     }
     return this.http.get<RIASEC[]>(url, httpOptions);
+  }
+
+  getEvents() {
+    const url = this.server_url + "admin/events";
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'authorization': localStorage.getItem("AdminAuthorization"),
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+      }),
+    }
+    return this.http.get<[]>(url, httpOptions);
+  }
+  deleteEvent(id) {
+    const url = this.server_url + "admin/events";
+    const params = new HttpParams().set("id", id);
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'authorization': localStorage.getItem("AdminAuthorization"),
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+      }),
+      params
+    }
+    return this.http.delete<[]>(url, httpOptions);
+  }
+
+  updateEvent(field, value, id) {
+    const url = this.server_url + "admin/events";
+    var formData = new FormData();
+    const params = new HttpParams().set("field_name", field).set("id", id);
+    formData.append("value", value);
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'authorization': localStorage.getItem("AdminAuthorization"),
+        'Access-Control-Allow-Origin': '*',
+      }),
+      params
+    }
+    return this.http.put(url, formData, httpOptions);
+  }
+
+  addEvent(data) {
+    const url = this.server_url + "admin/events";
+
+    var formData = new FormData();
+    formData.append("name", data.name);
+    formData.append("date", data.date);
+    formData.append("location", data.location);
+    formData.append("poster_url", data.poster);
+    formData.append("time_from", data.time_from);
+    formData.append("time_to", data.time_to);
+
+    console.log(formData.get("poster"))
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'authorization': localStorage.getItem("AdminAuthorization"),
+      }),
+    }
+    return this.http.post(url, formData, httpOptions);
   }
 
 }
@@ -446,4 +506,6 @@ interface GraphResult {
   conditionMet: { value: number, data: [], label: string },
   notCondition: { value: number, data: [], label: string },
   allResult: { value: number, data: [], label: string }
+}interface Event {
+  poster_url: string, name: string, location: string, date: Date, time_from: any, time_to: any
 }

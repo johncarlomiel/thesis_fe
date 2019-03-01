@@ -12,41 +12,29 @@
 
   <sui-sidebar-container class="ui bottom attached segment">
     <sui-sidebar class="vertical" #saydbar>
-      <a class="item" routerLink="/admin/home">
+      <a class="item " routerLink="/admin-home">
         Home
       </a>
-      <a class="item" routerLink="/admin/graph/specific">
+      <a class="item" routerLink="/admin-graph-specific">
         Specific Reports
       </a>
-      <a class="item" routerLink="/admin/graph/general">
+      <a class="item" routerLink="/admin-graph-general">
         General Reports
       </a>
-      <a class="item" routerLink="/admin/old-print">
+      <a class="item active" routerLink="/admin-new-print">
         Print Section
-        <div class="ui grey horizontal label">Old</div>
       </a>
-      <a class="item" routerLink="/admin/old-archive">
+      <a class="item" routerLink="/admin-new-archive">
         Archive Section
-        <div class="ui grey horizontal label">Old</div>
       </a>
-      <a class="item" routerLink="/admin/print">
-        Print Section
-        <div class="ui grey horizontal label">New</div>
-      </a>
-      <a class="item active" routerLink="/admin/new-print">
-        Print Section
-        <div class="ui red horizontal label">New</div>
-      </a>
-      <a class="item" routerLink="/admin/archive">
-        Archive Section
-        <div class="ui grey horizontal label">New</div>
-      </a>
-      <a class="item" routerLink="/admin/new-archive">
-        Archive Section
-        <div class="ui red horizontal label">New</div>
-      </a>
-      <a class="item" routerLink="/admin/settings">
+      <a class="item" routerLink="/admin-settings">
         Accounts Settings
+      </a>
+      <a class="item" routerLink="/admin-events">
+        Events
+      </a>
+      <a class="item" routerLink="/admin-messages">
+        Messages
       </a>
     </sui-sidebar>
 
@@ -110,7 +98,8 @@
               <td>{{item.username}}</td>
               <td>
                 <div class="center">
-                  <button class="ui blue button" (click)="viewSingleResult(item.id, item.name)">
+                  <button class="ui blue button"
+                    (click)="viewSingleResult(item.id, item.name,item.summary_code,item.timestamp)">
                     View result
                   </button>
                 </div>
@@ -136,54 +125,10 @@
 
 
 
-  <!-- View single result modal -->
-  <sui-modal [isClosable]="true" (dismissed)="resultModal = false" #resultModall *ngIf="resultModal && !isSinglePrinting">
-
-    <div class="header">
-      <div class="right">
-        <button class="ui labeled icon button blue" (click)="resultModall.deny();printNewSingleResult(singleResultId);">
-          <i class="print icon"></i>
-          Print
-        </button>
-      </div>
-    </div>
-    <div class="content">
-
-      <div class="ui" *ngIf="!noInfo">
-        <div class="ui segment" *ngFor="let code of singleResultData">
-          <a class="ui red right ribbon label large">{{code.name}}</a>
-          <div *ngFor="let indivCode of code.result">
-            <div class="ui divided items">
-              <div class="item">
-                <div class="content">
-                  <a class="header">{{indivCode.occupation}}</a>
-                  <div class="description">
-                    <p>{{indivCode.description}}</p>
-                  </div>
-
-                  <div class="extra">
-                    <a href="{{indivCode.link}}" class="ui right floated blue button">
-                      See more details here
-                      <i class="right chevron icon"></i>
-                    </a>
-                  </div>
-
-                  <hr>
-                </div>
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </div>
-
-    </div>
-    <div class="actions">
-      <button class="ui red button" (click)="resultModall.deny()">Close</button>
-    </div>
-
-  </sui-modal>
 </div>
+
+
+
 
 
 <!-- Print template section -->
@@ -210,12 +155,12 @@
 
     <div style="margin-left:20px; margin-right:20px;">
       <hr>
-      <div class="ui black message" id="message">
+      <div class="ui black" id="message">
         {{singleResultName}}
         <span style="float:right">{{dateNow}}</span>
       </div>
     </div>
-    <h2 class="center container" id="print_header">OFFICIAL RESULT</h2>
+    <h3 style="margin-top:0;margin-bottom:5px;" class="center container" id="print_header">OFFICIAL RESULT</h3>
     <div class="ui grid" style="margin-left:20px; margin-right:20px;">
       <div class="eight wide column">
         <div class="ui segment">
@@ -240,7 +185,8 @@
 
               <img src="assets/icons/riasec-logo.png" class="img-summary" alt="" width="200" height="200">
               <div class="center-text">
-                <span *ngFor="let code of summaryCode" style="font-weight:bolder;font-size:1.5em" [ngStyle]="{'color': true ? getColor(code.letter) : ''}">
+                <span *ngFor="let code of summaryCode" style="font-weight:bolder;font-size:1.5em"
+                  [ngStyle]="{'color': true ? getColor(code.letter) : ''}">
                   {{code.letter}}
                 </span>
               </div>
@@ -249,7 +195,8 @@
             <div *ngFor="let code of summaryCode">
               <div class="ui divider"></div>
               <img class="ui middle aligned tiny image" src="assets/icons/{{code.letter}}_icon.png">
-              <span style="font-weight: bolder; font-size:1.5em; margin-left: 10px;letter-spacing: 5px;" [ngStyle]="{'color': true ? getColor(code.letter) : ''}">
+              <span style="font-weight: bolder; font-size:1.5em; margin-left: 10px;letter-spacing: 5px;"
+                [ngStyle]="{'color': true ? getColor(code.letter) : ''}">
                 {{code.word}}</span>
             </div>
 
@@ -267,5 +214,84 @@
 
       </div>
     </div>
+    <div style="margin-left:20px; margin-right:20px;margin-top:5px;">
+      <div class="ui gray message" id="message" style="font-size:.8em;font-style: italic">
+        Recommendation: {{recommendation}}
+      </div>
+      <br>
+      <div class="right">
+        <div class="ui mini statistic">
+          <div class="value" style="font-size:.8em !important">
+            {{psychometrician}}
+          </div>
+          <div class="label" style="border-top:black solid 1px;font-size:.6em">
+            Psychometrician
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
+
+
+
+
+<!-- View single result modal -->
+<sui-modal [isClosable]="true" (dismissed)="resultModal = false" #resultModall *ngIf="resultModal && !isSinglePrinting">
+  <div class="header">
+    <div class="ui form">
+      <div class="two fields">
+        <div class="field">
+          <label>Recommendation</label>
+          <textarea rows="2" #recommendation maxlength="500"></textarea>
+        </div>
+        <div class="field">
+          <label>Psychometrician</label>
+          <input type="text" name="psychometrician" #psychometrician>
+        </div>
+      </div>
+    </div>
+    <div class="right">
+      <button class="ui labeled icon button blue"
+        (click)="printNewSingleResult(singleResultId,recommendation.value,psychometrician.value);">
+        <i class="print icon"></i>
+        Print
+      </button>
+    </div>
+  </div>
+  <div class="content">
+
+    <div class="ui" *ngIf="!noInfo">
+      <div class="ui segment" *ngFor="let code of singleResultData">
+        <a class="ui red right ribbon label large">{{code.name}}</a>
+        <div *ngFor="let indivCode of code.result">
+          <div class="ui divided items">
+            <div class="item">
+              <div class="content">
+                <a class="header">{{indivCode.occupation}}</a>
+                <div class="description">
+                  <p>{{indivCode.description}}</p>
+                </div>
+
+                <div class="extra">
+                  <a href="{{indivCode.link}}" class="ui right floated blue button">
+                    See more details here
+                    <i class="right chevron icon"></i>
+                  </a>
+                </div>
+
+                <hr>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+  <div class="actions">
+    <button class="ui red button" (click)="resultModall.deny()">Close</button>
+  </div>
+
+</sui-modal>

@@ -86,7 +86,17 @@
             </div>
           </div>
 
-          <p class="center aligned"><button class="ui green submit big button" (click)="register(registerUsername.value,registerPassword.value,registerFullname.value)">Register</button></p>
+          <div class="field">
+            <label for="">Gender</label>
+            <sui-select class="selection" [(ngModel)]="selectedGender" #gender>
+              <sui-select-option *ngFor="let option of genderOptions" [value]="option">
+              </sui-select-option>
+            </sui-select>
+          </div>
+
+
+
+          <p class="center aligned"><button class="ui green submit big button" (click)="register(registerUsername.value,registerPassword.value,registerFullname.value,gender.selectedOption)">Register</button></p>
 
         </div>
       </div>

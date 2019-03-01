@@ -3,6 +3,7 @@ import { criteria } from '../data/criteria';
 import { problems } from '../data/problems';
 import { tables } from '../models/tables';
 import { GraphLabel } from '../models/graphLabel';
+import { Label } from '../models/tryLabel';
 import * as FusionCharts from 'fusioncharts';
 import { AdminService } from '../services/admin.service';
 import { Router } from '@angular/router';
@@ -57,14 +58,16 @@ export class AdminGraphGeneralComponent implements OnInit {
   ngOnInit() {
     this.criteria = criteria;
     this.problems = problems.problems;
-    this.graphLbl = GraphLabel
-    this.graphLbl[0].value = 23
+    this.graphLbl = new Label().label;
+    // this.graphLbl[0].value = 23
     // console.log(this.graphLbl)
     this.withResult = true;
   }
   criteriaChange() {
+
+    this.graphLbl = new Label().label;
     this.dataSource.data = [];
-    this.graphLbl.forEach((element, index) => this.graphLbl[index].value = 0);
+    // this.graphLbl.forEach((element, index) => this.graphLbl[index].value = 0);
     let sqlTable = tables;
     this.criteria_variables = Array.apply(null, Array())
 
@@ -122,10 +125,20 @@ export class AdminGraphGeneralComponent implements OnInit {
 
       this.adminService.generalGraph(graphData).subscribe((successData) => {
         //Loop thru all users check all of their problems
-        // console.log(successData)
+        console.log(graphData)
         successData.forEach((element, index) => {
+          // console.log(element)
+          Object.keys(element).forEach((element, index) => {
+            // console.log(element + "==" + this.graphLbl[index].fieldname)
+            if (element == this.graphLbl[index].fieldname) {
+              console.log("Tama");
+
+            } else {
+              console.log("Mali")
+            }
+
+          })
           Object.values(element).forEach((secondElement, secondIndex) => {
-            // console.log(secondElement)
             if (secondElement) {
               this.graphLbl[secondIndex].value++;
             }
@@ -146,6 +159,7 @@ export class AdminGraphGeneralComponent implements OnInit {
           this.dataSource.data.push(this.graphLbl[index])
 
         }
+        console.log(this.dataSource.data)
 
 
 
@@ -229,7 +243,7 @@ export class AdminGraphGeneralComponent implements OnInit {
       // Send a request to service
       this.adminService.getUsersProblem(data).subscribe((successData) => {
         // console.log(successData)
-        //Open the modal
+        //Open the modal 
         this.catModal = true;
         this.catModalData = successData;
         this.catModalHeader = dataObj.categoryLabel;

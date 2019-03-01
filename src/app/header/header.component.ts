@@ -43,6 +43,7 @@ export class HeaderComponent implements OnInit {
       } else {
 
         this.onSdsSession = false;
+
       }
     }
   }
@@ -73,7 +74,9 @@ export class HeaderComponent implements OnInit {
 
     localStorage.clear();
     this.startLabel = "Start Now";
+    this.sdsTaken = false;
     this.userSession = false;
+    this.onSdsSession = false;
     this.router.navigate(["/"])
     swal({
       title: "Logout Success",

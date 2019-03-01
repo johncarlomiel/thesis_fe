@@ -17,26 +17,6 @@ export class RegisterComponent implements OnInit {
   ngOnInit() {
   }
 
-  register(username, password, name) {
-    this.authService.register(username, password, name).subscribe((data) => {
 
-      Swal({
-        title: 'Registered Successfully',
-        type: 'success',
-
-      })
-      this.router.navigate(["/login"])
-
-
-    },
-      error => {
-        Swal({
-          title: 'Username already taken',
-          type: 'error',
-
-        })
-      });
-
-  }
 
 }

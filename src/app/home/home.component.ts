@@ -3,7 +3,6 @@ import { AuthService } from '../services/auth.service';
 import swal from 'sweetalert2';
 import { Router } from '@angular/router';
 import { DataService } from '../services/data.service';
-
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -11,14 +10,19 @@ import { DataService } from '../services/data.service';
 })
 export class HomeComponent implements OnInit {
   userSession: Boolean = false;
+  chatSocket: any;
   constructor(public authService: AuthService, public router: Router, public data: DataService) { }
 
   ngOnInit() {
+
+
+
 
     this.checkSession();
 
 
   }
+
 
 
 

@@ -12,7 +12,8 @@ import { Router } from '@angular/router';
 export class AuthenticationComponent implements OnInit {
   login: Boolean = true;
   loader: Boolean = false;
-
+  genderOptions = ["Male", "Female"]
+  selectedGender: string;
 
   @ViewChild('registerUsername') regUser: ElementRef;
   @ViewChild('registerPassword') regPass: ElementRef;
@@ -29,9 +30,16 @@ export class AuthenticationComponent implements OnInit {
 
 
 
-  register(username, password, name) {
-    if (username != "" && password != "" && name != "") {
-      this.authService.register(username, password, name).subscribe((data) => {
+  register(username, password, name, gender) {
+    if (username != "" && password != "" && name != "" && gender != undefined) {
+      let dp_path = "";
+      if (gender == "Male") {
+        dp_path = "assets/images/defaults/male.jpg";
+      } else {
+        dp_path = "assets/images/defaults/female.jpg";
+      }
+      this.authService.register(username, password, name, gender, dp_path).subscribe((data) => {
+        this.selectedGender = "";
 
         this.loader = true;
         setTimeout(() => {

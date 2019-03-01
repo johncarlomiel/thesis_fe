@@ -10,13 +10,15 @@ import swal from 'sweetalert2';
 })
 export class PrintNewComponent implements OnInit {
   newResultData: any;
-
+  isSinglePrinting = false;
   isEmpty = false;
-
+  dateNow: any;
   singleResultData: any;
   singleResultName: string;
   singleResultId: number;
-
+  recommendation: string;
+  psychometrician: string;
+  singleResultCode: any;
   resultModal = false;
   loader = false;
   isNewPrinting = false;
@@ -54,15 +56,16 @@ export class PrintNewComponent implements OnInit {
     }, (error) => console.log(error))
   }
 
-  viewSingleResult(i, name) {
+  viewSingleResult(i, name, summary_code, timestamp) {
     // console.log(i)
     //Get Sds result
     this.adminService.getMySDS(i).subscribe((successData) => {
       // console.log(successData);
+      this.dateNow = timestamp.split("T")[0];
       this.singleResultData = successData;
       this.singleResultName = name;
       this.singleResultId = i;
-
+      this.singleResultCode = summary_code;
 
       //Open the modal
       this.resultModal = true;
@@ -71,39 +74,54 @@ export class PrintNewComponent implements OnInit {
   }
 
 
-  printNewSingleResult(i) {
-    this.riasec = [];
-    this.summaryCode = [];
-    this.loader = true;
-    this.isNewPrinting = true;
+  printNewSingleResult(i, recommendation, psychometrician) {
 
-    //Get RIASEC Result
-    this.adminService.getLetters(i).subscribe((successData) => {
+    if (recommendation != "" && psychometrician != "") {
+      this.resultModal = false;
+      this.isSinglePrinting = true;
+      this.recommendation = recommendation;
+      this.psychometrician = psychometrician;
+      console.log(this.resultModal);
+      console.log(this.isSinglePrinting)
+      this.riasec = [];
+      this.summaryCode = [];
+      this.loader = true;
+      this.isNewPrinting = true;
 
-
-      this.riasec = successData.sort((a, b) => b.value - a.value);
-
-      // Get the summary code
-      for (let i = 0; i < 3; i++) {
-        this.summaryCode.push(this.riasec[i]);
-
-      }
-      this.loader = false;
       setTimeout(() => {
-        window.print()
-        this.adminService.setSinglePrint(i).subscribe((successData) => {
-          swal({
-            title: `Printed Sds result of ${this.singleResultName}`,
-            type: "success"
-          });
-          this.resultModal = false;
-          this.getNewResult();
-        }, (error) => console.log(error));
-      }, 500)
+        //Get RIASEC Result
+        this.adminService.getLetters(i).subscribe((successData) => {
+          this.riasec = successData.sort((a, b) => b.value - a.value);
 
-      setTimeout(() => this.isNewPrinting = false, 1000)
-      // console.log(this.summaryCode)
-    }, (error) => console.log(error))
+          // Get the summary code
+          for (let i = 0; i < 3; i++) {
+            this.summaryCode.push(this.riasec[i]);
+
+          }
+          this.loader = false;
+          setTimeout(() => {
+            window.print()
+            this.adminService.setSinglePrint(i).subscribe((successData) => {
+              swal({
+                title: `Printed Sds result of ${this.singleResultName}`,
+                type: "success"
+              });
+              this.resultModal = false;
+              this.getNewResult();
+            }, (error) => console.log(error));
+          }, 500)
+
+          setTimeout(() => this.isNewPrinting = false, 1000)
+          // console.log(this.summaryCode)
+        }, (error) => console.log(error))
+      }, 200)
+
+    } else {
+      swal({
+        title: "Please fill all fields",
+        type: "warning"
+      })
+    }
 
 
   }

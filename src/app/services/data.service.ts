@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs/operators';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { UserInfo } from '../interfaces/userInfo';
 @Injectable({
   providedIn: 'root'
 })
 export class DataService {
-  server_url = "http://192.168.215.185:5000/";
+  server_url = "http://localhost:5000/";
 
   constructor(private http: HttpClient) { }
 
@@ -15,7 +15,7 @@ export class DataService {
 
 
   submitResult(result) {
-    const url = this.server_url + "api/submitResult";
+    const url = this.server_url + "user/submitResult";
     const data = {
       result
     }
@@ -34,7 +34,7 @@ export class DataService {
     // console.log(letters)
 
 
-    const url = this.server_url + "api/submitLetters";
+    const url = this.server_url + "user/submitLetters";
 
     const httpOptions = {
       headers: new HttpHeaders({
@@ -55,7 +55,7 @@ export class DataService {
   }
 
   submitSummaryCode(firstLetter, secondLetter, thirdLetter) {
-    const url = this.server_url + "api/submitSummaryCode";
+    const url = this.server_url + "user/submitSummaryCode";
     const httpOptions = {
       headers: new HttpHeaders({
         'authorization': localStorage.getItem("Authorization"),
@@ -70,4 +70,30 @@ export class DataService {
 
     return this.http.post(url, data, httpOptions);
   }
+
+  payload(token, type) {
+
+    const url = this.server_url + "auth/payload";
+    const params = new HttpParams().set("user_type", type)
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'authorization': token,
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*'
+      }),
+      params
+    };
+
+
+
+    return this.http.get<Payload>(url, httpOptions);
+  }
+}
+interface Payload {
+  dp_path: string,
+  exp: number,
+  iat: number,
+  id: number,
+  name: string,
+  username: string
 }

@@ -8,11 +8,11 @@ import { UserInfo } from '../interfaces/userInfo';
   providedIn: 'root'
 })
 export class UserService {
-  server_url = "http://192.168.215.185:5000/";
+  server_url = "http://localhost:5000/";
   constructor(private http: HttpClient) { }
 
   checkSdsStatus() {
-    const url = this.server_url + "api/checkSdsStatus";
+    const url = this.server_url + "user/checkSdsStatus";
     const httpOptions = {
       headers: new HttpHeaders({
         'authorization': localStorage.getItem("Authorization"),

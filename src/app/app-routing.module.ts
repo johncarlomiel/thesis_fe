@@ -24,6 +24,8 @@ import { PrintNewComponent } from './print-new/print-new.component';
 import { ArchiveNewComponent } from './archive-new/archive-new.component';
 import { PrintOldComponent } from './print-old/print-old.component';
 import { ArchiveOldComponent } from './archive-old/archive-old.component';
+import { AdminMessagesComponent } from './admin-messages/admin-messages.component';
+import { AdminEventsComponent } from './admin-events/admin-events.component';
 
 
 const routes: Routes = [
@@ -64,57 +66,67 @@ const routes: Routes = [
     component: AuthenticationComponent
   },
   {
-    path: 'admin/home',
+    path: 'admin-home',
     component: AdminHomeComponent,
     canActivate: [AdminGuard]
   },
   {
-    path: 'admin/graph/specific',
+    path: 'admin-graph-specific',
     component: AdminGraphComponent,
     canActivate: [AdminGuard]
   },
   {
-    path: 'admin/graph/general',
+    path: 'admin-graph-general',
     component: AdminGraphGeneralComponent,
     canActivate: [AdminGuard]
   },
   {
-    path: 'admin/auth',
+    path: 'admin-auth',
     component: AdminAuthComponent
   },
   {
-    path: "admin/print",
+    path: "admin-print",
     component: NewResultsComponent,
     canActivate: [AdminGuard]
   },
   {
-    path: "admin/archive",
+    path: "admin-archive",
     component: ArchiveComponent,
     canActivate: [AdminGuard]
   },
   {
-    path: "admin/settings",
+    path: "admin-settings",
     component: AdminSettingsComponent,
     canActivate: [AdminGuard]
   },
   {
-    path: "admin/new-print",
+    path: "admin-new-print",
     component: PrintNewComponent,
     canActivate: [AdminGuard]
   },
   {
-    path: "admin/new-archive",
+    path: "admin-new-archive",
     component: ArchiveNewComponent,
     canActivate: [AdminGuard]
   },
   {
-    path: "admin/old-print",
+    path: "admin-old-print",
     component: PrintOldComponent,
     canActivate: [AdminGuard]
   },
   {
-    path: "admin/old-archive",
+    path: "admin-old-archive",
     component: ArchiveOldComponent,
+    canActivate: [AdminGuard]
+  },
+  {
+    path: "admin-messages",
+    component: AdminMessagesComponent,
+    canActivate: [AdminGuard]
+  },
+  {
+    path: "admin-events",
+    component: AdminEventsComponent,
     canActivate: [AdminGuard]
   },
   {

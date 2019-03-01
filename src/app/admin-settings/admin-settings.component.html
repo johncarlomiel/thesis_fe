@@ -11,41 +11,29 @@
 
 <sui-sidebar-container class="ui bottom attached segment">
   <sui-sidebar class="vertical" #saydbar>
-    <a class="item" routerLink="/admin/home">
+    <a class="item " routerLink="/admin-home">
       Home
     </a>
-    <a class="item" routerLink="/admin/graph/specific">
+    <a class="item" routerLink="/admin-graph-specific">
       Specific Reports
     </a>
-    <a class="item" routerLink="/admin/graph/general">
+    <a class="item" routerLink="/admin-graph-general">
       General Reports
     </a>
-    <a class="item" routerLink="/admin/old-print">
+    <a class="item" routerLink="/admin-new-print">
       Print Section
-      <div class="ui grey horizontal label">Old</div>
     </a>
-    <a class="item" routerLink="/admin/old-archive">
+    <a class="item" routerLink="/admin-new-archive">
       Archive Section
-      <div class="ui grey horizontal label">Old</div>
     </a>
-    <a class="item" routerLink="/admin/print">
-      Print Section
-      <div class="ui grey horizontal label">New</div>
-    </a>
-    <a class="item" routerLink="/admin/new-print">
-      Print Section
-      <div class="ui red horizontal label">New</div>
-    </a>
-    <a class="item" routerLink="/admin/archive">
-      Archive Section
-      <div class="ui grey horizontal label">New</div>
-    </a>
-    <a class="item" routerLink="/admin/new-archive">
-      Archive Section
-      <div class="ui red horizontal label">New</div>
-    </a>
-    <a class="item active" routerLink="/admin/settings">
+    <a class="item active" routerLink="/admin-settings">
       Accounts Settings
+    </a>
+    <a class="item" routerLink="/admin-events">
+      Events
+    </a>
+    <a class="item" routerLink="/admin-messages">
+      Messages
     </a>
   </sui-sidebar>
 
@@ -88,10 +76,12 @@
             <td>{{item.username}}</td>
             <td class="center aligned">
               <div class="ui buttons">
-                <button class="ui button blue" [ngClass]="{'disabled': item.type == 'user'}" (click)="changeType('user',item.id)">
+                <button class="ui button blue" [ngClass]="{'disabled': item.type == 'user'}"
+                  (click)="changeType('user',item.id)">
                   Set as user
                 </button>
-                <button class="ui button red" [ngClass]="{'disabled': item.type == 'admin'}" (click)="changeType('admin',item.id)">
+                <button class="ui button red" [ngClass]="{'disabled': item.type == 'admin'}"
+                  (click)="changeType('admin',item.id)">
                   Set as admin
                 </button>
 

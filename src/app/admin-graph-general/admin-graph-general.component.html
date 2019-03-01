@@ -10,41 +10,29 @@
 </div>
 <sui-sidebar-container class="ui bottom attached segment">
   <sui-sidebar class="vertical" #sidebar>
-    <a class="item" routerLink="/admin/home">
+    <a class="item " routerLink="/admin-home">
       Home
     </a>
-    <a class="item" routerLink="/admin/graph/specific">
+    <a class="item" routerLink="/admin-graph-specific">
       Specific Reports
     </a>
-    <a class="item active" routerLink="/admin/graph/general">
+    <a class="item active" routerLink="/admin-graph-general">
       General Reports
     </a>
-    <a class="item" routerLink="/admin/old-print">
+    <a class="item" routerLink="/admin-new-print">
       Print Section
-      <div class="ui grey horizontal label">Old</div>
     </a>
-    <a class="item" routerLink="/admin/old-archive">
+    <a class="item" routerLink="/admin-new-archive">
       Archive Section
-      <div class="ui grey horizontal label">Old</div>
     </a>
-    <a class="item" routerLink="/admin/print">
-      Print Section
-      <div class="ui grey horizontal label">New</div>
-    </a>
-    <a class="item" routerLink="/admin/new-print">
-      Print Section
-      <div class="ui red horizontal label">New</div>
-    </a>
-    <a class="item" routerLink="/admin/archive">
-      Archive Section
-      <div class="ui grey horizontal label">New</div>
-    </a>
-    <a class="item" routerLink="/admin/new-archive">
-      Archive Section
-      <div class="ui red horizontal label">New</div>
-    </a>
-    <a class="item" routerLink="/admin/settings">
+    <a class="item" routerLink="/admin-settings">
       Accounts Settings
+    </a>
+    <a class="item" routerLink="/admin-events">
+      Events
+    </a>
+    <a class="item" routerLink="/admin-messages">
+      Messages
     </a>
   </sui-sidebar>
   <sui-sidebar-sibling [isDimmedWhenVisible]="true">
@@ -78,9 +66,11 @@
           <div class="ui card">
             <div class="content">
               <div class="ui header primary bolder left floated">Criteria</div>
-              <button class="ui primary mini basic button left floated" (click)="selectAllCriteria();criteriaChange()">Select
+              <button class="ui primary mini basic button left floated"
+                (click)="selectAllCriteria();criteriaChange()">Select
                 All</button>
-              <button class="ui primary mini basic button left floated" (click)="deselectAllCriteria();criteriaChange()">Reset</button>
+              <button class="ui primary mini basic button left floated"
+                (click)="deselectAllCriteria();criteriaChange()">Reset</button>
             </div>
             <div class="content">
               <div class="ui active dimmer" *ngIf="loader">
@@ -91,8 +81,10 @@
                   <div title>
                     <i class="dropdown icon"></i>
                     {{indivCriteria.fieldname}}
-                    <button class="ui primary mini basic button right floated" (click)="uncheckSectCriteria(i);criteriaChange()">Uncheck</button>
-                    <button class="ui primary mini basic button right floated" (click)="selectSectCriteria(i);criteriaChange()">Check
+                    <button class="ui primary mini basic button right floated"
+                      (click)="uncheckSectCriteria(i);criteriaChange()">Uncheck</button>
+                    <button class="ui primary mini basic button right floated"
+                      (click)="selectSectCriteria(i);criteriaChange()">Check
                       All</button>
 
                   </div>
@@ -100,7 +92,8 @@
                     <div class="ui form">
                       <div class="grouped fields">
                         <div class="field" *ngFor="let value of indivCriteria.values">
-                          <sui-checkbox [(ngModel)]="value.isChecked" (ngModelChange)="criteriaChange()">{{value.label}}</sui-checkbox>
+                          <sui-checkbox [(ngModel)]="value.isChecked" (ngModelChange)="criteriaChange()">{{value.label}}
+                          </sui-checkbox>
                         </div>
 
 
@@ -137,13 +130,15 @@
                     </div>
                     <div class="field">
                       <div class="ui radio checkbox">
-                        <input type="radio" name='options' [value]="'bar2d'" [checked]='chart === "bar2d"' (change)="onSelectionChange('bar2d')">
+                        <input type="radio" name='options' [value]="'bar2d'" [checked]='chart === "bar2d"'
+                          (change)="onSelectionChange('bar2d')">
                         <label>Bar2d</label>
                       </div>
                     </div>
                     <div class="field">
                       <div class="ui radio checkbox">
-                        <input type="radio" name='options' [value]="'pie2d'" [checked]='chart === "pie2d"' (change)="onSelectionChange('pie2d')">
+                        <input type="radio" name='options' [value]="'pie2d'" [checked]='chart === "pie2d"'
+                          (change)="onSelectionChange('pie2d')">
                         <label>Pie2d</label>
                       </div>
                     </div>
@@ -151,7 +146,8 @@
 
                   <div class="inline fields">
                     <label for="options">Filter Quantity</label>
-                    <sui-select placeholder="Choose" class="selection" [(ngModel)]="filterValue" (ngModelChange)="filterQuantity(filterValue)">
+                    <sui-select placeholder="Choose" class="selection" [(ngModel)]="filterValue"
+                      (ngModelChange)="filterQuantity(filterValue)">
                       <sui-select-option value="10"></sui-select-option>
                       <sui-select-option value="30"></sui-select-option>
                       <sui-select-option value="50"></sui-select-option>

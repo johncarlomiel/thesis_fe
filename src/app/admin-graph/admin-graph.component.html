@@ -10,41 +10,29 @@
 </div>
 <sui-sidebar-container class="ui bottom attached segment">
   <sui-sidebar class="vertical" #saydbar>
-    <a class="item" routerLink="/admin/home">
+    <a class="item " routerLink="/admin-home">
       Home
     </a>
-    <a class="item active" routerLink="/admin/graph/specific">
+    <a class="item active" routerLink="/admin-graph-specific">
       Specific Reports
     </a>
-    <a class="item" routerLink="/admin/graph/general">
+    <a class="item" routerLink="/admin-graph-general">
       General Reports
     </a>
-    <a class="item" routerLink="/admin/old-print">
+    <a class="item" routerLink="/admin-new-print">
       Print Section
-      <div class="ui grey horizontal label">Old</div>
     </a>
-    <a class="item" routerLink="/admin/old-archive">
+    <a class="item" routerLink="/admin-new-archive">
       Archive Section
-      <div class="ui grey horizontal label">Old</div>
     </a>
-    <a class="item" routerLink="/admin/print">
-      Print Section
-      <div class="ui grey horizontal label">New</div>
-    </a>
-    <a class="item" routerLink="/admin/new-print">
-      Print Section
-      <div class="ui red horizontal label">New</div>
-    </a>
-    <a class="item" routerLink="/admin/archive">
-      Archive Section
-      <div class="ui grey horizontal label">New</div>
-    </a>
-    <a class="item" routerLink="/admin/new-archive">
-      Archive Section
-      <div class="ui red horizontal label">New</div>
-    </a>
-    <a class="item" routerLink="/admin/settings">
+    <a class="item" routerLink="/admin-settings">
       Accounts Settings
+    </a>
+    <a class="item" routerLink="/admin-events">
+      Events
+    </a>
+    <a class="item" routerLink="/admin-messages">
+      Messages
     </a>
   </sui-sidebar>
   <sui-sidebar-sibling [isDimmedWhenVisible]="true">
@@ -95,7 +83,8 @@
                     <div class="ui form">
                       <div class="grouped fields">
                         <div class="field" *ngFor="let value of indivCriteria.values">
-                          <sui-checkbox [(ngModel)]="value.isChecked" (ngModelChange)="try()">{{value.label}}</sui-checkbox>
+                          <sui-checkbox [(ngModel)]="value.isChecked" (ngModelChange)="try()">{{value.label}}
+                          </sui-checkbox>
                         </div>
 
 
@@ -130,13 +119,15 @@
                     </div>
                     <div class="field">
                       <div class="ui radio checkbox">
-                        <input type="radio" name='options' [value]="'bar2d'" [checked]='chart === "bar2d"' (change)="onSelectionChange('bar2d')">
+                        <input type="radio" name='options' [value]="'bar2d'" [checked]='chart === "bar2d"'
+                          (change)="onSelectionChange('bar2d')">
                         <label>Bar2d</label>
                       </div>
                     </div>
                     <div class="field">
                       <div class="ui radio checkbox">
-                        <input type="radio" name='options' [value]="'pie2d'" [checked]='chart === "pie2d"' (change)="onSelectionChange('pie2d')">
+                        <input type="radio" name='options' [value]="'pie2d'" [checked]='chart === "pie2d"'
+                          (change)="onSelectionChange('pie2d')">
                         <label>Pie2d</label>
                       </div>
                     </div>
@@ -180,7 +171,8 @@
                     <div class="ui form">
                       <div class="grouped fields">
                         <div class="field" *ngFor="let problem of indivProblems.questions">
-                          <sui-checkbox [(ngModel)]="problem.value" (ngModelChange)="try()">{{problem.label}}</sui-checkbox>
+                          <sui-checkbox [(ngModel)]="problem.value" (ngModelChange)="try()">{{problem.label}}
+                          </sui-checkbox>
                         </div>
 
 
@@ -200,8 +192,8 @@
 </sui-sidebar-container>
 
 
-<sui-modal [isFullScreen]="true" *ngIf="dataplotModal" [isClosable]="false" [mustScroll]="true" (dismissed)="dataplotModal = false"
-  #criWithProb>
+<sui-modal [isFullScreen]="true" *ngIf="dataplotModal" [isClosable]="false" [mustScroll]="true"
+  (dismissed)="dataplotModal = false" #criWithProb>
 
   <div class="header">
     {{category_header}}

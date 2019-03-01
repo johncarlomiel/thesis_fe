@@ -11,41 +11,29 @@
 
 <sui-sidebar-container class="ui bottom attached segment">
   <sui-sidebar class="vertical" #sidebar style="height:100%">
-    <a class="item active" routerLink="/admin/home">
+    <a class="item active" routerLink="/admin-home">
       Home
     </a>
-    <a class="item" routerLink="/admin/graph/specific">
+    <a class="item" routerLink="/admin-graph-specific">
       Specific Reports
     </a>
-    <a class="item" routerLink="/admin/graph/general">
+    <a class="item" routerLink="/admin-graph-general">
       General Reports
     </a>
-    <a class="item" routerLink="/admin/old-print">
+    <a class="item" routerLink="/admin-new-print">
       Print Section
-      <div class="ui grey horizontal label">Old</div>
     </a>
-    <a class="item" routerLink="/admin/old-archive">
+    <a class="item" routerLink="/admin-new-archive">
       Archive Section
-      <div class="ui grey horizontal label">Old</div>
     </a>
-    <a class="item" routerLink="/admin/print">
-      Print Section
-      <div class="ui grey horizontal label">New</div>
-    </a>
-    <a class="item" routerLink="/admin/new-print">
-      Print Section
-      <div class="ui red horizontal label">New</div>
-    </a>
-    <a class="item" routerLink="/admin/archive">
-      Archive Section
-      <div class="ui grey horizontal label">New</div>
-    </a>
-    <a class="item" routerLink="/admin/new-archive">
-      Archive Section
-      <div class="ui red horizontal label">New</div>
-    </a>
-    <a class="item" routerLink="/admin/settings">
+    <a class="item" routerLink="/admin-settings">
       Accounts Settings
+    </a>
+    <a class="item" routerLink="/admin-events">
+      Events
+    </a>
+    <a class="item" routerLink="/admin-messages">
+      Messages
     </a>
   </sui-sidebar>
   <sui-sidebar-sibling [isDimmedWhenVisible]="true">
@@ -118,12 +106,17 @@
 
                   <td>
                     <div class="ui buttons">
-                      <button class="ui red basic button" (click)="showInfoModal = true; getInfo(myPage.id)">Basic Info</button>
-                      <button class="ui blue basic button" (click)="showProblemModal = true; getProblems(myPage.id)">Problems</button>
-                      <button class="ui green basic button" (click)="showMoreInfoModal = true; getMoreInfo(myPage.id)">More
+                      <button class="ui red basic button" (click)="showInfoModal = true; getInfo(myPage.id)">Basic
                         Info</button>
-                      <button class="ui violet basic button" (click)="showEformModal = true; getEform(myPage.id)">Eform</button>
-                      <button class="ui black basic button" (click)="showSDSModal = true; getSDS(myPage.id)">SDS Result</button>
+                      <button class="ui blue basic button"
+                        (click)="showProblemModal = true; getProblems(myPage.id)">Problems</button>
+                      <button class="ui green basic button"
+                        (click)="showMoreInfoModal = true; getMoreInfo(myPage.id)">More
+                        Info</button>
+                      <button class="ui violet basic button"
+                        (click)="showEformModal = true; getEform(myPage.id)">Eform</button>
+                      <button class="ui black basic button" (click)="showSDSModal = true; getSDS(myPage.id)">SDS
+                        Result</button>
                     </div>
                   </td>
 
@@ -151,14 +144,15 @@
 
 
         <!-- Info Modal -->
-        <sui-modal *ngIf="showInfoModal" [mustScroll]="true" [isFullScreen]="true" [isClosable]="true" (dismissed)="showInfoModal = false"
-          #infoModal>
+        <sui-modal *ngIf="showInfoModal" [mustScroll]="true" [isFullScreen]="true" [isClosable]="true"
+          (dismissed)="showInfoModal = false" #infoModal>
           <div class="content">
             <h2 class="center aligned" *ngIf="noInfo">No info about this person</h2>
             <div class="ui two column grid" *ngIf="!noInfo">
               <div class="column" *ngFor="let info of userInfo">
                 <div class="ui raised segment" style="min-height:130px">
-                  <a [ngStyle]="{'background-color': true ? info.color:'', 'color': true ? 'white': ''}" class="ui ribbon label large">{{info.label}}</a>
+                  <a [ngStyle]="{'background-color': true ? info.color:'', 'color': true ? 'white': ''}"
+                    class="ui ribbon label large">{{info.label}}</a>
                   <div class="ui divided items">
                     <div class="item">
                       <div class="content">
@@ -185,13 +179,14 @@
 
 
         <!-- More Info Modal -->
-        <sui-modal *ngIf="showMoreInfoModal" [mustScroll]="true" [isClosable]="true" (dismissed)="showMoreInfoModal = false;"
-          #moreInfoModal>
+        <sui-modal *ngIf="showMoreInfoModal" [mustScroll]="true" [isClosable]="true"
+          (dismissed)="showMoreInfoModal = false;" #moreInfoModal>
           <div class="content">
             <h2 class="center aligned" *ngIf="noInfo">No info about this person</h2>
             <div class="ui" *ngIf="!noInfo">
               <div class="ui raised segment" style="min-height:130px" *ngFor="let info of moreInfo">
-                <a [ngStyle]="{'background-color': true ? info.color:'', 'color': true ? 'white': ''}" class="ui ribbon label large">{{info.label}}</a>
+                <a [ngStyle]="{'background-color': true ? info.color:'', 'color': true ? 'white': ''}"
+                  class="ui ribbon label large">{{info.label}}</a>
                 <div class="ui divided items">
                   <div class="item">
                     <div class="content">
@@ -216,13 +211,14 @@
         <!-- More Info Modal -->
 
         <!-- Problems Modal -->
-        <sui-modal *ngIf="showProblemModal" [mustScroll]="true" [isClosable]="true" (dismissed)="showProblemModal = false;"
-          #problemModal>
+        <sui-modal *ngIf="showProblemModal" [mustScroll]="true" [isClosable]="true"
+          (dismissed)="showProblemModal = false;" #problemModal>
           <div class="content">
             <h2 class="center aligned" *ngIf="noInfo">No info about this person</h2>
             <div *ngIf="!noInfo">
               <div class="ui segment" *ngFor="let proInfo of userProblem">
-                <a [ngStyle]="{'background-color': true ? proInfo.color:'', 'color': true ? 'white': ''}" class="ui ribbon label large">{{proInfo.name}}</a>
+                <a [ngStyle]="{'background-color': true ? proInfo.color:'', 'color': true ? 'white': ''}"
+                  class="ui ribbon label large">{{proInfo.name}}</a>
                 <div *ngFor="let indivInfo of proInfo.questions">
                   <div class="ui divided items">
                     <div class="item">
@@ -265,8 +261,8 @@
         <!-- Eform Modal -->
 
         <!-- SDS Modal -->
-        <sui-modal *ngIf="showSDSModal" [mustScroll]="true" [isClosable]="true" (dismissed)="showSDSModal = false; codes = []"
-          #sdsModal>
+        <sui-modal *ngIf="showSDSModal" [mustScroll]="true" [isClosable]="true"
+          (dismissed)="showSDSModal = false; codes = []" #sdsModal>
           <div class="content">
 
             <h2 class="center aligned" *ngIf="noInfo">No info about this person</h2>

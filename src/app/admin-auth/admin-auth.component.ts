@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import swal from 'sweetalert2'
 import { AdminService } from '../services/admin.service';
 import { Router } from '@angular/router';
-
+import * as io from 'socket.io-client';
+import { DataService } from '../services/data.service';
 @Component({
   selector: 'app-admin-auth',
   templateUrl: './admin-auth.component.html',
@@ -11,10 +12,14 @@ import { Router } from '@angular/router';
 export class AdminAuthComponent implements OnInit {
   isError = false;
   errorMsg = "";
+  chatSocket: SocketIOClient.Socket;
   constructor(
     private adminService: AdminService,
-    private router: Router
-  ) { }
+    private router: Router,
+    private dataService: DataService
+  ) {
+    this.chatSocket = io("http://localhost:5000/chat");
+  }
 
   ngOnInit() {
   }
@@ -29,8 +34,11 @@ export class AdminAuthComponent implements OnInit {
       let data = { username, password }
       //Send a request to service
       this.adminService.login(data).subscribe((successData) => {
-        localStorage.setItem("AdminAuthorization", "Bearer " + successData)
-        this.router.navigate(["/admin/home"])
+        this.dataService.payload("Bearer " + successData, "admin").subscribe((successData2) => {
+          localStorage.setItem("AdminAuthorization", "Bearer " + successData);
+          this.chatSocket.emit('login', successData2.id);
+          this.router.navigate(["/admin/home"]);
+        }, (error) => console.log(error));
       }, (error) => {
         this.isError = true;
         this.errorMsg = "Wrong username or password";

@@ -6,10 +6,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { NgxPaginationModule } from 'ngx-pagination'; // <-- import the module
 import { SuiModule } from 'ng2-semantic-ui';
+import { DateFnsModule } from 'ngx-date-fns';
 import { FusionChartsModule } from 'angular-fusioncharts';
 import * as FusionCharts from 'fusioncharts';
 import * as Charts from 'fusioncharts/fusioncharts.charts';
 
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import * as FusionTheme from 'fusioncharts/themes/fusioncharts.theme.fusion';
 
 
@@ -49,6 +51,8 @@ import { PrintNewComponent } from './print-new/print-new.component';
 import { ArchiveNewComponent } from './archive-new/archive-new.component';
 import { PrintOldComponent } from './print-old/print-old.component';
 import { ArchiveOldComponent } from './archive-old/archive-old.component';
+import { AdminMessagesComponent } from './admin-messages/admin-messages.component';
+import { AdminEventsComponent } from './admin-events/admin-events.component';
 
 
 FusionChartsModule.fcRoot(FusionCharts, Charts, FusionTheme, Candy);
@@ -80,6 +84,8 @@ FusionChartsModule.fcRoot(FusionCharts, Charts, FusionTheme, Candy);
     ArchiveNewComponent,
     PrintOldComponent,
     ArchiveOldComponent,
+    AdminMessagesComponent,
+    AdminEventsComponent,
 
   ],
   imports: [
@@ -91,6 +97,8 @@ FusionChartsModule.fcRoot(FusionCharts, Charts, FusionTheme, Candy);
     SuiModule,
     NgxPaginationModule,
     FusionChartsModule,
+    InfiniteScrollModule,
+    DateFnsModule.forRoot()
 
 
   ],
