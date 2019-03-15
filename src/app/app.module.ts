@@ -7,9 +7,12 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgxPaginationModule } from 'ngx-pagination'; // <-- import the module
 import { SuiModule } from 'ng2-semantic-ui';
 import { DateFnsModule } from 'ngx-date-fns';
+import { ScrollingModule } from '@angular/cdk/scrolling';
+
 import { FusionChartsModule } from 'angular-fusioncharts';
 import * as FusionCharts from 'fusioncharts';
 import * as Charts from 'fusioncharts/fusioncharts.charts';
+import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import * as FusionTheme from 'fusioncharts/themes/fusioncharts.theme.fusion';
@@ -98,6 +101,7 @@ FusionChartsModule.fcRoot(FusionCharts, Charts, FusionTheme, Candy);
     NgxPaginationModule,
     FusionChartsModule,
     InfiniteScrollModule,
+    ScrollingModule,
     DateFnsModule.forRoot()
 
 
@@ -106,3 +110,4 @@ FusionChartsModule.fcRoot(FusionCharts, Charts, FusionTheme, Candy);
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+platformBrowserDynamic().bootstrapModule(AppModule);

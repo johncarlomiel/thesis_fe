@@ -3,6 +3,7 @@ import { AdminService } from '../services/admin.service';
 import { NgForm } from '@angular/forms';
 import * as datefns from "date-fns";
 import swal from 'sweetalert2';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-admin-events',
   templateUrl: './admin-events.component.html',
@@ -20,7 +21,8 @@ export class AdminEventsComponent implements OnInit {
   maxDate = new Date(3000, 1, 1, 1, 1, 1, 1);
 
   updateData: Event;
-  constructor(private adminService: AdminService) {
+  constructor(private adminService: AdminService,
+    private router: Router) {
     console.log(this.updateData)
     this.getEvents();
 
@@ -113,6 +115,11 @@ export class AdminEventsComponent implements OnInit {
   }
   onUpdateFileChanged(event) {
     this.selectedUpdatedPoster = event.target.files[0];
+  }
+  logout() {
+    localStorage.clear();
+    this.router.navigate(["/admin/auth"])
+
   }
 
 

@@ -3,12 +3,14 @@ import { map } from 'rxjs/operators';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { UserInfo } from '../interfaces/userInfo';
+import * as jwt_decode from 'jwt-decode';
+import { config } from '../configs/config';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-  server_url = "http://localhost:5000/";
+  server_url = config.ip;
   constructor(private http: HttpClient) { }
 
   checkSdsStatus() {
@@ -21,6 +23,11 @@ export class UserService {
       })
     }
     return this.http.get<SDS[]>(url, httpOptions);
+  }
+
+  getPayload(token) {
+    let payload = token.split(" ")[1];
+    return jwt_decode(payload);
   }
 }
 interface SDS {

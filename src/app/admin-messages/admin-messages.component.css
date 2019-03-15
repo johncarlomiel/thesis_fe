@@ -13,8 +13,9 @@ body {
 .container {
   margin: 0 auto;
   width: 100%;
-  background: #444753;
+  background: white;
   border-radius: 5px;
+  border: grey solid 1px;
 }
 
 .people-list {
@@ -28,17 +29,19 @@ body {
   border-radius: 3px;
   border: none;
   padding: 10px;
-  color: white;
-  background: #6A6C75;
+  color: black;
+  background: white;
   width: 90%;
   font-size: 14px;
+  border: #7bb0e2 solid 1px;
 }
+
 .people-list .fa-search {
   position: relative;
   left: -25px;
 }
 .people-list ul {
-  padding: 20px;
+  padding: 20px 0 20px 0;
   height: 770px;
   margin-bottom: 0;
   
@@ -64,7 +67,7 @@ body {
 .chat {
   width: 70%;
   float: left;
-  background: #F2F5F8;
+  background: white;
   border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;
   color: #434651;
@@ -72,7 +75,7 @@ body {
 }
 .chat .chat-header {
   padding: 20px;
-  border-bottom: 2px solid white;
+  border-left:grey solid 1px;
 }
 .chat .chat-header img {
   float: left;
@@ -96,13 +99,15 @@ body {
   margin-top: 12px;
 }
 .chat .chat-history {
-  padding: 30px 30px 20px;
-  border-bottom: 2px solid white;
-  overflow-y: scroll;
-  /* display: flex;
-  flex-direction: column-reverse; */
+  /* padding: 30px 30px 20px; */
+  border-top: grey solid 1px;
+  border-bottom: grey solid 1px;
+  border-left: grey solid 1px;
+  overflow-y: hidden;
+  
   height: 575px;
 }
+
 .chat .chat-history .message-data {
   margin-bottom: 15px;
 }
@@ -145,7 +150,11 @@ body {
 }
 .chat .chat-message {
   padding: 30px;
+  border-left:grey solid 1px;
+  
 }
+
+
 .chat .chat-message textarea {
   width: 100%;
   border: none;
@@ -154,6 +163,7 @@ body {
   margin-bottom: 10px;
   border-radius: 5px;
   resize: none;
+  border: #7bb0e2 solid 1px;
 }
 .chat .chat-message .fa-file-o, .chat .chat-message .fa-file-image-o {
   font-size: 16px;
@@ -168,7 +178,7 @@ body {
   border: none;
   cursor: pointer;
   font-weight: bold;
-  background: #F2F5F8;
+  background: white;
 }
 .chat .chat-message button:hover {
   color: #75b1e8;
@@ -218,4 +228,23 @@ li{
 
 ul.list li {
   cursor: pointer;
+  padding:20px;
 }
+
+cdk-virtual-scroll-viewport {
+  height: 50vh;
+
+}
+.name{
+  text-transform:capitalize;
+  font-weight: bold;
+}
+.active{
+  background: whitesmoke;
+}
+
+.online-text{
+  color:green;
+  font-weight: bold;
+}
+

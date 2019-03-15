@@ -3,11 +3,12 @@ import { map } from 'rxjs/operators';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { UserInfo } from '../interfaces/userInfo';
+import { config } from '../configs/config';
 @Injectable({
   providedIn: 'root'
 })
 export class AdminService {
-  server_url = "http://localhost:5000/";
+  server_url = config.ip;
 
   constructor(private http: HttpClient) { }
 

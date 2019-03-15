@@ -1,18 +1,27 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
 import { Observable } from 'rxjs';
-
+import { UserService } from './services/user.service';
+import * as io from 'socket.io-client';
 @Injectable({
   providedIn: 'root'
 })
 export class AdminGuard implements CanActivate {
-  constructor(private router: Router) { }
+  chatSocket: SocketIOClient.Socket
+  constructor(private router: Router,
+    private userService: UserService) {
+    this.chatSocket = io("http://localhost:5000/chat");
+  }
+
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
 
     if (localStorage.getItem("AdminAuthorization") != "" && localStorage.getItem("AdminAuthorization") != null) {
-      console.log("Ready admin guard")
+      let payload = this.userService.getPayload(localStorage.getItem("AdminAuthorization"));
+
+      this.chatSocket.emit('login', payload.id);
+
       return true;
 
 

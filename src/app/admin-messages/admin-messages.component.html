@@ -1,143 +1,102 @@
-<div class="ui top attached demo menu">
-  <a class="item" (click)="saydbar.toggle()">
-    <i class="sidebar icon"></i>
-  </a>
-  <div class="right menu">
-    <div class="item">
-      <div class="ui blue button" (click)="logout()">Logout</div>
-    </div>
-  </div>
-</div>
-<sui-sidebar-container class="ui bottom attached segment">
-  <sui-sidebar class="vertical" #saydbar>
-    <a class="item " routerLink="/admin-home">
-      Home
-    </a>
-    <a class="item" routerLink="/admin-graph-specific">
-      Specific Reports
-    </a>
-    <a class="item" routerLink="/admin-graph-general">
-      General Reports
-    </a>
-    <a class="item" routerLink="/admin-new-print">
-      Print Section
-    </a>
-    <a class="item" routerLink="/admin-new-archive">
-      Archive Section
-    </a>
-    <a class="item" routerLink="/admin-settings">
-      Accounts Settings
-    </a>
-    <a class="item" routerLink="/admin-events">
-      Events
-    </a>
-    <a class="item active" routerLink="/admin-messages">
-      Messages
-    </a>
-  </sui-sidebar>
-  <sui-sidebar-sibling [isDimmedWhenVisible]="true">
-    <div class="ui basic segment" *ngIf="!printing">
-      <div class="container clearfix">
-        <div class="people-list" id="people-list">
-          <div class="search">
-            <input type="text" placeholder="search" />
-            <i class="fa fa-search"></i>
-          </div>
-          <ul class="list">
-            <li class="clearfix" *ngFor="let contact of contacts;let i = index"
-              (click)="selectContact(i);getMessages(contact.convo_name);">
-              <img [src]="contact.dp_path" alt="avatar" class="ui avatar tiny image" />
-              <div class="about">
-                <div class="name" [ngClass]="{'online': contact.isOnline,
-                                              'offline': !contact.isOnline}">{{contact.name}}
-                </div>
-              </div>
-            </li>
+<div class="ui basic segment" *ngIf="!printing">
+  <button class="ui secondary labeled icon button" style="margin-bottom:10px;" routerLink="/admin-home">
+    <i class="left arrow icon"></i>
+    Back to dashboard
+  </button>
 
 
-          </ul>
-        </div>
 
-        <div class="chat">
-          <div class="chat-header clearfix" *ngIf="selectedContact">
-            <img src="{{selectedContact.dp_path}}" class="ui avatar tiny image" alt="avatar" />
+  <div class="container clearfix">
 
-            <div class="chat-about">
-              <div class="chat-with">Chat with {{selectedContact.name}}</div>
+    <div class="people-list" id="people-list">
+      <div class="search">
+        <input type="text" placeholder="search" />
+        <i class="fa fa-search"></i>
+      </div>
+      <ul class="list">
+        <li class="clearfix" [ngClass]="{'active': contact.isSelected}" *ngFor="let contact of contacts;let i = index"
+          (click)="selectContact(i);getMessages(contact.convo_name);">
+
+          <img [src]="contact.dp_path" alt="avatar" class="ui avatar mini image" />
+          <div class="about">
+
+            <div class="name primary">
+
+              {{contact.name}}
+              <a class="ui empty circular label" style="margin-left:5px;" [ngClass]="{'green': contact.isOnline,
+              'grey': !contact.isOnline}"></a>
             </div>
-            <i class="fa fa-star"></i>
-          </div> <!-- end chat-header -->
+            <p>{{contact.recent_msg}}</p>
+            <span style="text-align: right" [ngClass]="{'online-text': contact.isOnline}">
+              {{contact.isOnline ? 'Active Now' : 'Last online: '+durationLastOnline(contact.last_online)}}
+            </span>
 
-          <div class="chat-history">
+          </div>
+        </li>
 
-            <ul>
 
+      </ul>
+    </div>
+    <div class="chat">
+      <div class="chat-header clearfix" *ngIf="selectedContact">
+        <img src="{{selectedContact.dp_path}}" class="ui avatar tiny image" alt="avatar" />
 
-              <li class="clearfix" *ngFor="let message of messages">
-                <div class="message-data " [ngClass]="{'align-right': selectedContact.contact_user_id == message.id}">
-                  <span class="message-data-time">{{message.timestamp}}</span> &nbsp; &nbsp;
-                  <span class="message-data-name">{{message.name}}</span> <i class="fa fa-circle me"></i>
+        <div class="chat-about">
+          <div class="chat-with">Chat with {{selectedContact.name}}</div>
+        </div>
+        <i class="fa fa-star"></i>
+      </div> <!-- end chat-header -->
 
-                </div>
-                <div class="message" [ngClass]="{'other-message': selectedContact.contact_user_id == message.id,
+      <div class="chat-history">
+        <div class="ui active centered inline loader" *ngIf="isLoading"></div>
+        <ul>
+          <cdk-virtual-scroll-viewport [itemSize]="messages.length" *ngIf="messages"
+            (scrolledIndexChange)="getNextBatch($event)" #scrollMe>
+            <li class="clearfix" *cdkVirtualFor="let message of messages">
+              <div class="message-data " [ngClass]="{'align-right': selectedContact.contact_user_id == message.id}">
+                <span class="message-data-time">{{message.timestamp}}</span> &nbsp; &nbsp;
+                <span class="message-data-name">{{message.name}}</span> <i class="fa fa-circle me"></i>
+
+              </div>
+              <div class="message" [ngClass]="{'other-message': selectedContact.contact_user_id == message.id,
                                             'float-right': selectedContact.contact_user_id == message.id,
                                             'my-message': selectedContact.contact_user_id != message.id}">
-                  {{message.message}}
-                </div>
-              </li>
+                {{message.message}}
+              </div>
 
-            </ul>
-
-            <div infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="1000" (scrolled)="onScroll()">
-            </div>
+            </li>
+          </cdk-virtual-scroll-viewport>
 
 
-          </div> <!-- end chat-history -->
 
-          <div class="chat-message clearfix">
-            <textarea name="message-to-send" id="message-to-send" placeholder="Type your message" rows="3"
-              #userMsg></textarea>
+        </ul>
 
-            <i class="fa fa-file-o"></i> &nbsp;&nbsp;&nbsp;
-            <i class="fa fa-file-image-o"></i>
 
-            <button (click)="sendMessage(userMsg.value, selectedContact.convo_name)">Send</button>
 
-          </div> <!-- end chat-message -->
 
-        </div> <!-- end chat -->
+      </div> <!-- end chat-history -->
 
-      </div> <!-- end container -->
+      <div class="chat-message clearfix">
+        <textarea name="message-to-send" id="message-to-send" placeholder="Type your message" rows="3"
+          #userMsg></textarea>
 
-      <script id="message-template" type="text/x-handlebars-template">
-      <li class="clearfix">
-        <div class="message-data align-right">
-          <span class="message-data-time" >{{time}}, Today</span> &nbsp; &nbsp;
-          <span class="message-data-name" >Olia</span> <i class="fa fa-circle me"></i>
-        </div>
-        <div class="message other-message float-right">
-          {{messageOutput}}
-        </div>
-      </li>
-    </script>
+        <i class="fa fa-file-o"></i> &nbsp;&nbsp;&nbsp;
+        <i class="fa fa-file-image-o"></i>
 
-      <script id="message-response-template" type="text/x-handlebars-template">
-      <li>
-        <div class="message-data">
-          <span class="message-data-name"><i class="fa fa-circle online"></i> Vincent</span>
-          <span class="message-data-time">{{time}}, Today</span>
-        </div>
-        <div class="message my-message">
-          {{response}}
-        </div>
-      </li>
-    </script>
+        <button (click)="sendMessage(userMsg.value, selectedContact.convo_name)">Send</button>
+
+      </div> <!-- end chat-message -->
+
+    </div> <!-- end chat -->
+
+  </div> <!-- end container -->
 
 
 
 
 
 
-    </div>
-  </sui-sidebar-sibling>
-</sui-sidebar-container>
+
+
+
+</div>

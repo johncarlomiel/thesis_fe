@@ -4,6 +4,7 @@ import { AdminService } from '../services/admin.service';
 import { Router } from '@angular/router';
 import * as io from 'socket.io-client';
 import { DataService } from '../services/data.service';
+import { ChatService } from '../services/chat.service';
 @Component({
   selector: 'app-admin-auth',
   templateUrl: './admin-auth.component.html',
@@ -15,6 +16,7 @@ export class AdminAuthComponent implements OnInit {
   chatSocket: SocketIOClient.Socket;
   constructor(
     private adminService: AdminService,
+    private chatService: ChatService,
     private router: Router,
     private dataService: DataService
   ) {
@@ -36,8 +38,8 @@ export class AdminAuthComponent implements OnInit {
       this.adminService.login(data).subscribe((successData) => {
         this.dataService.payload("Bearer " + successData, "admin").subscribe((successData2) => {
           localStorage.setItem("AdminAuthorization", "Bearer " + successData);
-          this.chatSocket.emit('login', successData2.id);
-          this.router.navigate(["/admin/home"]);
+          this.chatService.socketLogin(successData2.id)
+          this.router.navigate(["/admin-home"]);
         }, (error) => console.log(error));
       }, (error) => {
         this.isError = true;

@@ -4,6 +4,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { UserInfo } from '../interfaces/userInfo';
 import { Router } from '@angular/router';
+import { config } from '../configs/config';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,7 @@ import { Router } from '@angular/router';
 export class AuthService {
   private loggedInStatus: boolean = false;
   userInfo: Observable<UserInfo>;
-  server_url = "http://localhost:5000/";
+  server_url = config.ip;
 
 
 
