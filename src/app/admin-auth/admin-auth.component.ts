@@ -13,14 +13,12 @@ import { ChatService } from '../services/chat.service';
 export class AdminAuthComponent implements OnInit {
   isError = false;
   errorMsg = "";
-  chatSocket: SocketIOClient.Socket;
   constructor(
     private adminService: AdminService,
     private chatService: ChatService,
     private router: Router,
     private dataService: DataService
   ) {
-    this.chatSocket = io("http://localhost:5000/chat");
   }
 
   ngOnInit() {

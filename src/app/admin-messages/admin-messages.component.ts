@@ -6,6 +6,7 @@ import * as date_fns from 'date-fns';
 import { CdkVirtualScrollViewport, CdkScrollable } from '@angular/cdk/scrolling';
 import { UserService } from '../services/user.service';
 import { Router } from '@angular/router';
+import { AdminService } from '../services/admin.service';
 
 
 @Component({
@@ -37,7 +38,8 @@ export class AdminMessagesComponent implements OnInit {
 
   constructor(private chatService: ChatService,
     private userService: UserService,
-    private router: Router) {
+    private router: Router,
+    private adminService: AdminService) {
 
 
   }
@@ -110,7 +112,7 @@ export class AdminMessagesComponent implements OnInit {
       this.isLoading = true;
       this.limit += 10;
       setTimeout(() => {
-        this.chatService.getMessages(this.selectedContact.convo_name, this.limit)
+        this.adminService.getMessages(this.selectedContact.convo_name, this.limit)
           .subscribe((successData) => {
             this.messages = successData.reverse();
             this.isLoading = false;
@@ -121,7 +123,7 @@ export class AdminMessagesComponent implements OnInit {
   }
 
   getMessages(convo_name) {
-    this.chatService.getMessages(convo_name, this.limit).subscribe((successData) => {
+    this.adminService.getMessages(convo_name, this.limit).subscribe((successData) => {
       this.messages = successData.reverse();
       setTimeout(() => {
         this.scrollToBottom();
@@ -138,7 +140,7 @@ export class AdminMessagesComponent implements OnInit {
 
 
   getContacts() {
-    this.chatService.getContacts().subscribe((successData) => {
+    this.adminService.getContacts().subscribe((successData) => {
       this.contacts = successData;
       console.log(this.contacts)
       //Join all of the conversion room for every contact user

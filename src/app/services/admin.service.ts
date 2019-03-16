@@ -225,6 +225,8 @@ export class AdminService {
 
   }
 
+
+
   generalGraph(data) {
     // console.log(data)
     const url = this.server_url + "admin/genGraph";
@@ -439,6 +441,34 @@ export class AdminService {
       }),
     }
     return this.http.post(url, formData, httpOptions);
+  }
+
+  getContacts() {
+    const url = this.server_url + "user/contacts";
+    const params = new HttpParams().set("user_type", "admin");
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'authorization': localStorage.getItem("AdminAuthorization"),
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*'
+      }),
+      params
+    }
+    return this.http.get<[]>(url, httpOptions);
+  }
+
+  getMessages(convo_name, limit) {
+    const url = this.server_url + "user/messages";
+    const params = new HttpParams().set("user_type", "admin").set("convo_name", convo_name).set("limit", limit);
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'authorization': localStorage.getItem("AdminAuthorization"),
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*'
+      }),
+      params
+    }
+    return this.http.get<[]>(url, httpOptions);
   }
 
 }

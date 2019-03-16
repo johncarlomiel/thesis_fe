@@ -3,6 +3,7 @@ import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from
 import { Observable } from 'rxjs';
 import { UserService } from './services/user.service';
 import * as io from 'socket.io-client';
+import { config } from "./configs/config";
 @Injectable({
   providedIn: 'root'
 })
@@ -10,7 +11,7 @@ export class AdminGuard implements CanActivate {
   chatSocket: SocketIOClient.Socket
   constructor(private router: Router,
     private userService: UserService) {
-    this.chatSocket = io("http://localhost:5000/chat");
+    this.chatSocket = io(config.ip + "chat");
   }
 
   canActivate(
