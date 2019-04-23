@@ -4,6 +4,8 @@ import { problems } from '../data/problems';
 import { AdminService } from '../services/admin.service';
 import * as FusionCharts from 'fusioncharts';
 import { Router } from '@angular/router';
+import { ChatService } from '../services/chat.service';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -13,8 +15,9 @@ import { Router } from '@angular/router';
 })
 export class AdminGraphComponent implements OnInit {
   printing: Boolean = false;
+  isEventModal: Boolean = false;
   chartWidth = "100%";
-
+  events: Array<any>;
   dataplotModal: Boolean = false;
   dataPlotData = Array.apply(null, Array())
   withResult: Boolean = false;
@@ -48,7 +51,7 @@ export class AdminGraphComponent implements OnInit {
   subCaption: any;
   loader: Boolean = false;
   category_header: any;
-  constructor(private adminService: AdminService, private zone: NgZone, private router: Router) {
+  constructor(private adminService: AdminService, private zone: NgZone, private router: Router, private chatService: ChatService) {
 
   }
 
@@ -56,10 +59,36 @@ export class AdminGraphComponent implements OnInit {
     this.criteria = criteria;
     this.problems = problems.problems;
 
+    this.getEvents();
 
 
 
+  }
 
+  getEvents() {
+    this.adminService.getEvents().subscribe((events) => {
+      this.events = events;
+      console.log(this.events);
+
+    }, (err) => console.log(err));
+  }
+
+  inviteAll(event) {
+    let invitations = [];
+    this.dataPlotData.forEach((element) => {
+      console.log(element);
+      invitations.push([event.event_id, element.id]);
+    });
+    this.chatService.sendInvitation(this.dataPlotData, invitations);
+    Swal({
+      title: 'Invitation Sent.',
+      type: 'success',
+      confirmButtonText: 'Okay'
+    });
+
+  }
+  trim(string: string) {
+    return string.substring(0, 200);
   }
 
   getCaptions() {

@@ -19,6 +19,9 @@ export class ChatService {
 
 
   }
+  sendInvitation(users, invitations) {
+    this.chatSocket.emit('invitation to an event', users, invitations);
+  }
   socketLogin(id) {
     this.chatSocket.emit('login', id);
   }

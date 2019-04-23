@@ -1,6 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
 /* Utilitiy Classes */
-
+@font-face {
+    font-family: 'Montserrat';
+    src: url(assets/fonts/Montserrat/Montserrat-Regular.ttf) format("truetype");
+  }
 .bolder {
     font-weight: bolder !important;
 }
@@ -53,4 +56,4 @@
 
 html { overflow-y: hidden; }
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body { margin: 0; font-family: Montserrat, Roboto; }

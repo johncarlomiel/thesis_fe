@@ -7,6 +7,9 @@ import { Label } from '../models/tryLabel';
 import * as FusionCharts from 'fusioncharts';
 import { AdminService } from '../services/admin.service';
 import { Router } from '@angular/router';
+import { ChatService } from '../services/chat.service';
+import Swal from 'sweetalert2'
+
 
 @Component({
   selector: 'app-admin-graph-general',
@@ -27,6 +30,8 @@ export class AdminGraphGeneralComponent implements OnInit {
   catModal = false;
   catModalData = Array.apply(null, Array());
   catModalHeader = "";
+  events: Array<any>;
+  selectEventModal = false;
 
 
   dataplotModal: Boolean = false;
@@ -53,9 +58,10 @@ export class AdminGraphGeneralComponent implements OnInit {
     data: [],
   }
   sql = "";
-  constructor(private adminService: AdminService, private zone: NgZone, private router: Router) { }
+  constructor(private adminService: AdminService, private zone: NgZone, private router: Router, private chatService: ChatService) { }
 
   ngOnInit() {
+    this.getEvents();
     this.criteria = criteria;
     this.problems = problems.problems;
     this.graphLbl = new Label().label;
@@ -63,6 +69,23 @@ export class AdminGraphGeneralComponent implements OnInit {
     // console.log(this.graphLbl)
     this.withResult = true;
   }
+
+  inviteAll(event) {
+    let invitations = [];
+    this.catModalData.forEach((element) => {
+      console.log(element);
+      invitations.push([event.event_id, element.id]);
+    });
+    this.chatService.sendInvitation(this.catModalData, invitations);
+    Swal({
+      title: 'Invitation Sent.',
+      type: 'success',
+      confirmButtonText: 'Okay'
+    });
+
+  }
+
+
   criteriaChange() {
 
     this.graphLbl = new Label().label;
@@ -122,7 +145,6 @@ export class AdminGraphGeneralComponent implements OnInit {
     // console.log(graphData)
     //Check if there is an criteria
     if (graphData.sql != "") {
-
       this.adminService.generalGraph(graphData).subscribe((successData) => {
         //Loop thru all users check all of their problems
         console.log(graphData)
@@ -143,12 +165,8 @@ export class AdminGraphGeneralComponent implements OnInit {
               this.graphLbl[secondIndex].value++;
             }
           });
-
-
-
         });
         //Loop thru all users check all of their problems
-
         //Sort the array
         this.graphLbl.sort((a, b) => b.value - a.value); // For ascending sort
         let sortedData = this.graphLbl.map((x) => {
@@ -157,14 +175,8 @@ export class AdminGraphGeneralComponent implements OnInit {
         // console.log(this.graphLbl)
         for (let index = 0; index < 10; index++) {
           this.dataSource.data.push(this.graphLbl[index])
-
         }
         console.log(this.dataSource.data)
-
-
-
-
-
       }, (error) => console.log(error))
     }
 
@@ -269,6 +281,15 @@ export class AdminGraphGeneralComponent implements OnInit {
     localStorage.clear();
     this.router.navigate(["/admin/auth"])
 
+  }
+  getEvents() {
+    this.adminService.getEvents().subscribe((events) => {
+      this.events = events;
+      console.log(this.events)
+    }, (err) => console.log(err));
+  }
+  trim(string: string) {
+    return string.substring(0, 200);
   }
 
 }

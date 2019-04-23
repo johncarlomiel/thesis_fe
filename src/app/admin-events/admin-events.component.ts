@@ -13,14 +13,17 @@ export class AdminEventsComponent implements OnInit {
   selectedPoster: File;
   selectedUpdatedPoster: File;
   events: [];
+  invitations: Array<any>;
   err = false;
   page = 1;
   showAddEvent = false;
   showUpdateEvent = false;
   minDate = new Date(2019, 1, 1, 1, 1, 1, 1);
   maxDate = new Date(3000, 1, 1, 1, 1, 1, 1);
-
+  isInvitationModal = false;
+  viewedEvent: any;
   updateData: Event;
+  printing = false;
   constructor(private adminService: AdminService,
     private router: Router) {
     console.log(this.updateData)
@@ -119,6 +122,33 @@ export class AdminEventsComponent implements OnInit {
   logout() {
     localStorage.clear();
     this.router.navigate(["/admin/auth"])
+
+  }
+  trim(string: string) {
+    return string.substring(0, 150);
+  }
+
+  viewInvitations(event) {
+    this.viewedEvent = event;
+    this.isInvitationModal = true;
+    this.adminService.getInvitations(event.event_id).subscribe((invitations) => {
+      this.invitations = invitations;
+      console.log(this.invitations)
+    }, (err) => console.log(err));
+  }
+
+  print() {
+    this.isInvitationModal = false;
+    setTimeout(() => {
+      this.printing = true;
+
+    }, 1000);
+    setTimeout(() => {
+      window.print();
+      setTimeout(() => {
+        this.printing = false;
+      }, 500);
+    }, 1500);
 
   }
 

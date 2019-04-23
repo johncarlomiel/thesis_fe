@@ -197,6 +197,55 @@ export class AdminService {
 
   graph(data) {
     // console.log(data)
+
+    //Process Query
+
+    let criteria_holder = "";
+    let criteriaMet = "";
+    let notCriteriaMet = "";
+
+
+
+    data.criteria.forEach((first, firstIndex) => {
+      notCriteriaMet += "(";
+      criteriaMet += "(";
+      first.value.forEach((element, index) => {
+        notCriteriaMet += "users." + first.fieldname + " = " + `'${element}'`;
+        criteriaMet += "users." + first.fieldname + " = " + `'${element}'`;
+        if (index != first.value.length - 1) {
+          notCriteriaMet += " OR "
+          criteriaMet += " OR "
+        }
+      });
+      notCriteriaMet += ")";
+      notCriteriaMet += " AND "
+      criteriaMet += ")"
+      criteriaMet += " AND "
+      console.log("done first event")
+    });
+
+    data.value.forEach((element, index) => {
+      console.log("second start")
+      notCriteriaMet += element + " = 0";
+      criteriaMet += element + " = 1";
+      if (index != data.value.length - 1) {
+        criteriaMet += " AND "
+        notCriteriaMet += " AND "
+      }
+      console.log("second end")
+    });
+    console.log(data);
+
+    let request_data = {
+      criteria_holder,
+      criteriaMet,
+      notCriteriaMet
+    }
+    console.log(request_data);
+
+
+
+
     const url = this.server_url + "admin/graph";
     const httpOptions = {
       headers: new HttpHeaders({
@@ -207,7 +256,7 @@ export class AdminService {
       })
 
     }
-    return this.http.post<GraphResult>(url, data, httpOptions);
+    return this.http.post<GraphResult>(url, request_data, httpOptions);
 
 
   }
@@ -433,6 +482,7 @@ export class AdminService {
     formData.append("poster_url", data.poster);
     formData.append("time_from", data.time_from);
     formData.append("time_to", data.time_to);
+    formData.append("description", data.description);
 
     console.log(formData.get("poster"))
     const httpOptions = {
@@ -467,6 +517,19 @@ export class AdminService {
         'Access-Control-Allow-Origin': '*'
       }),
       params
+    }
+    return this.http.get<[]>(url, httpOptions);
+  }
+
+
+  getInvitations(event_id) {
+    const url = this.server_url + "admin/invitation/" + event_id;
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'authorization': localStorage.getItem("AdminAuthorization"),
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*'
+      })
     }
     return this.http.get<[]>(url, httpOptions);
   }

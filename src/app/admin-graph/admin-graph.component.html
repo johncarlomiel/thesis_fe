@@ -75,7 +75,7 @@
               </div>
               <sui-accordion [closeOthers]="false">
                 <sui-accordion-panel [isOpen]="false" *ngFor="let indivCriteria of criteria">
-                  <div title>
+                  <div title style="text-transform:capitalize;">
                     <i class="dropdown icon"></i>
                     {{indivCriteria.fieldname}}
                   </div>
@@ -201,6 +201,9 @@
       <i class="print icon"></i>
       Print
     </button>
+    <button class="ui blue button right floated" (click)="isEventModal = true;">
+      Invite all to an event
+    </button>
   </div>
 
   <div class="content">
@@ -226,4 +229,44 @@
     <button class="ui red button" (click)="criWithProb.deny()">Close</button>
   </div>
 
+</sui-modal>
+
+<sui-modal [isClosable]="false" [mustScroll]="true" (dismissed)="isEventModal = false" #selectModal
+  *ngIf="isEventModal">
+
+  <div class="content">
+    <table class="ui celled table">
+      <thead>
+        <tr>
+          <th colspan="2">Poster with Event Name</th>
+          <th>Description</th>
+          <th>Time From</th>
+          <th>Time To</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let event of events">
+          <td colspan="2">
+            <h4 class="ui image header">
+              <img src="{{event.poster_url}}" class="ui mini rounded image">
+              <div class="content">
+                {{event.name}}
+
+              </div>
+            </h4>
+          </td>
+
+          <td>{{trim(event.description)}}</td>
+          <td>{{event.time_from}}</td>
+          <td>{{event.time_to}}</td>
+          <td><button class="ui green button" (click)="inviteAll(event)">Select</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="actions">
+    <button class="ui red button" (click)="selectModal.deny()">Close</button>
+  </div>
 </sui-modal>

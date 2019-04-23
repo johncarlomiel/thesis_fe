@@ -1,276 +1,372 @@
-<div class="ui top attached demo menu">
-  <a class="item" (click)="sidebar.toggle()">
-    <i class="sidebar icon"></i>
-  </a>
-  <div class="right menu">
-    <div class="item">
-      <div class="ui blue button" (click)="logout()">Logout</div>
-    </div>
-  </div>
-</div>
-
-<sui-sidebar-container class="ui bottom attached segment">
-  <sui-sidebar class="vertical" #sidebar style="height:100%">
-    <a class="item " routerLink="/admin-home">
-      Home
+<div *ngIf="!printing">
+  <div class="ui top attached demo menu">
+    <a class="item" (click)="sidebar.toggle()">
+      <i class="sidebar icon"></i>
     </a>
-    <a class="item" routerLink="/admin-graph-specific">
-      Specific Reports
-    </a>
-    <a class="item" routerLink="/admin-graph-general">
-      General Reports
-    </a>
-    <a class="item" routerLink="/admin-new-print">
-      Print Section
-    </a>
-    <a class="item" routerLink="/admin-new-archive">
-      Archive Section
-    </a>
-    <a class="item" routerLink="/admin-settings">
-      Accounts Settings
-    </a>
-    <a class="item active" routerLink="/admin-events">
-      Events
-    </a>
-    <a class="item" routerLink="/admin-messages">
-      Messages
-    </a>
-  </sui-sidebar>
-  <sui-sidebar-sibling [isDimmedWhenVisible]="true">
-    <div class="ui basic segment">
-      <div class="ui grid" class="mainContent">
-        <h2 class="ui center aligned icon header">
-          <i class="circular calendar alternate icon"></i>
-          Events
-          <div class="sub header">Manage your events here..</div>
-        </h2>
-        <div class="ui info message container">
-          <div class="header">
-            Some of the action you can do in this section
-          </div>
-          <ul class="list">
-            <li>Create Event</li>
-            <li>View Event</li>
-            <li>Update Event</li>
-            <li>Delete Event</li>
-          </ul>
-        </div>
-        <div class="ui negative message container">
-          <div class="header">
-            Note:
-          </div>
-          <p>You can delete an event but proceed with caution..
-          </p>
-        </div>
-
-        <div class="right">
-          <button class="ui right blue labeled icon button" (click)="showAddEvent = true;">
-            <i class="right plus icon"></i>
-            Add event
-          </button>
-        </div>
-        <table class="ui celled table center aligned">
-          <thead>
-            <tr>
-              <th>Poster</th>
-              <th>Name</th>
-              <th>Location</th>
-              <th>Date</th>
-              <th>From</th>
-              <th>To</th>
-              <th colspan="2">Action Button</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let event of events | paginate: { itemsPerPage: 10, currentPage: page } ; let i = index">
-              <td>
-                <img [src]="event.poster_url" class="ui tiny centered rounded image" [alt]="event.name">
-              </td>
-              <td>{{event.name}}</td>
-              <td>{{event.location}}</td>
-              <td>{{event.date}}</td>
-              <td>{{event.time_from}}</td>
-              <td>{{event.time_to}}</td>
-              <td>
-                <button class="ui blue button"
-                  (click)="updateBtn(event.poster_url, event.name, event.location, event.date, event.time_from, event.time_to, event.event_id)">
-                  Update Event
-                </button>
-                <button class="ui red button" (click)="deleteEvent(event.event_id)">
-                  Delete Event
-                </button>
-              </td>
-
-            </tr>
-          </tbody>
-          <tfoot>
-            <tr>
-              <th colspan="8">
-                <div class="ui right floated pagination menu">
-                  <a></a>
-                  <pagination-controls (pageChange)="page = $event"></pagination-controls>
-                </div>
-              </th>
-            </tr>
-          </tfoot>
-        </table>
-
-        <!-- Add event Modal -->
-        <sui-modal *ngIf="showAddEvent" [mustScroll]="true" [isFullScreen]="true" [isClosable]="true"
-          (dismissed)="showAddEvent = false" #addEventModal>
-          <div class="content">
-            <form class="ui form" enctype="multipart/form-data" #myForm="ngForm" (ngSubmit)="addEvent(myForm)"
-              novalidate>
-              <div class="field">
-                <label for="poster">Poster</label>
-                <input type="file" (change)="onFileChanged($event)" name="poster" ngModel required>
-              </div>
-              <div class="field">
-                <label>Name</label>
-                <input type="text" name="name" ngModel required>
-              </div>
-              <div class="field">
-                <label>Location</label>
-                <textarea name="location" ngModel required></textarea>
-              </div>
-
-              <div class="three fields">
-                <div class="field">
-                  <label for="date">Date</label>
-                  <div class="ui left icon input">
-                    <i class="calendar icon"></i>
-                    <input autocomplete="off" suiDatepicker [pickerMinDate]="minDate" [pickerMaxDate]="maxDate"
-                      [pickerMode]="'date'" name="date" ngModel required>
-                  </div>
-                </div>
-
-                <div class="field">
-                  <label for="time_from">Time From</label>
-                  <div class="ui left icon input">
-                    <i class="clock icon"></i>
-                    <input autocomplete="off" suiDatepicker [pickerMode]="'time'" name="time_from" ngModel required>
-                  </div>
-                </div>
-
-                <div class="field">
-                  <label for="time_from">Time To</label>
-                  <div class="ui left icon input">
-                    <i class="clock icon"></i>
-                    <input autocomplete="off" suiDatepicker [pickerMode]="'time'" name="time_to" ngModel required>
-                  </div>
-                </div>
-
-
-              </div>
-
-              <div class="ui negative message" *ngIf="err">
-                <i class="close icon"></i>
-                <div class="header center">
-                  All fields are required
-                </div>
-              </div>
-              <p class="right">
-                <button class="ui red button" (click)="addEventModal.deny()">Close</button>
-                <button class="ui green button right" type="submit">Submit</button>
-              </p>
-
-
-            </form>
-
-          </div>
-
-        </sui-modal>
-        <!-- Add event Modal -->
-
-
-        <!-- Update event Modal -->
-        <sui-modal *ngIf="showUpdateEvent" [mustScroll]="true" [isFullScreen]="true" [isClosable]="true"
-          (dismissed)="showUpdateEvent = false" #updateEventModal>
-          <div class="content">
-            <form class="ui form" enctype="multipart/form-data">
-
-              <img class="ui medium centered rounded bordered image" [src]="updateData.poster_url">
-
-              <div class="field" style="display:inline">
-                <label for="poster">Poster</label>
-                <input type="file" (change)="onUpdateFileChanged($event)" name="poster">
-                <button class="ui button blue" (click)="updateEvent('poster_url',selectedUpdatedPoster)">
-                  Update
-                </button>
-              </div>
-              <div class="field">
-                <label>Name</label>
-                <input type="text" [placeholder]="updateData.name" #updateName>
-                <button class="ui button blue" (click)="updateEvent('name',updateName.value)">
-                  Update
-                </button>
-              </div>
-              <div class="field">
-                <label>Location</label>
-                <textarea name="location" [placeholder]="updateData.location" #updateLoc></textarea>
-                <button class="ui button blue" (click)="updateEvent('location',updateLoc.value)">
-                  Update
-                </button>
-              </div>
-
-              <div class="three fields">
-                <div class="field">
-                  <label for="date">Date</label>
-                  <div class="ui left icon input">
-                    <i class="calendar icon"></i>
-                    <input autocomplete="off" suiDatepicker [pickerMinDate]="minDate" [placeholder]="updateData.date"
-                      [pickerMaxDate]="maxDate" [pickerMode]="'date'" #updateDate>
-                    <button class="ui button blue" (click)="updateEvent('date',updateDate.value)">
-                      Update
-                    </button>
-                  </div>
-                </div>
-
-                <div class="field">
-                  <label for="time_from">Time From</label>
-                  <div class="ui left icon input">
-                    <i class="clock icon"></i>
-                    <input autocomplete="off" suiDatepicker [placeholder]="updateData.time_from" [pickerMode]="'time'"
-                      #updateTimeFrom>
-                    <button class="ui button blue" (click)="updateEvent('time_from',updateTimeFrom.value)">
-                      Update
-                    </button>
-                  </div>
-                </div>
-
-                <div class="field">
-                  <label for="time_from">Time To</label>
-                  <div class="ui left icon input">
-                    <i class="clock icon"></i>
-                    <input autocomplete="off" [placeholder]="updateData.time_to" suiDatepicker [pickerMode]="'time'"
-                      #updateTimeTo>
-                    <button class="ui button blue" (click)="updateEvent('time_to',updateTimeTo.value)">
-                      Update
-                    </button>
-                  </div>
-                </div>
-
-
-              </div>
-
-              <div class="ui negative message" *ngIf="err">
-                <i class="close icon"></i>
-                <div class="header center">
-                  All fields are required
-                </div>
-              </div>
-              <p class="right">
-                <button class="ui red button" (click)="updateEventModal.deny()">Close</button>
-              </p>
-
-
-            </form>
-
-          </div>
-
-        </sui-modal>
-
+    <div class="right menu">
+      <div class="item">
+        <div class="ui blue button" (click)="logout()">Logout</div>
       </div>
     </div>
-  </sui-sidebar-sibling>
-</sui-sidebar-container>
+  </div>
+
+  <sui-sidebar-container class="ui bottom attached segment">
+    <sui-sidebar class="vertical" #sidebar style="height:100%">
+      <a class="item " routerLink="/admin-home">
+        Home
+      </a>
+      <a class="item" routerLink="/admin-graph-specific">
+        Specific Reports
+      </a>
+      <a class="item" routerLink="/admin-graph-general">
+        General Reports
+      </a>
+      <a class="item" routerLink="/admin-new-print">
+        Print Section
+      </a>
+      <a class="item" routerLink="/admin-new-archive">
+        Archive Section
+      </a>
+      <a class="item" routerLink="/admin-settings">
+        Accounts Settings
+      </a>
+      <a class="item active" routerLink="/admin-events">
+        Events
+      </a>
+      <a class="item" routerLink="/admin-messages">
+        Messages
+      </a>
+    </sui-sidebar>
+    <sui-sidebar-sibling [isDimmedWhenVisible]="true">
+      <div class="ui basic segment">
+        <div class="ui grid" class="mainContent">
+          <h2 class="ui center aligned icon header">
+            <i class="circular calendar alternate icon"></i>
+            Events
+            <div class="sub header">Manage your events here..</div>
+          </h2>
+          <div class="ui info message container">
+            <div class="header">
+              Some of the action you can do in this section
+            </div>
+            <ul class="list">
+              <li>Create Event</li>
+              <li>View Event</li>
+              <li>Update Event</li>
+              <li>Delete Event</li>
+            </ul>
+          </div>
+          <div class="ui negative message container">
+            <div class="header">
+              Note:
+            </div>
+            <p>You can delete an event but proceed with caution..
+            </p>
+          </div>
+
+          <div class="right">
+            <button class="ui right blue labeled icon button" (click)="showAddEvent = true;">
+              <i class="right plus icon"></i>
+              Add event
+            </button>
+          </div>
+          <table class="ui celled table center aligned">
+            <thead>
+              <tr>
+                <th>Poster</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Location</th>
+                <th>Date</th>
+                <th>From</th>
+                <th>To</th>
+                <th colspan="3" style="background-color:#db2828;color:white">Action Buttons (hot)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let event of events | paginate: { itemsPerPage: 10, currentPage: page } ; let i = index">
+                <td>
+                  <img [src]="event.poster_url" class="ui tiny centered rounded image" [alt]="event.name">
+                </td>
+                <td>{{event.name}}</td>
+                <td style="white-space: pre-line">{{trim(event.description)}}</td>
+                <td>{{event.location}}</td>
+                <td>{{event.date}}</td>
+                <td>{{event.time_from}}</td>
+                <td>{{event.time_to}}</td>
+                <td>
+                  <button class="ui blue button"
+                    (click)="updateBtn(event.poster_url, event.name, event.location, event.date, event.time_from, event.time_to, event.event_id)">
+                    Update Event
+                  </button>
+                </td>
+                <td>
+                  <button class="ui blue button" (click)="viewInvitations(event)">
+                    Invitations
+                  </button>
+                </td>
+                <td>
+                  <button class="ui red button" (click)="deleteEvent(event.event_id)">
+                    Delete Event
+                  </button>
+                </td>
+
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr>
+                <th colspan="8">
+                  <div class="ui right floated pagination menu">
+                    <a></a>
+                    <pagination-controls (pageChange)="page = $event"></pagination-controls>
+                  </div>
+                </th>
+              </tr>
+            </tfoot>
+          </table>
+
+          <!-- Add event Modal -->
+          <sui-modal *ngIf="showAddEvent" [mustScroll]="true" [isFullScreen]="true" [isClosable]="true"
+            (dismissed)="showAddEvent = false" #addEventModal>
+            <div class="content">
+              <form class="ui form" enctype="multipart/form-data" #myForm="ngForm" (ngSubmit)="addEvent(myForm)"
+                novalidate>
+                <div class="three fields">
+                  <div class="field">
+                    <label for="poster">Poster</label>
+                    <input type="file" (change)="onFileChanged($event)" name="poster" ngModel required>
+                  </div>
+                  <div class="field">
+                    <label>Name</label>
+                    <input type="text" name="name" ngModel required>
+                  </div>
+                  <div class="field">
+                    <label>Location</label>
+                    <input type="text" name="location" ngModel required>
+                  </div>
+                </div>
+
+                <div class="field">
+                  <label for="description">Description</label>
+                  <textarea name="description" ngModel required></textarea>
+                </div>
+
+                <div class="three fields">
+                  <div class="field">
+                    <label for="date">Date</label>
+                    <div class="ui left icon input">
+                      <i class="calendar icon"></i>
+                      <input autocomplete="off" suiDatepicker [pickerMinDate]="minDate" [pickerMaxDate]="maxDate"
+                        [pickerMode]="'date'" name="date" ngModel required>
+                    </div>
+                  </div>
+
+                  <div class="field">
+                    <label for="time_from">Time From</label>
+                    <div class="ui left icon input">
+                      <i class="clock icon"></i>
+                      <input autocomplete="off" suiDatepicker [pickerMode]="'time'" name="time_from" ngModel required>
+                    </div>
+                  </div>
+
+                  <div class="field">
+                    <label for="time_from">Time To</label>
+                    <div class="ui left icon input">
+                      <i class="clock icon"></i>
+                      <input autocomplete="off" suiDatepicker [pickerMode]="'time'" name="time_to" ngModel required>
+                    </div>
+                  </div>
+
+
+                </div>
+
+                <div class="ui negative message" *ngIf="err">
+                  <i class="close icon"></i>
+                  <div class="header center">
+                    All fields are required
+                  </div>
+                </div>
+                <p class="right">
+                  <button class="ui red button" (click)="addEventModal.deny()">Close</button>
+                  <button class="ui green button right" type="submit">Submit</button>
+                </p>
+
+
+              </form>
+
+            </div>
+
+          </sui-modal>
+          <!-- Add event Modal -->
+
+
+          <!-- Update event Modal -->
+          <sui-modal *ngIf="showUpdateEvent" [mustScroll]="true" [isFullScreen]="true" [isClosable]="true"
+            (dismissed)="showUpdateEvent = false" #updateEventModal>
+            <div class="content">
+              <form class="ui form" enctype="multipart/form-data">
+
+                <img class="ui medium centered rounded bordered image" [src]="updateData.poster_url">
+
+                <div class="field" style="display:inline">
+                  <label for="poster">Poster</label>
+                  <input type="file" (change)="onUpdateFileChanged($event)" name="poster">
+                  <button class="ui button blue" (click)="updateEvent('poster_url',selectedUpdatedPoster)">
+                    Update
+                  </button>
+                </div>
+                <div class="field">
+                  <label>Name</label>
+                  <input type="text" [placeholder]="updateData.name" #updateName>
+                  <button class="ui button blue" (click)="updateEvent('name',updateName.value)">
+                    Update
+                  </button>
+                </div>
+                <div class="field">
+                  <label>Location</label>
+                  <textarea name="location" [placeholder]="updateData.location" #updateLoc></textarea>
+                  <button class="ui button blue" (click)="updateEvent('location',updateLoc.value)">
+                    Update
+                  </button>
+                </div>
+
+                <div class="three fields">
+                  <div class="field">
+                    <label for="date">Date</label>
+                    <div class="ui left icon input">
+                      <i class="calendar icon"></i>
+                      <input autocomplete="off" suiDatepicker [pickerMinDate]="minDate" [placeholder]="updateData.date"
+                        [pickerMaxDate]="maxDate" [pickerMode]="'date'" #updateDate>
+                      <button class="ui button blue" (click)="updateEvent('date',updateDate.value)">
+                        Update
+                      </button>
+                    </div>
+                  </div>
+
+                  <div class="field">
+                    <label for="time_from">Time From</label>
+                    <div class="ui left icon input">
+                      <i class="clock icon"></i>
+                      <input autocomplete="off" suiDatepicker [placeholder]="updateData.time_from" [pickerMode]="'time'"
+                        #updateTimeFrom>
+                      <button class="ui button blue" (click)="updateEvent('time_from',updateTimeFrom.value)">
+                        Update
+                      </button>
+                    </div>
+                  </div>
+
+                  <div class="field">
+                    <label for="time_from">Time To</label>
+                    <div class="ui left icon input">
+                      <i class="clock icon"></i>
+                      <input autocomplete="off" [placeholder]="updateData.time_to" suiDatepicker [pickerMode]="'time'"
+                        #updateTimeTo>
+                      <button class="ui button blue" (click)="updateEvent('time_to',updateTimeTo.value)">
+                        Update
+                      </button>
+                    </div>
+                  </div>
+
+
+                </div>
+
+                <div class="ui negative message" *ngIf="err">
+                  <i class="close icon"></i>
+                  <div class="header center">
+                    All fields are required
+                  </div>
+                </div>
+                <p class="right">
+                  <button class="ui red button" (click)="updateEventModal.deny()">Close</button>
+                </p>
+
+
+              </form>
+
+            </div>
+
+          </sui-modal>
+
+
+          <sui-modal [isClosable]="true" *ngIf="isInvitationModal" (dismissed)="isInvitationModal = false;"
+            #invitationModal>
+            <div class="header">
+              {{viewedEvent.name}} Invitations
+              <button class="ui labeled icon button right floated" (click)="print()" *ngIf="!printing">
+                <i class="print icon"></i>
+                Print
+              </button>
+            </div>
+            <div class="content">
+              <table class="ui large table">
+                <thead>
+                  <th>Id</th>
+                  <th>Name</th>
+                  <th>Year</th>
+                  <th>Course</th>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let item of invitations">
+                    <td>{{item.id}}</td>
+                    <td>{{item.name}}</td>
+                    <td>{{item.year}}</td>
+                    <td>{{item.course}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="actions">
+              <button class="ui red button" (click)="invitationModal.deny()">Cancel</button>
+            </div>
+          </sui-modal>
+
+        </div>
+      </div>
+    </sui-sidebar-sibling>
+  </sui-sidebar-container>
+</div>
+
+
+
+
+<div *ngIf="printing">
+  <div class="head">
+    <div style="margin-bottom:10px;padding-right:20px;padding-left:20px;">
+      <div id="logo_header" class="ui">
+        <img src="assets/images/gclogoprint.png" class="ui mini left floated image" alt="">
+        <h5 style="text-align:right">{{viewedEvent.date}}</h5>
+      </div>
+      <h4 class="center" style="font-weight:bolder">{{viewedEvent.name}}</h4>
+      <h4 class="center" style="font-weight:bolder">{{viewedEvent.location}}</h4>
+
+    </div>
+  </div>
+
+  <div class="body" style="padding:15px;">
+    <table class="ui compact center aligned table" style="margin-top:10px;">
+      <thead>
+        <tr>
+          <th>Student Id</th>
+          <th>Name</th>
+          <th>Year</th>
+          <th>Course</th>
+          <th>Remarks</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let student of invitations">
+          <td>{{student.id}}</td>
+          <td>{{student.name}}</td>
+          <td>{{student.year}}</td>
+          <td>{{student.course}}</td>
+          <td>
+            <sui-checkbox>
+              Attended
+            </sui-checkbox>
+          </td>
+        </tr>
+
+      </tbody>
+    </table>
+  </div>
+</div>

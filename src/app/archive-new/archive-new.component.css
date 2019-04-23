@@ -32,12 +32,18 @@ h3{
       
       }
     
- 
+      h4,h5{
+        font-family: 'Staatliches', cursive;
+    }
+      h3{
+      font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  }
     html, body {
       /*changing width to 100% causes huge overflow and wrap*/
       height:100%; 
       background: #FFF; 
       font-size: 9pt;
+      font-family: Staatliches;
     }
     table{
         page-break-inside: avoid;
