@@ -262,7 +262,7 @@ export class AdminGraphComponent implements OnInit {
   }
   logout() {
     localStorage.clear();
-    this.router.navigate(["/admin/auth"])
+    this.router.navigate(["/admin-auth"])
 
   }
 

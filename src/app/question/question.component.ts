@@ -20,6 +20,11 @@ export class QuestionComponent implements OnInit {
   currentLogo: string;
   currentColor: string;
 
+  value = 0;
+  maximum: number = 100;
+  valuePerQuestion;
+
+
   view: Boolean = true;
   loader: Boolean = false;
   label_true = "Like";
@@ -82,6 +87,9 @@ export class QuestionComponent implements OnInit {
     this.testIndex = Number(localStorage.getItem("qtsIndex"));
     this.results = JSON.parse(localStorage.getItem("qstResult"));
     // console.log(this.results)
+
+    this.valuePerQuestion = 100 / this.testQuestions.length;
+    this.value = this.valuePerQuestion * this.testIndex;
 
 
     // console.log(this.testQuestions)
@@ -151,6 +159,7 @@ export class QuestionComponent implements OnInit {
           localStorage.setItem("qstResult", JSON.stringify(this.results));
           //Increment counter update the current value into localStorage
           this.testIndex++;
+          this.value = this.valuePerQuestion * this.testIndex;
           localStorage.setItem("qtsIndex", this.testIndex.toString());
           //Change question
           this.currentQuestion = this.testQuestions[this.testIndex].data;

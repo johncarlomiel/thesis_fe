@@ -13,7 +13,10 @@ export class DataService {
   constructor(private http: HttpClient) { }
 
 
-
+  getTakers() {
+    const url = this.server_url + "user/count-takers";
+    return this.http.get(url);
+  }
 
   submitResult(result) {
     const url = this.server_url + "user/submitResult";

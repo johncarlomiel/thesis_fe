@@ -2,7 +2,7 @@
 
   <app-header></app-header>
   <br>
-  <div class="ui container" style="padding:15px;">
+  <div class="ui container">
     <h2 class="ui icon header center aligned">
       <i class="circular lock icon"></i>
       <div class="content">
@@ -20,89 +20,86 @@
 
   <br>
 
-
-  <div class="ui placeholder container blue segment">
-    <div class="ui active centered inline dimmer" *ngIf="loader">
-      <div class="ui large text loader">Loading</div>
-    </div>
-    <div class="ui two column very relaxed stackable grid">
-      <div class="middle aligned column ">
-
-        <p class="center aligned" *ngIf="!login">
-          <button class="ui big button blue" (click)="change('qwe')">
-            Login
-          </button>
-        </p>
-        <div class="ui form" *ngIf="login">
-          <div class="field">
-            <label>Username</label>
-            <div class="ui fluid left icon input">
-              <input type="text" placeholder="Username" #loginUsername>
-              <i class="user icon"></i>
-            </div>
+  <div class="ui grid container">
+    <div class="eight wide column">
+      <p class="center aligned" *ngIf="!login">
+        <button class="ui big button blue" (click)="change('qwe')">
+          Login
+        </button>
+      </p>
+      <div class="ui form" *ngIf="login">
+        <div class="field">
+          <label>Username</label>
+          <div class="ui fluid left icon input">
+            <input type="text" placeholder="Username" #loginUsername>
+            <i class="user icon"></i>
           </div>
-          <div class="field">
-            <label>Password</label>
-            <div class="ui left icon input">
-              <input type="password" #loginPass placeholder="Password">
-              <i class="lock icon"></i>
-            </div>
-          </div>
-
-
-
-          <p class="center aligned"><button class="ui green submit big button" (click)="userLogin(loginUsername.value,loginPass.value)">Login</button></p>
-
         </div>
-      </div>
-      <div class="middle aligned column">
-        <p class="center aligned" *ngIf="login">
-          <button class="ui big button blue" (click)="change('signup')">
-            Sign Up
-          </button>
-        </p>
-
-        <div class="ui form" *ngIf="!login">
-          <div class="field">
-            <label>Username</label>
-            <div class="ui left  icon input">
-              <input type="text" placeholder="Enter username here" #registerUsername>
-              <i class="user icon"></i>
-            </div>
+        <div class="field">
+          <label>Password</label>
+          <div class="ui left icon input">
+            <input type="password" #loginPass placeholder="Password">
+            <i class="lock icon"></i>
           </div>
-          <div class="field">
-            <label>Password</label>
-            <div class="ui left  icon input">
-              <input type="password" placeholder="Enter password here" #registerPassword>
-              <i class="lock icon"></i>
-            </div>
-          </div>
-
-          <div class="field">
-            <label>Name</label>
-            <div class="ui left  icon input">
-              <input type="text" placeholder="e.g. (Mark A. Cruz)" #registerFullname>
-              <i class="user icon"></i>
-            </div>
-          </div>
-
-          <div class="field">
-            <label for="">Gender</label>
-            <sui-select class="selection" [(ngModel)]="selectedGender" #gender>
-              <sui-select-option *ngFor="let option of genderOptions" [value]="option">
-              </sui-select-option>
-            </sui-select>
-          </div>
-
-
-
-          <p class="center aligned"><button class="ui green submit big button" (click)="register(registerUsername.value,registerPassword.value,registerFullname.value,gender.selectedOption)">Register</button></p>
-
         </div>
+
+
+
+        <p class="center aligned"><button class="ui green submit big button"
+            (click)="userLogin(loginUsername.value,loginPass.value)">Login</button></p>
+
       </div>
     </div>
-    <div class="ui vertical divider">
-      Or
+
+    <div class="eight wide column">
+      <p class="center aligned" *ngIf="login">
+        <button class="ui big button blue" (click)="change('signup')">
+          Sign Up
+        </button>
+      </p>
+
+      <div class="ui form" *ngIf="!login">
+        <div class="field">
+          <label>Username</label>
+          <div class="ui left  icon input">
+            <input type="text" placeholder="Enter username here" #registerUsername>
+            <i class="user icon"></i>
+          </div>
+        </div>
+        <div class="field">
+          <label>Password</label>
+          <div class="ui left  icon input">
+            <input type="password" placeholder="Enter password here" #registerPassword>
+            <i class="lock icon"></i>
+          </div>
+        </div>
+
+        <div class="field">
+          <label>Name</label>
+          <div class="ui left  icon input">
+            <input type="text" placeholder="e.g. (Mark A. Cruz)" #registerFullname>
+            <i class="user icon"></i>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="">Gender</label>
+          <sui-select class="selection" [(ngModel)]="selectedGender" #gender>
+            <sui-select-option *ngFor="let option of genderOptions" [value]="option">
+            </sui-select-option>
+          </sui-select>
+        </div>
+
+
+
+        <p class="center aligned"><button class="ui green submit big button"
+            (click)="register(registerUsername.value,registerPassword.value,registerFullname.value,gender.selectedOption)">Register</button>
+        </p>
+
+      </div>
     </div>
   </div>
+
+
+
 </div>

@@ -1,5 +1,35 @@
 
 
+@media only screen and (max-width : 320px) {
+    /* Styles */
+    div.description{
+        font-size:.6em !important;
+    }
+    div.header{
+        font-size:.7em !important;
+        
+    }
+
+    }
+
+    video {
+        width: 100%;
+        height: auto;
+      }
+
+    @media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
+        /* Styles */
+        div.description{
+            font-size:.6em !important;
+        }
+        div.header{
+            font-size:.7em !important;
+            
+        }
+        }
+
+
+
 .content_section{
     position: absolute;
     z-index: 1;
@@ -27,12 +57,11 @@
 .content div#intro-title{
     padding-top: 5%;
 }
-/* Defaults */
-p{
-    font-size: 1.1rem;
-    font-weight: 400;
-}
 
+p{
+  font-size: 1.1rem;
+  font-weight: 400;
+}
 
 section{
     margin-bottom: 5%;
@@ -44,32 +73,24 @@ section{
     margin-top: 5%;
     background: #F5F7F8;
     margin-bottom: 0;
-}
-/* Left Side */
+} 
+
+
 section#gray-section div div#left{
     border-top:#E6ECEE solid 1px;
     border-right:#E6ECEE solid 1px;
     height:300px;
     padding-top: 55px;
 }
-/* Quote */
 section#gray-section div div#left p#quote{
     color: gray;
     font-style: italic;
     font-weight: 700;
     font-size: 1.5em;
 }
-/* Left Side */
-/* Right Side */
 section#gray-section div div#right{
     border-top:#E6ECEE solid 1px;
     border-left:#E6ECEE solid 1px;
     height:300px;
     padding-top: 55px;
 }
-/* Right Side */
-
-
-
-
-

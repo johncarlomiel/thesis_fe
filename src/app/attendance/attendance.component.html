@@ -1,0 +1,122 @@
+<div *ngIf="!isPrinting">
+   <div class="ui top attached demo menu">
+      <a class="item" (click)="sidebar.toggle()">
+         <i class="sidebar icon"></i>
+      </a>
+      <div class="right menu">
+         <div class="item">
+            <div class="ui blue button" (click)="logout()">Logout</div>
+         </div>
+      </div>
+   </div>
+
+   <sui-sidebar-container class="ui bottom attached segment">
+      <sui-sidebar class="vertical" #sidebar style="height:100%">
+         <a class="item" routerLink="/admin-home">
+            Home
+         </a>
+         <a class="item active" routerLink="/takers-attendance">
+            Attendance
+         </a>
+         <a class="item" routerLink="/admin-graph-specific">
+            Specific Reports
+         </a>
+         <a class="item" routerLink="/admin-graph-general">
+            General Reports
+         </a>
+         <a class="item" routerLink="/admin-new-print">
+            Print Section
+         </a>
+         <a class="item" routerLink="/admin-new-archive">
+            Archive Section
+         </a>
+         <a class="item" routerLink="/admin-settings">
+            Accounts Settings
+         </a>
+         <a class="item" routerLink="/admin-events">
+            Events
+         </a>
+         <a class="item" routerLink="/admin-messages">
+            Messages
+         </a>
+      </sui-sidebar>
+
+      <sui-sidebar-sibling [isDimmedWhenVisible]="true">
+         <div class="ui segment" style="min-height:90vh">
+            <div class="ui active dimmer" *ngIf="isLoading">
+               <div class="ui loader"></div>
+            </div>
+            <h2 class="ui center aligned icon header">
+               <i class="circular calendar icon"></i>
+               Attendance Section
+
+               <div class="sub header">View / Generate a report about takers on a certain date.</div>
+            </h2>
+            <div class="ui center aligned">
+               <div class="ui left icon input">
+                  <i class="calendar icon"></i>
+                  <input suiDatepicker [(ngModel)]="date" placeholder="Pick a date" [pickerMode]="'date'"
+                     (ngModelChange)="changeDate();">
+               </div>
+            </div>
+
+            <h2 *ngIf="takers" class="center aligned">{{takers.length}} Results</h2>
+            <button class="ui green button" style="float:right;margin-bottom:10px;" (click)="generateReport();">Generate
+               Report</button>
+
+            <table class="ui celled center aligned table" *ngIf="takers">
+               <thead>
+                  <tr>
+                     <th>Name</th>
+                     <th>Gender</th>
+                     <th>Summary Code</th>
+                  </tr>
+               </thead>
+               <tbody>
+                  <tr *ngFor="let taker of takers">
+                     <td>{{taker.name}}</td>
+                     <td>{{taker.gender}}</td>
+                     <td>{{taker.summary_code}}</td>
+                  </tr>
+               </tbody>
+            </table>
+         </div>
+      </sui-sidebar-sibling>
+   </sui-sidebar-container>
+</div>
+
+
+
+
+
+<div id="report" *ngIf="isPrinting">
+   <div class="head">
+      <div style="margin-bottom:10px;padding-right:20px;padding-left:20px;">
+         <div class="center">
+            <img src="assets/images/gclogoprint.png" class="ui" style="width:38px;height:38px;" alt="">
+         </div>
+         <h4 class="center" style="font-weight:bolder">GORDON COLLEGE</h4>
+         <h4 class="center" style="font-weight:bolder">List of SDS Takers</h4>
+         <p class="center" style="font-weight:bold">{{convert(date, 'MMMM DD YYYY')}}</p>
+
+      </div>
+   </div>
+
+
+   <table style="margin-top:28px;" class="ui very basic center aligned table" *ngIf="takers">
+      <thead>
+         <tr>
+            <th>Name</th>
+            <th>Gender</th>
+            <th>Summary Code</th>
+         </tr>
+      </thead>
+      <tbody>
+         <tr *ngFor="let taker of takers">
+            <td>{{taker.name}}</td>
+            <td>{{taker.gender}}</td>
+            <td>{{taker.summary_code}}</td>
+         </tr>
+      </tbody>
+   </table>
+</div>

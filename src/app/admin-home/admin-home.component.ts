@@ -67,6 +67,15 @@ export class AdminHomeComponent implements OnInit {
     }, (error) => { console.log(error); this.noInfo = true; })
   }
 
+  changeUserPermission(i, permission) {
+    this.adminService.changeUserPermission(i, permission).subscribe((response) => {
+      swal({
+        title: "Permission Changed",
+        type: "success"
+      });
+    }, err => console.error(err));
+  }
+
 
 
   getProblems(i) {
@@ -236,7 +245,7 @@ export class AdminHomeComponent implements OnInit {
 
   logout() {
     localStorage.clear();
-    this.router.navigate(["/admin/auth"])
+    this.router.navigate(["/admin-auth"])
 
   }
 }

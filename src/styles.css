@@ -57,3 +57,52 @@
 html { overflow-y: hidden; }
 html, body { height: 100%; }
 body { margin: 0; font-family: Montserrat, Roboto; }
+
+
+/* Smartphones (portrait and landscape) ----------- */
+@media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
+    /* Styles */
+        p#parag{
+            font-size:.8em !important;
+        }
+    }
+    
+    /* Smartphones (landscape) ----------- */
+    @media only screen and (min-width : 321px) {
+    /* Styles */
+    p#parag{
+        font-size:1.2em !important;
+    }
+    }
+
+    @media only screen and (min-width : 890px) {
+        /* Styles */
+        p#parag{
+            font-size:2em !important;
+        }
+        }
+    
+    /* Smartphones (portrait) ----------- */
+    @media only screen and (max-width : 320px) {
+    /* Styles */
+    p#parag{
+        font-size:.9em !important;
+    }
+    }
+
+
+    /* Desktops and laptops ----------- */
+@media only screen  and (min-width : 1224px) {
+    /* Styles */
+    p#parag{
+        font-size:1.5em !important;
+    }
+    }
+    
+    /* Large screens ----------- */
+    @media only screen  and (min-width : 1824px) {
+    /* Styles */
+    p#parag{
+        font-size:1.8em !important;
+    }
+    }

@@ -26,6 +26,9 @@ import { PrintOldComponent } from './print-old/print-old.component';
 import { ArchiveOldComponent } from './archive-old/archive-old.component';
 import { AdminMessagesComponent } from './admin-messages/admin-messages.component';
 import { AdminEventsComponent } from './admin-events/admin-events.component';
+import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
+import { AttendanceComponent } from './attendance/attendance.component';
+import { TermsAndConditionComponent } from './terms-and-condition/terms-and-condition.component';
 
 
 const routes: Routes = [
@@ -128,6 +131,18 @@ const routes: Routes = [
     path: "admin-events",
     component: AdminEventsComponent,
     canActivate: [AdminGuard]
+  },
+  {
+    path: "privacy-policy",
+    component: PrivacyPolicyComponent
+  },
+  {
+    path: 'terms-condition',
+    component: TermsAndConditionComponent
+  },
+  {
+    path: 'takers-attendance',
+    component: AttendanceComponent
   },
   {
     path: '404',

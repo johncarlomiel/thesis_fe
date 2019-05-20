@@ -11,6 +11,7 @@ import { DataService } from '../services/data.service';
 export class HomeComponent implements OnInit {
   userSession: Boolean = false;
   chatSocket: any;
+  takers: any;
   constructor(public authService: AuthService, public router: Router, public data: DataService) { }
 
   ngOnInit() {
@@ -19,6 +20,7 @@ export class HomeComponent implements OnInit {
 
 
     this.checkSession();
+    this.getTakers();
 
 
   }
@@ -66,6 +68,13 @@ export class HomeComponent implements OnInit {
       }, 1000);
 
     }
+  }
+
+  getTakers() {
+    this.data.getTakers().subscribe((takers) => {
+      console.log(takers)
+      this.takers = takers[0].takers;
+    }, err => console.log(err));
   }
 
 

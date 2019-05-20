@@ -12,6 +12,37 @@ export class AdminService {
 
   constructor(private http: HttpClient) { }
 
+  getTakersByDate(date) {
+    const url = this.server_url + "admin/users/attendance";
+    const params = new HttpParams().set("date", date);
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'authorization': localStorage.getItem("AdminAuthorization"),
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*'
+      }),
+      params
+    }
+    return this.http.get(url, httpOptions);
+  }
+
+  changeUserPermission(i, permission) {
+    const url = this.server_url + "admin/users/permission";
+    const body = {
+      user_id: i,
+      isGrantedAccess: permission
+    }
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'authorization': localStorage.getItem("AdminAuthorization"),
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*'
+      })
+    }
+
+    return this.http.patch(url, body, httpOptions);
+  }
+
   deleteUser(id) {
     const url = this.server_url + "admin/users";
     const httpOptions = {

@@ -123,7 +123,7 @@ export class ArchiveNewComponent implements OnInit {
 
   logout() {
     localStorage.clear();
-    this.router.navigate(["/admin/auth"])
+    this.router.navigate(["/admin-auth"])
   }
   getColor(letter) {
     if (letter == "R") {

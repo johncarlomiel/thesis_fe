@@ -15,6 +15,9 @@
       <a class="item" routerLink="/admin/home">
         Home
       </a>
+      <a class="item" routerLink="/takers-attendance">
+        Attendance
+      </a>
       <a class="item" routerLink="/admin/graph/specific">
         Specific Reports
       </a>
@@ -222,7 +225,8 @@
 
               <img src="assets/icons/riasec-logo.png" class="img-summary" alt="" width="200" height="200">
               <div class="center-text">
-                <span *ngFor="let code of summaryCode" style="font-weight:bolder;font-size:1.5em" [ngStyle]="{'color': true ? getColor(code) : ''}">
+                <span *ngFor="let code of summaryCode" style="font-weight:bolder;font-size:1.5em"
+                  [ngStyle]="{'color': true ? getColor(code) : ''}">
                   {{code}}
                 </span>
               </div>
@@ -231,7 +235,8 @@
             <div *ngFor="let code of summaryCode">
               <div class="ui divider"></div>
               <img class="ui middle aligned tiny image" src="assets/icons/{{code}}_icon.png">
-              <span style="font-weight: bolder; font-size:1.5em; margin-left: 10px;letter-spacing: 5px;" [ngStyle]="{'color': true ? getColor(code) : ''}">
+              <span style="font-weight: bolder; font-size:1.5em; margin-left: 10px;letter-spacing: 5px;"
+                [ngStyle]="{'color': true ? getColor(code) : ''}">
                 {{getWord(code)}}</span>
             </div>
 

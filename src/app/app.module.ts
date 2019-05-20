@@ -56,6 +56,10 @@ import { PrintOldComponent } from './print-old/print-old.component';
 import { ArchiveOldComponent } from './archive-old/archive-old.component';
 import { AdminMessagesComponent } from './admin-messages/admin-messages.component';
 import { AdminEventsComponent } from './admin-events/admin-events.component';
+import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
+import { LandingComponent } from './landing/landing.component';
+import { AttendanceComponent } from './attendance/attendance.component';
+import { TermsAndConditionComponent } from './terms-and-condition/terms-and-condition.component';
 
 
 FusionChartsModule.fcRoot(FusionCharts, Charts, FusionTheme, Candy);
@@ -89,6 +93,10 @@ FusionChartsModule.fcRoot(FusionCharts, Charts, FusionTheme, Candy);
     ArchiveOldComponent,
     AdminMessagesComponent,
     AdminEventsComponent,
+    PrivacyPolicyComponent,
+    LandingComponent,
+    AttendanceComponent,
+    TermsAndConditionComponent,
 
   ],
   imports: [
