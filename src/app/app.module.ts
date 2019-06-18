@@ -16,7 +16,7 @@ import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import * as FusionTheme from 'fusioncharts/themes/fusioncharts.theme.fusion';
-
+import { NgxInfiniteScrollerModule } from 'ngx-infinite-scroller';
 
 
 
@@ -110,6 +110,7 @@ FusionChartsModule.fcRoot(FusionCharts, Charts, FusionTheme, Candy);
     FusionChartsModule,
     InfiniteScrollModule,
     ScrollingModule,
+    NgxInfiniteScrollerModule,
     DateFnsModule.forRoot()
 
 

@@ -1,4 +1,4 @@
-import { Component, OnInit, Directive, ViewChild, AfterViewChecked, AfterContentInit, AfterViewInit, ElementRef, HostListener } from '@angular/core';
+import { Component, OnInit, Directive, ViewChild, AfterViewChecked, AfterContentInit, AfterViewInit, ElementRef, HostListener, ChangeDetectionStrategy, IterableDiffers, ChangeDetectorRef, NgZone } from '@angular/core';
 import { ChatService } from '../services/chat.service';
 import * as io from 'socket.io-client';
 import * as date_fns from 'date-fns';
@@ -16,22 +16,29 @@ import { AdminService } from '../services/admin.service';
 })
 export class AdminMessagesComponent implements OnInit {
   @ViewChild("userMsg") messageBox: any;
+  @ViewChild("chatZone") chatZone: any;
+  @ViewChild("msg_section") msg_section: any;
   contacts: Contacts[];
   messages: Messages[];
+  dummy = ["Hey", "QWE"]
   selectedContact: any;
-  throttle = 50;
-  scrollDistance = 1;
-  scrollUpDistance = 1;
+  isScrollingDisabled = false;
   limit = 10;
   isLimit = false;
   isLoading = false;
   isInitialized = false;
   userData: any;
   printing = false;
+  firstScroll = false;
   chatSocket: SocketIOClient.Socket;
-  @ViewChild(CdkVirtualScrollViewport)
-  public virtualScrollViewport?: CdkVirtualScrollViewport;
+  iterableDiffer: any;
 
+
+  messageLastLimit = 0;
+
+  contactsLimit = 10;
+  lastLengthContacts = 0;
+  isContactReachLimit = false;
 
   //Handler when browser is closed
 
@@ -39,19 +46,142 @@ export class AdminMessagesComponent implements OnInit {
   constructor(private chatService: ChatService,
     private userService: UserService,
     private router: Router,
-    private adminService: AdminService) {
+    private adminService: AdminService,
+    private cdRef: ChangeDetectorRef,
+    private zone: NgZone
+  ) {
 
 
+  }
+
+  searchContacts(keyword) {
+    this.adminService.searchContacts(keyword, this.contactsLimit).subscribe((response) => {
+      this.contacts = response;
+      this.isContactReachLimit = false;
+    }, err => console.error(err));
+  }
+
+  onScrollDownContacts() {
+    if (!this.isContactReachLimit) {
+
+      this.contactsLimit += 10;
+      console.log(this.contactsLimit)
+      setTimeout(() => {
+        this.adminService.getContacts(this.contactsLimit).subscribe((successData) => {
+          this.contacts = successData;
+          if (this.lastLengthContacts == successData.length) {
+            this.isContactReachLimit = true;
+          } else {
+            this.lastLengthContacts = successData.length;
+          }
+
+          console.log(this.contacts)
+        }, err => console.error(err));
+
+      }, 500);
+    }
+  }
+  onScrollUp() {
+    if (this.isInitialized) {
+      this.isLoading = true;
+      this.limit += 10;
+      setTimeout(() => {
+        this.adminService.getMessages(this.selectedContact.convo_name, this.limit)
+          .subscribe((successData) => {
+            console.log("trueee")
+            this.messages = successData.reverse();
+            this.isLoading = false;
+            // this.scrollToBottom();
+            console.log(this.messages)
+          }, (err) => console.log(err));
+      }, 1000);
+    }
   }
   logout() {
     localStorage.clear();
     this.router.navigate(["/admin-auth"])
 
   }
+
+
+
+  scrollToBottom(): void {
+    try {
+      this.msg_section.nativeElement.scrollTop = this.msg_section.nativeElement.scrollHeight;
+    } catch (err) { }
+  }
+
+  notifyMe(message, dp_path, name, convo_name) {
+    // Let's check if the browser supports notifications
+    if (!("Notification" in window)) {
+      alert("This browser does not support system notifications");
+    }
+
+    // Let's check whether notification permissions have already been granted
+    else if (Notification.permission === "granted") {
+      // If it's okay let's create a notification
+      var notification = new Notification(name, {
+        body: message,
+        icon: dp_path,
+        tag: convo_name,
+      });
+      setTimeout(notification.close.bind(notification), 4000);
+    }
+
+    // Otherwise, we need to ask the user for permission
+    else if (Notification.permission !== 'denied') {
+      Notification.requestPermission(function (permission) {
+        // If the user accepts, let's create a notification
+        if (permission === "granted") {
+          var notification = new Notification(name, {
+            body: message,
+            icon: dp_path,
+            tag: convo_name,
+
+          });
+          setTimeout(notification.close.bind(notification), 4000);
+        }
+      });
+    }
+
+    // Finally, if the user has denied notifications and you 
+    // want to be respectful there is no need to bother them any more.
+  }
+
+
+  convertDate(date) {
+    return date_fns.format(date, 'MMMM Do YYYY hh:mm A');
+  }
+
+
   ngOnInit() {
+    console.log(this.selectedContact)
+
     this.getContacts();
     this.chatService.getNewMessage().subscribe((msg) => {
-      this.messages = msg.reverse();
+
+      console.log(msg);
+      console.log(this.selectedContact)
+      if (msg.id != this.userData.id) {
+        let newMessage = msg;
+        console.log(newMessage)
+        this.notifyMe(newMessage.message, newMessage.dp_path, newMessage.name, newMessage.convo_name);
+      }
+
+      if (msg.convo_name == this.selectedContact.convo_name) {
+        this.messages.push(msg)
+        if (msg.id == this.userData.id) {
+          setTimeout(() => {
+            console.log(this.messages)
+            this.scrollToBottom();
+          }, 100);
+
+        }
+
+      }
+
+
+      this.refreshContacts();
     }, (err) => console.log(err));
 
     this.userData = this.userService.getPayload(localStorage.getItem('AdminAuthorization'));
@@ -76,24 +206,6 @@ export class AdminMessagesComponent implements OnInit {
 
 
   }
-
-
-
-
-
-
-  scrollToBottom() {
-    this.virtualScrollViewport.scrollTo({
-      bottom: 0,
-      behavior: 'auto'
-    })
-  }
-
-
-
-
-
-
   sendMessage(msg, convo_name) {
     let data = {
       msg,
@@ -107,41 +219,47 @@ export class AdminMessagesComponent implements OnInit {
 
   }
 
-  getNextBatch(event) {
-    if (event === 0 && this.isInitialized) {
-      this.isLoading = true;
-      this.limit += 10;
-      setTimeout(() => {
-        this.adminService.getMessages(this.selectedContact.convo_name, this.limit)
-          .subscribe((successData) => {
-            this.messages = successData.reverse();
-            this.isLoading = false;
-            console.log(this.messages)
-          }, (err) => console.log(err));
-      }, 1000);
-    }
+
+  messageBoxClicked() {
+    this.readConvo(this.selectedContact.contact_user_id, this.selectedContact.convo_name);
   }
 
   getMessages(convo_name) {
     this.adminService.getMessages(convo_name, this.limit).subscribe((successData) => {
       this.messages = successData.reverse();
+      console.log(this.messages)
       setTimeout(() => {
-        this.scrollToBottom();
         this.isInitialized = true;
-      }, 100);
+        this.scrollToBottom();
+      });
+
+
 
 
     }, (error) => console.log(error));
 
   }
   durationLastOnline(date) {
-    return date_fns.distanceInWordsToNow(date);
+    if (date_fns.distanceInWordsToNow(date) != 'almost NaN years') {
+      return date_fns.distanceInWordsToNow(date);
+    } else {
+      return 'No record of online'
+    }
+
+  }
+  refreshContacts() {
+    this.adminService.getContacts(this.contactsLimit).subscribe((successData) => {
+      this.contacts = successData;
+      this.lastLengthContacts = successData.length
+      console.log(this.contacts)
+    }, err => console.error(err));
   }
 
 
   getContacts() {
-    this.adminService.getContacts().subscribe((successData) => {
+    this.adminService.getContacts(this.contactsLimit).subscribe((successData) => {
       this.contacts = successData;
+      this.lastLengthContacts = successData.length;
       console.log(this.contacts)
       //Join all of the conversion room for every contact user
       this.chatService.joinAllContactsRoom(this.contacts, this.userData);
@@ -181,9 +299,26 @@ export class AdminMessagesComponent implements OnInit {
       this.selectedContact = this.contacts[0];
       this.selectedContact.isSelected = true;
       console.log(this.selectedContact)
-      // this.chatSocket.emit('join', { convo_name: this.selectedContact.convo_name, user: this.selectedContact.name });
+      this.readConvo(this.selectedContact.contact_user_id, this.selectedContact.convo_name);
       this.getMessages(this.contacts[0].convo_name);
+
+
+
     }, (error) => console.log(error));
+  }
+
+
+
+  readConvo(contact_user_id, convo_name) {
+    let contact_info = {
+      contact_user_id,
+      convo_name
+    }
+    this.chatService.seenAllMessages(contact_info).subscribe((response) => {
+      console.log(response);
+      this.refreshContacts();
+
+    }, err => console.log(err));
   }
 
   selectContact(id) {
@@ -198,6 +333,7 @@ export class AdminMessagesComponent implements OnInit {
     this.selectedContact = this.contacts[id];
     this.contacts[id].isSelected = true;
     this.chatService.joinRoom({ convo_name: this.selectedContact.convo_name, user: this.selectedContact.name });
+    this.readConvo(this.selectedContact.contact_user_id, this.selectedContact.convo_name);
 
   }
 

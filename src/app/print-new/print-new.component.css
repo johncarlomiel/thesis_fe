@@ -12,7 +12,10 @@ h3{
     height:100vh;
     page-break-inside:avoid !important;
 }
-
+thead > tr > th{
+    background-color:#9E7EE2;
+    color:white;
+ }
 
 
 

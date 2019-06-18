@@ -152,6 +152,13 @@ export class AdminEventsComponent implements OnInit {
 
   }
 
+  searchEvents(keyword) {
+    this.adminService.searchEvents(keyword).subscribe((events) => {
+      this.events = events;
+      console.log(this.events)
+    }, err => console.error(err));
+  }
+
 
 
 }

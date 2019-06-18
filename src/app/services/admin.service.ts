@@ -12,6 +12,35 @@ export class AdminService {
 
   constructor(private http: HttpClient) { }
 
+  searchContacts(keyword, limit) {
+    const url = this.server_url + "user/contacts/search";
+    const params = new HttpParams().set("user_type", "admin").set("keyword", keyword).set("limit", limit);
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'authorization': localStorage.getItem("AdminAuthorization"),
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*'
+      }),
+      params
+    }
+    return this.http.get<[]>(url, httpOptions);
+  }
+
+
+  searchEvents(keyword) {
+    const url = this.server_url + "admin/events/search";
+    const params = new HttpParams().set("keyword", keyword);
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'authorization': localStorage.getItem("AdminAuthorization"),
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*'
+      }),
+      params
+    }
+    return this.http.get<[]>(url, httpOptions);
+  }
+
   getTakersByDate(date) {
     const url = this.server_url + "admin/users/attendance";
     const params = new HttpParams().set("date", date);
@@ -524,9 +553,9 @@ export class AdminService {
     return this.http.post(url, formData, httpOptions);
   }
 
-  getContacts() {
+  getContacts(limit) {
     const url = this.server_url + "user/contacts";
-    const params = new HttpParams().set("user_type", "admin");
+    const params = new HttpParams().set("user_type", "admin").set("limit", limit);
     const httpOptions = {
       headers: new HttpHeaders({
         'authorization': localStorage.getItem("AdminAuthorization"),

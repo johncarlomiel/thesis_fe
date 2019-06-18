@@ -43,8 +43,8 @@
     <sui-sidebar-sibling [isDimmedWhenVisible]="true">
       <div class="ui basic segment">
         <div class="ui grid" class="mainContent">
-          <h2 class="ui center aligned icon header">
-            <i class="circular calendar alternate icon"></i>
+          <h2 class="ui violet center aligned icon header">
+            <i class="violet calendar alternate icon"></i>
             Events
             <div class="sub header">Manage your events here..</div>
           </h2>
@@ -68,10 +68,13 @@
           </div>
 
           <div class="right">
-            <button class="ui right blue labeled icon button" (click)="showAddEvent = true;">
-              <i class="right plus icon"></i>
+            <button class="ui right green labeled icon button" (click)="showAddEvent = true;">
               Add event
+              <i class="right plus icon"></i>
             </button>
+            <div class="ui input">
+              <input type="text" placeholder="Search..." (keyup.enter)="searchEvents(keyword.value);" #keyword>
+            </div>
           </div>
           <table class="ui celled table center aligned">
             <thead>
@@ -83,7 +86,7 @@
                 <th>Date</th>
                 <th>From</th>
                 <th>To</th>
-                <th colspan="3" style="background-color:#db2828;color:white">Action Buttons (hot)</th>
+                <th colspan="3">Action Buttons</th>
               </tr>
             </thead>
             <tbody>
@@ -104,7 +107,7 @@
                   </button>
                 </td>
                 <td>
-                  <button class="ui blue button" (click)="viewInvitations(event)">
+                  <button class="ui violet button" (click)="viewInvitations(event)">
                     Invitations
                   </button>
                 </td>

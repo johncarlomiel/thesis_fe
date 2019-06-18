@@ -2,10 +2,10 @@
 
   <app-header></app-header>
   <br>
-  <div class="ui container">
-    <h2 class="ui icon header center aligned">
+  <div class="ui container" style="margin-top:5%;">
+    <h2 class="ui icon violet header center aligned">
       <i class="circular lock icon"></i>
-      <div class="content">
+      <div class="content violet">
         Authentication
         <div class="sub header">Registration & Login Page</div>
       </div>
@@ -23,20 +23,20 @@
   <div class="ui grid container">
     <div class="eight wide column">
       <p class="center aligned" *ngIf="!login">
-        <button class="ui big button blue" (click)="change('qwe')">
+        <button class="ui big button violet" (click)="change('qwe')">
           Login
         </button>
       </p>
       <div class="ui form" *ngIf="login">
         <div class="field">
-          <label>Username</label>
+          <label class="primary bolder">Username</label>
           <div class="ui fluid left icon input">
             <input type="text" placeholder="Username" #loginUsername>
             <i class="user icon"></i>
           </div>
         </div>
         <div class="field">
-          <label>Password</label>
+          <label class="primary bolder">Password</label>
           <div class="ui left icon input">
             <input type="password" #loginPass placeholder="Password">
             <i class="lock icon"></i>
@@ -53,21 +53,21 @@
 
     <div class="eight wide column">
       <p class="center aligned" *ngIf="login">
-        <button class="ui big button blue" (click)="change('signup')">
+        <button class="ui big button violet" (click)="change('signup')">
           Sign Up
         </button>
       </p>
 
       <div class="ui form" *ngIf="!login">
         <div class="field">
-          <label>Username</label>
+          <label class="primary bolder">Username</label>
           <div class="ui left  icon input">
             <input type="text" placeholder="Enter username here" #registerUsername>
             <i class="user icon"></i>
           </div>
         </div>
         <div class="field">
-          <label>Password</label>
+          <label class="primary bolder">Password</label>
           <div class="ui left  icon input">
             <input type="password" placeholder="Enter password here" #registerPassword>
             <i class="lock icon"></i>
@@ -75,7 +75,7 @@
         </div>
 
         <div class="field">
-          <label>Name</label>
+          <label class="primary bolder">Name</label>
           <div class="ui left  icon input">
             <input type="text" placeholder="e.g. (Mark A. Cruz)" #registerFullname>
             <i class="user icon"></i>
@@ -83,7 +83,7 @@
         </div>
 
         <div class="field">
-          <label for="">Gender</label>
+          <label class="primary bolder" for="">Gender</label>
           <sui-select class="selection" [(ngModel)]="selectedGender" #gender>
             <sui-select-option *ngFor="let option of genderOptions" [value]="option">
             </sui-select-option>

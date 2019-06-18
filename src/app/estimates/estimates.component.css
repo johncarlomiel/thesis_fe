@@ -13,6 +13,9 @@
     background-color: #4caf50;
     font-weight: bolder;
 }
+tr > th {
+  color:#6435C9
+}
 
 .r_bg{
     background-color:#f0483e;

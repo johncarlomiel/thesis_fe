@@ -29,14 +29,14 @@ export class AdminHomeComponent implements OnInit {
   userInfo = Array.apply(null, Array());
   moreInfo = Array.apply(null, Array());
   problemInfo = Array.apply(null, Array());
-  options = ["qweqweqw", " tanga"]
   holder: any;
-
+  isProblemEmpty = true;
+  isMoreInfoEmpty = true;
   problem: any;
   labelArray: any;
   problemTitle: any;
 
-  userProblem: any;
+  userProblem = Array.apply(null, Array());
 
 
   constructor(private adminService: AdminService, private router: Router) { }
@@ -79,9 +79,11 @@ export class AdminHomeComponent implements OnInit {
 
 
   getProblems(i) {
-    this.userProblem = Array.apply(null, Array());
+    this.isProblemEmpty = true;
     this.adminService.getProblems(i).subscribe((successData) => {
-      if (successData != null || undefined) {
+      this.userProblem = [];
+      console.log(this.userProblem)
+      if (successData) {
         this.problem = problems.problems;
         this.labelArray = labels;
         let label_holder = Object.keys(successData);
@@ -94,7 +96,10 @@ export class AdminHomeComponent implements OnInit {
         this.labelArray.forEach((element, index) => {
 
           if (element.fieldname == label_holder[index]) {
-            this.labelArray[index].value = value_holder[index]
+            this.labelArray[index].value = value_holder[index];
+            if (value_holder[index] > 0) {
+              this.isProblemEmpty = false;
+            }
           }
           if (index == 9) { currentIndex++ }
           else if (index == 14) { currentIndex++ }
@@ -123,6 +128,7 @@ export class AdminHomeComponent implements OnInit {
           this.userProblem[index].color = this.randColor();
 
         });
+
       }
     }, (error) => console.log(error))
 
@@ -141,12 +147,16 @@ export class AdminHomeComponent implements OnInit {
     }, (error) => console.log(error))
   }
   getMoreInfo(i) {
+    this.isMoreInfoEmpty = true;
     this.moreInfo = Array.apply(null, Array());
     this.adminService.getMoreInfo(i).subscribe((successData) => {
       if (successData != null || undefined) {
         let label = ["Ambition", "Downful Experience", "Happiest Experience", "Someone to talk to", "Troubling Problems", "I want to change my"]
         let value = Object.values(successData);
         value.forEach((element, index) => {
+          if (element != "") {
+            this.isMoreInfoEmpty = false;
+          }
           this.moreInfo.push({
             label: label[index],
             value: this.capitalizeFirstLetter(element),
@@ -180,13 +190,20 @@ export class AdminHomeComponent implements OnInit {
           "Transportation", "How often allowed during night", "Who helps with your studies", "Hobby", "Do you have friends"
         ];
 
+        let icons = [
+          "info circle", "info circle", "info circle", "info circle", "info circle", "info circle", "info circle",
+          "info circle", "female", "female", "female", "male",
+          "male", "male", "question circle", "question circle",
+          "question circle", "question circle", "question circle", "question circle", "question circle"
+        ]
+
         let value = Object.values(successData);
         value.forEach((element, index) => {
           let hold_val = element.toString();
           this.userInfo.push({
             label: label[index],
             value: this.capitalizeFirstLetter(hold_val),
-            color: this.randColor()
+            icon: icons[index]
           })
         });
 
@@ -241,6 +258,10 @@ export class AdminHomeComponent implements OnInit {
     this.adminService.search("user", searchValue).subscribe((successData) => {
       this.pages = successData
     }, (error) => console.log(error))
+  }
+
+  onImageError() {
+    this.eformURL = "assets/error/image-error.png";
   }
 
   logout() {

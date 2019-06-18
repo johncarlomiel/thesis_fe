@@ -42,12 +42,12 @@
       </sui-sidebar>
 
       <sui-sidebar-sibling [isDimmedWhenVisible]="true">
-         <div class="ui segment" style="min-height:90vh">
+         <div class="ui segment" style="min-height:100vh">
             <div class="ui active dimmer" *ngIf="isLoading">
                <div class="ui loader"></div>
             </div>
-            <h2 class="ui center aligned icon header">
-               <i class="circular calendar icon"></i>
+            <h2 class="ui violet bolder center aligned icon header">
+               <i class="violet calendar icon"></i>
                Attendance Section
 
                <div class="sub header">View / Generate a report about takers on a certain date.</div>
@@ -60,7 +60,7 @@
                </div>
             </div>
 
-            <h2 *ngIf="takers" class="center aligned">{{takers.length}} Results</h2>
+            <h2 *ngIf="takers" class="center aligned primary bolder">{{takers.length}} Results</h2>
             <button class="ui green button" style="float:right;margin-bottom:10px;" (click)="generateReport();">Generate
                Report</button>
 
@@ -93,11 +93,14 @@
    <div class="head">
       <div style="margin-bottom:10px;padding-right:20px;padding-left:20px;">
          <div class="center">
-            <img src="assets/images/gclogoprint.png" class="ui" style="width:38px;height:38px;" alt="">
+            <img src="assets/images/gclogoprint.png" class="ui" style="width:78px;height:78px;" alt="">
          </div>
-         <h4 class="center" style="font-weight:bolder">GORDON COLLEGE</h4>
-         <h4 class="center" style="font-weight:bolder">List of SDS Takers</h4>
-         <p class="center" style="font-weight:bold">{{convert(date, 'MMMM DD YYYY')}}</p>
+         <h4 class="center" style="font-weight:bolder;font-family: 'Montserrat-Black' !important;">GORDON COLLEGE</h4>
+         <h4 class="center" style="font-weight:bolder;font-family: 'Montserrat-Black' !important;">STUDENT WELFARE
+            OFFICE</h4>
+         <p class="center" style="font-weight:bolder;font-family: 'Montserrat' !important;">List of Self Directed Search
+            Takers</p>
+         <p class="center" style="color:grey">{{convert(date, 'MMMM DD YYYY')}}</p>
 
       </div>
    </div>

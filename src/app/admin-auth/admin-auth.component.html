@@ -1,38 +1,41 @@
-<div class="mainContent" style="background-color:rgb(248, 248, 255)">
+<div class="bg-image"></div>
 
-  <img class="ui medium circular centered image" src="assets/images/gc logo.png">
-  <div class="ui negative message" *ngIf="isError">
-    <i class="close icon" (click)="isError = false"></i>
-    <div class="header center bolder">
-      {{errorMsg}}
-    </div>
-  </div>
-  <div class="ui card">
-
-    <div class="content">
-      <h1 class="primary bolder center">Admin Login Page</h1>
-    </div>
-
-    <div class="content">
-      <div class="ui form container">
-        <div class="field">
-          <label for="username" class="ui header primary">Username</label>
-          <input type="text" placeholder="Enter your username here.." #username>
+<div class="bg-text">
+  <div class="ui middle aligned center aligned grid">
+    <div class="column">
+      <h2 class="ui teal image header">
+        <img src="assets/images/gclogoprint.png" class="image">
+        <div class="content">
+          Log-in to your account
+        </div>
+      </h2>
+      <form class="ui large form">
+        <div class="ui stacked segment">
+          <div class="field">
+            <div class="ui left icon input">
+              <i class="user icon"></i>
+              <input type="text" name="username" placeholder="Username" #username>
+            </div>
+          </div>
+          <div class="field">
+            <div class="ui left icon input">
+              <i class="lock icon"></i>
+              <input type="password" name="password" placeholder="Password" #password>
+            </div>
+          </div>
+          <div type="button" class="ui fluid large teal submit button" (click)="login(username.value, password.value)">
+            Login</div>
         </div>
 
-        <div class="field">
-          <label for="password" class="ui header primary">Password</label>
-          <input type="password" placeholder="Enter your password here.." #password>
+        <div class="ui negative message" *ngIf="isError">
+          <i class="close icon" (click)="isError = false"></i>
+          <div class="header center bolder">
+            {{errorMsg}}
+          </div>
         </div>
-      </div>
+      </form>
+
+
     </div>
-
-    <div class="extra content">
-
-      <button class="ui button right floated blue" (click)="login(username.value, password.value)">Submit</button>
-    </div>
-
-
   </div>
-
 </div>

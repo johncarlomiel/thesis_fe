@@ -13,7 +13,10 @@ h3{
     page-break-inside:avoid !important;
 }
 
-
+thead > tr > th{
+    background-color:#9E7EE2;
+    color:white;
+ }
 
 
 @media print {

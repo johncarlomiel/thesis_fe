@@ -1,52 +1,50 @@
-<div class="ui top attached demo menu">
-  <a class="item" (click)="sidebar.toggle()">
-    <i class="sidebar icon"></i>
-  </a>
-  <div class="right menu">
-    <div class="item">
-      <div class="ui blue button" (click)="logout()">Logout</div>
+<div *ngIf="!isPrinting">
+  <div class="ui top attached demo menu">
+    <a class="item" (click)="sidebar.toggle()">
+      <i class="sidebar icon"></i>
+    </a>
+    <div class="right menu">
+      <div class="item">
+        <div class="ui blue button" (click)="logout()">Logout</div>
+      </div>
     </div>
   </div>
-</div>
 
-<sui-sidebar-container class="ui bottom attached segment">
-  <sui-sidebar class="vertical" #sidebar style="height:100%">
-    <a class="item active" routerLink="/admin-home">
-      Home
-    </a>
-    <a class="item" routerLink="/takers-attendance">
-      Attendance
-    </a>
-    <a class="item" routerLink="/admin-graph-specific">
-      Specific Reports
-    </a>
-    <a class="item" routerLink="/admin-graph-general">
-      General Reports
-    </a>
-    <a class="item" routerLink="/admin-new-print">
-      Print Section
-    </a>
-    <a class="item" routerLink="/admin-new-archive">
-      Archive Section
-    </a>
-    <a class="item" routerLink="/admin-settings">
-      Accounts Settings
-    </a>
-    <a class="item" routerLink="/admin-events">
-      Events
-    </a>
-    <a class="item" routerLink="/admin-messages">
-      Messages
-    </a>
-  </sui-sidebar>
-  <sui-sidebar-sibling [isDimmedWhenVisible]="true">
+  <sui-sidebar-container class="ui bottom attached segment">
+    <sui-sidebar class="vertical" #sidebar style="height:100%">
+      <a class="item active" routerLink="/admin-home">
+        Home
+      </a>
+      <a class="item" routerLink="/takers-attendance">
+        Attendance
+      </a>
+      <a class="item" routerLink="/admin-graph-specific">
+        Specific Reports
+      </a>
+      <a class="item" routerLink="/admin-graph-general">
+        General Reports
+      </a>
+      <a class="item" routerLink="/admin-new-print">
+        Print Section
+      </a>
+      <a class="item" routerLink="/admin-new-archive">
+        Archive Section
+      </a>
+      <a class="item" routerLink="/admin-settings">
+        Accounts Settings
+      </a>
+      <a class="item" routerLink="/admin-events">
+        Events
+      </a>
+      <a class="item" routerLink="/admin-messages">
+        Messages
+      </a>
+    </sui-sidebar>
 
-    <div class="ui basic segment">
-
-
-      <div class="ui grid" class="mainContent">
-        <h2 class="ui center aligned icon header">
-          <i class="circular home icon"></i>
+    <sui-sidebar-sibling [isDimmedWhenVisible]="true">
+      <div class="ui segment" style="min-height:100vh">
+        <h2 class="ui violet bolder center aligned icon header">
+          <i class="home icon"></i>
           Home Section
 
           <div class="sub header">Manage/View students information</div>
@@ -79,10 +77,10 @@
           <input type="text" placeholder="Search..." (input)="onSearchChange($event.target.value)">
         </div>
 
-        <table class="ui celled table center aligned selectable ">
+        <table class="ui celled center aligned table">
           <thead>
             <tr>
-              <th>Id</th>
+              <th>ID</th>
               <th>Username</th>
               <th>Name</th>
               <th>Information Buttons</th>
@@ -112,8 +110,8 @@
                     (click)="showProblemModal = true; getProblems(myPage.id)">Problems</button>
                   <button class="ui green basic button" (click)="showMoreInfoModal = true; getMoreInfo(myPage.id)">More
                     Info</button>
-                  <button class="ui violet basic button"
-                    (click)="showEformModal = true; getEform(myPage.id)">Eform</button>
+                  <button class="ui violet basic button" (click)="showEformModal = true; getEform(myPage.id)">Schedule
+                    Photo</button>
                   <button class="ui black basic button" (click)="showSDSModal = true; getSDS(myPage.id)">SDS
                     Result</button>
                 </div>
@@ -142,175 +140,147 @@
             </tr>
           </tfoot>
         </table>
+      </div>
+    </sui-sidebar-sibling>
+  </sui-sidebar-container>
+</div>
 
 
 
+<!-- Info Modal -->
+<sui-modal *ngIf="showInfoModal" size="small" [mustScroll]="true" (dismissed)="showInfoModal = false" #infoModal>
+  <div class="content">
 
-        <!-- Info Modal -->
-        <sui-modal *ngIf="showInfoModal" [mustScroll]="true" [isFullScreen]="true" [isClosable]="true"
-          (dismissed)="showInfoModal = false" #infoModal>
-          <div class="content">
-            <h2 class="center aligned" *ngIf="noInfo">No info about this person</h2>
-            <div class="ui two column grid" *ngIf="!noInfo">
-              <div class="column" *ngFor="let info of userInfo">
-                <div class="ui raised segment" style="min-height:130px">
-                  <a [ngStyle]="{'background-color': true ? info.color:'', 'color': true ? 'white': ''}"
-                    class="ui ribbon label large">{{info.label}}</a>
-                  <div class="ui divided items">
-                    <div class="item">
-                      <div class="content">
+    <div class="ui container big list" *ngIf="!noInfo">
+      <div class="item" *ngFor="let info of userInfo">
+        <i class="icon blue {{info.icon}}"></i>
+        <div class="content">
+          <div class="header">
+            {{info.label}} : {{info.value}}
+          </div>
+        </div>
+        <hr>
+      </div>
+    </div>
+  </div>
+  <div class="actions">
+    <button class="ui red button" (click)="infoModal.deny()">Close</button>
+  </div>
+</sui-modal>
+<!-- Info Modal -->
 
-                        <div class="description">
-                          <p class="primary bolder" style="font-size:1.5rem">{{info.value}}</p>
-                        </div>
 
+<!-- More Info Modal -->
+<sui-modal *ngIf="showMoreInfoModal" size="small" [mustScroll]="true" (dismissed)="showMoreInfoModal = false;"
+  #moreInfoModal>
+  <div class="content">
+    <img class="ui fluid image" *ngIf="isMoreInfoEmpty" src="assets/error/no-info.jpg">
+    <div class="ui list" *ngIf="!isMoreInfoEmpty">
+      <div class="item" *ngFor="let info of moreInfo">
+        <i class="circle violet icon"></i>
+        <div class="content">
+          <div class="header primary bolder">{{info.label}}</div>
 
-                      </div>
-                    </div>
-                  </div>
+          <div class="description"><i class="quote left icon"></i> {{info.value}} <i class="quote right icon"></i>
+          </div>
+        </div>
+        <hr>
+        <br>
+      </div>
+    </div>
+  </div>
+  <div class="actions">
+    <button class="ui red button" (click)="moreInfoModal.deny()">Close</button>
+  </div>
+</sui-modal>
+<!-- More Info Modal -->
 
-                  <p></p>
-                </div>
+<!-- Problems Modal -->
+<sui-modal *ngIf="showProblemModal" size="small" [mustScroll]="true" (dismissed)="showProblemModal = false;"
+  #problemModal>
+  <div class="content">
+    <img class="ui fluid image" *ngIf="isProblemEmpty" src="assets/error/no-info.jpg">
+    <div class="ui list" *ngIf="!isProblemEmpty">
+      <div class="item" *ngFor="let proInfo of userProblem">
+        <i class="circle violet icon"></i>
+        <div class="content">
+          <div class="header">{{proInfo.name}}</div>
+          <div class="list">
+            <div class="item" *ngFor="let indivInfo of proInfo.questions">
+              <i class="circle icon"></i>
+              <div class="content">
+                <div class="description">{{indivInfo.label}}</div>
               </div>
             </div>
+
+
+
           </div>
-          <div class="actions">
-            <button class="ui red button" (click)="infoModal.deny()">Close</button>
-          </div>
-        </sui-modal>
-        <!-- Info Modal -->
+        </div>
+        <hr>
+      </div>
 
 
-        <!-- More Info Modal -->
-        <sui-modal *ngIf="showMoreInfoModal" [mustScroll]="true" [isClosable]="true"
-          (dismissed)="showMoreInfoModal = false;" #moreInfoModal>
-          <div class="content">
-            <h2 class="center aligned" *ngIf="noInfo">No info about this person</h2>
-            <div class="ui" *ngIf="!noInfo">
-              <div class="ui raised segment" style="min-height:130px" *ngFor="let info of moreInfo">
-                <a [ngStyle]="{'background-color': true ? info.color:'', 'color': true ? 'white': ''}"
-                  class="ui ribbon label large">{{info.label}}</a>
-                <div class="ui divided items">
-                  <div class="item">
-                    <div class="content">
+    </div>
+  </div>
+  <div class="actions">
+    <button class="ui red button" (click)="problemModal.deny()">Close</button>
+  </div>
+</sui-modal>
+<!-- Problems Modal -->
 
-                      <div class="description">
-                        <p class="primary bolder" style="font-size:1.5rem">{{info.value}}</p>
-                      </div>
+<!-- Eform Modal -->
+<sui-modal *ngIf="showEformModal" size="small" [mustScroll]="true" (dismissed)="showEformModal = false;" #eformModal>
+  <div class="content">
+    <h2 class="center aligned" *ngIf="noInfo">No Enrollment Form Photo</h2>
+    <div class="" *ngIf="!noInfo">
+      <img class="ui fluid image" (error)="onImageError();" src="{{eformURL}}">
+    </div>
+  </div>
+  <div class="actions">
+    <button class="ui red button" (click)="eformModal.deny()">Close</button>
+  </div>
+</sui-modal>
+<!-- Eform Modal -->
 
-
-                    </div>
-                  </div>
+<!-- SDS Modal -->
+<sui-modal *ngIf="showSDSModal" size="small" [mustScroll]="true" (dismissed)="showSDSModal = false; codes = []"
+  #sdsModal>
+  <div class="content">
+    <img class="ui fluid image" *ngIf="noInfo" src="assets/error/no-info.jpg">
+    <div class="ui" *ngIf="!noInfo">
+      <div class="ui segment" *ngFor="let code of codes">
+        <a class="ui violet right ribbon label large">{{code.name}}</a>
+        <div *ngFor="let indivCode of code.result">
+          <div class="ui divided items">
+            <div class="item">
+              <div class="content">
+                <a class="header">{{indivCode.occupation}}</a>
+                <div class="description">
+                  <p>{{indivCode.description}}</p>
                 </div>
 
-                <p></p>
-              </div>
-            </div>
-          </div>
-          <div class="actions">
-            <button class="ui red button" (click)="moreInfoModal.deny()">Close</button>
-          </div>
-        </sui-modal>
-        <!-- More Info Modal -->
-
-        <!-- Problems Modal -->
-        <sui-modal *ngIf="showProblemModal" [mustScroll]="true" [isClosable]="true"
-          (dismissed)="showProblemModal = false;" #problemModal>
-          <div class="content">
-            <h2 class="center aligned" *ngIf="noInfo">No info about this person</h2>
-            <div *ngIf="!noInfo">
-              <div class="ui segment" *ngFor="let proInfo of userProblem">
-                <a [ngStyle]="{'background-color': true ? proInfo.color:'', 'color': true ? 'white': ''}"
-                  class="ui ribbon label large">{{proInfo.name}}</a>
-                <div *ngFor="let indivInfo of proInfo.questions">
-                  <div class="ui divided items">
-                    <div class="item">
-                      <div class="content">
-
-                        <div class="description">
-                          <p>{{indivInfo.label}}</p>
-                        </div>
-
-
-
-                        <hr>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-              </div>
-            </div>
-          </div>
-          <div class="actions">
-            <button class="ui red button" (click)="problemModal.deny()">Close</button>
-          </div>
-        </sui-modal>
-        <!-- Problems Modal -->
-
-        <!-- Eform Modal -->
-        <sui-modal *ngIf="showEformModal" [mustScroll]="true" [isClosable]="true" (dismissed)="showEformModal = false;"
-          #eformModal>
-          <div class="content">
-            <h2 class="center aligned" *ngIf="noInfo">No Enrollment Form Photo</h2>
-            <div class="" *ngIf="!noInfo">
-              <img class="ui fluid image" src="{{eformURL}}">
-            </div>
-          </div>
-          <div class="actions">
-            <button class="ui red button" (click)="eformModal.deny()">Close</button>
-          </div>
-        </sui-modal>
-        <!-- Eform Modal -->
-
-        <!-- SDS Modal -->
-        <sui-modal *ngIf="showSDSModal" [mustScroll]="true" [isClosable]="true"
-          (dismissed)="showSDSModal = false; codes = []" #sdsModal>
-          <div class="content">
-
-            <h2 class="center aligned" *ngIf="noInfo">No info about this person</h2>
-            <div class="ui" *ngIf="!noInfo">
-              <div class="ui segment" *ngFor="let code of codes">
-                <a class="ui red right ribbon label large">{{code.name}}</a>
-                <div *ngFor="let indivCode of code.result">
-                  <div class="ui divided items">
-                    <div class="item">
-                      <div class="content">
-                        <a class="header">{{indivCode.occupation}}</a>
-                        <div class="description">
-                          <p>{{indivCode.description}}</p>
-                        </div>
-
-                        <div class="extra">
-                          <a href="{{indivCode.link}}" class="ui right floated blue button">
-                            See more details here
-                            <i class="right chevron icon"></i>
-                          </a>
-                        </div>
-
-                        <hr>
-                      </div>
-                    </div>
-                  </div>
+                <div class="extra">
+                  <a href="{{indivCode.link}}" class="ui right floated blue button">
+                    See more details here
+                    <i class="right chevron icon"></i>
+                  </a>
                 </div>
 
               </div>
             </div>
-
           </div>
-          <div class="actions">
-            <button class="ui red button" (click)="sdsModal.deny()">Close</button>
-          </div>
-        </sui-modal>
-        <!-- SDS Modal -->
+        </div>
 
       </div>
     </div>
-  </sui-sidebar-sibling>
-</sui-sidebar-container>
 
-
-
+  </div>
+  <div class="actions">
+    <button class="ui red button" (click)="sdsModal.deny()">Close</button>
+  </div>
+</sui-modal>
+<!-- SDS Modal -->
 
 <!-- Alert modal -->
 <sui-modal [isClosable]="false" *ngIf="alertModal" class="center aligned" #alertModal123>

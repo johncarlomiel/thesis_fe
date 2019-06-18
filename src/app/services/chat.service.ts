@@ -39,13 +39,25 @@ export class ChatService {
     this.chatSocket.emit('send msg', msg);
   }
 
+  seenAllMessages(contact_info) {
+    const url = config.ip + "user/seen?user_type=admin";
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'authorization': this.adminToken,
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*'
+      }),
+    }
+    return this.http.post(url, contact_info, httpOptions);
+  }
+
   joinAllContactsRoom(contacts, user_data) {
     contacts.forEach(element => {
       this.chatSocket.emit('join', { convo_name: element.convo_name, user: user_data.username });
     });
   }
   getNewMessage() {
-    return new Observable<[]>((obs) => {
+    return new Observable<any>((obs) => {
       this.chatSocket.on('new msg', (msg) => {
         obs.next(msg);
       })

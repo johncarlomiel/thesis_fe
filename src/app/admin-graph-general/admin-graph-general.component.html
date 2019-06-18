@@ -1,266 +1,313 @@
-<div class="ui top attached demo menu">
-  <a class="item" (click)="sidebar.toggle()">
-    <i class="sidebar icon"></i>
-  </a>
-  <div class="right menu">
-    <div class="item">
-      <div class="ui blue button" (click)="logout()">Logout</div>
+<div *ngIf="!isPrinting">
+  <div class="ui top attached demo menu">
+    <a class="item" (click)="sidebar.toggle()">
+      <i class="sidebar icon"></i>
+    </a>
+    <div class="right menu">
+      <div class="item">
+        <div class="ui blue button" (click)="logout()">Logout</div>
+      </div>
     </div>
   </div>
-</div>
-<sui-sidebar-container class="ui bottom attached segment">
-  <sui-sidebar class="vertical" #sidebar>
-    <a class="item " routerLink="/admin-home">
-      Home
-    </a>
-    <a class="item" routerLink="/takers-attendance">
-      Attendance
-    </a>
-    <a class="item" routerLink="/admin-graph-specific">
-      Specific Reports
-    </a>
-    <a class="item active" routerLink="/admin-graph-general">
-      General Reports
-    </a>
-    <a class="item" routerLink="/admin-new-print">
-      Print Section
-    </a>
-    <a class="item" routerLink="/admin-new-archive">
-      Archive Section
-    </a>
-    <a class="item" routerLink="/admin-settings">
-      Accounts Settings
-    </a>
-    <a class="item" routerLink="/admin-events">
-      Events
-    </a>
-    <a class="item" routerLink="/admin-messages">
-      Messages
-    </a>
-  </sui-sidebar>
-  <sui-sidebar-sibling [isDimmedWhenVisible]="true">
-    <div class="">
+  <sui-sidebar-container class="ui bottom attached segment">
+    <sui-sidebar class="vertical" #sidebar>
+      <a class="item " routerLink="/admin-home">
+        Home
+      </a>
+      <a class="item" routerLink="/takers-attendance">
+        Attendance
+      </a>
+      <a class="item" routerLink="/admin-graph-specific">
+        Specific Reports
+      </a>
+      <a class="item active" routerLink="/admin-graph-general">
+        General Reports
+      </a>
+      <a class="item" routerLink="/admin-new-print">
+        Print Section
+      </a>
+      <a class="item" routerLink="/admin-new-archive">
+        Archive Section
+      </a>
+      <a class="item" routerLink="/admin-settings">
+        Accounts Settings
+      </a>
+      <a class="item" routerLink="/admin-events">
+        Events
+      </a>
+      <a class="item" routerLink="/admin-messages">
+        Messages
+      </a>
+    </sui-sidebar>
+    <sui-sidebar-sibling [isDimmedWhenVisible]="true">
+      <div class="">
 
-      <h2 class="ui center aligned icon header">
-        <i class="circular info icon"></i>
-        General Report Section
+        <h2 class="ui violet center aligned icon header">
+          <i class="violet info icon"></i>
+          General Report Section
 
-        <div class="sub header">Generate/Analyze a report using student attribute(s)</div>
-      </h2>
+          <div class="sub header">Generate/Analyze a report using student attribute(s)</div>
+        </h2>
 
-      <div class="ui info message container">
-        <div class="header">
-          Some of the action you can do in this section
+        <div class="ui info message container">
+          <div class="header">
+            Some of the action you can do in this section
+          </div>
+          <ul class="list">
+            <li>Generate a visual report using student attribute(s)</li>
+            <li>Modify the attribute of the students</li>
+            <li>Filter quantity of the showing problem(s)</li>
+            <li>Change chart style</li>
+            <li>Export to PDF the generated visual report</li>
+          </ul>
         </div>
-        <ul class="list">
-          <li>Generate a visual report using student attribute(s)</li>
-          <li>Modify the attribute of the students</li>
-          <li>Filter quantity of the showing problem(s)</li>
-          <li>Change chart style</li>
-          <li>Export to PDF the generated visual report</li>
-        </ul>
-      </div>
 
-      <div class="ui grid">
-        <div class="four wide column">
+        <div class="ui grid">
+          <div class="four wide column">
 
 
 
-          <div class="ui card">
-            <div class="content">
-              <div class="ui header primary bolder left floated">Criteria</div>
-              <button class="ui primary mini basic button left floated"
-                (click)="selectAllCriteria();criteriaChange()">Select
-                All</button>
-              <button class="ui primary mini basic button left floated"
-                (click)="deselectAllCriteria();criteriaChange()">Reset</button>
-            </div>
-            <div class="content">
-              <div class="ui active dimmer" *ngIf="loader">
-                <div class="ui mini text loader">Loading</div>
+            <div class="ui card">
+              <div class="content">
+                <div class="ui header primary bolder left floated">Criteria</div>
+                <button class="ui primary mini basic button left floated"
+                  (click)="selectAllCriteria();criteriaChange()">Select
+                  All</button>
+                <button class="ui primary mini basic button left floated"
+                  (click)="deselectAllCriteria();criteriaChange()">Reset</button>
               </div>
-              <sui-accordion [closeOthers]="false">
-                <sui-accordion-panel [isOpen]="isPanelOpen" *ngFor="let indivCriteria of criteria; let i = index">
-                  <div title>
-                    <i class="dropdown icon"></i>
-                    {{indivCriteria.fieldname}}
-                    <button class="ui primary mini basic button right floated"
-                      (click)="uncheckSectCriteria(i);criteriaChange()">Uncheck</button>
-                    <button class="ui primary mini basic button right floated"
-                      (click)="selectSectCriteria(i);criteriaChange()">Check
-                      All</button>
+              <div class="content">
+                <div class="ui active dimmer" *ngIf="loader">
+                  <div class="ui mini text loader">Loading</div>
+                </div>
+                <sui-accordion [closeOthers]="false">
+                  <sui-accordion-panel [isOpen]="isPanelOpen" *ngFor="let indivCriteria of criteria; let i = index">
+                    <div title style="text-transform: capitalize">
+                      <i class="dropdown icon"></i>
+                      {{indivCriteria.fieldname}}
+                      <button class="ui primary mini basic button right floated"
+                        (click)="uncheckSectCriteria(i);criteriaChange()">Uncheck</button>
+                      <button class="ui primary mini basic button right floated"
+                        (click)="selectSectCriteria(i);criteriaChange()">Check
+                        All</button>
 
-                  </div>
-                  <div content>
-                    <div class="ui form">
-                      <div class="grouped fields">
-                        <div class="field" *ngFor="let value of indivCriteria.values">
-                          <sui-checkbox [(ngModel)]="value.isChecked" (ngModelChange)="criteriaChange()">{{value.label}}
-                          </sui-checkbox>
+                    </div>
+                    <div content>
+                      <div class="ui form">
+                        <div class="grouped fields">
+                          <div class="field" *ngFor="let value of indivCriteria.values">
+                            <sui-checkbox [(ngModel)]="value.isChecked" (ngModelChange)="criteriaChange()">
+                              {{value.label}}
+                            </sui-checkbox>
+                          </div>
+
+
                         </div>
-
-
                       </div>
                     </div>
-                  </div>
-                </sui-accordion-panel>
-              </sui-accordion>
+                  </sui-accordion-panel>
+                </sui-accordion>
+              </div>
             </div>
+
+
+
+
           </div>
 
+          <div class="twelve wide column">
 
-
-
-        </div>
-
-        <div class="twelve wide column">
-
-          <div class="ui card" style="width:100%">
-            <div class="content">
-              <div class="ui active dimmer" *ngIf="loader">
-                <div class="ui mini text loader">Loading</div>
-              </div>
-              <div *ngIf="withResult">
-                <div class="ui form">
-                  <div class="inline fields">
-                    <label for="fruit">Select chart:</label>
-                    <div class="field">
-                      <div class="ui radio checkbox">
-                        <input type="radio" name='options' [value]="'column2d'" [checked]='chart === "column2d"'
-                          (change)="onSelectionChange('column2d')">
-                        <label>Column2d</label>
+            <div class="ui card" style="width:100%">
+              <div class="content">
+                <div class="ui active dimmer" *ngIf="loader">
+                  <div class="ui mini text loader">Loading</div>
+                </div>
+                <div *ngIf="withResult">
+                  <div class="ui form">
+                    <div class="inline fields">
+                      <label for="fruit">Select chart:</label>
+                      <div class="field">
+                        <div class="ui radio checkbox">
+                          <input type="radio" name='options' [value]="'column2d'" [checked]='chart === "column2d"'
+                            (change)="onSelectionChange('column2d')">
+                          <label>Column2d</label>
+                        </div>
+                      </div>
+                      <div class="field">
+                        <div class="ui radio checkbox">
+                          <input type="radio" name='options' [value]="'bar2d'" [checked]='chart === "bar2d"'
+                            (change)="onSelectionChange('bar2d')">
+                          <label>Bar2d</label>
+                        </div>
+                      </div>
+                      <div class="field">
+                        <div class="ui radio checkbox">
+                          <input type="radio" name='options' [value]="'pie2d'" [checked]='chart === "pie2d"'
+                            (change)="onSelectionChange('pie2d')">
+                          <label>Pie2d</label>
+                        </div>
                       </div>
                     </div>
-                    <div class="field">
-                      <div class="ui radio checkbox">
-                        <input type="radio" name='options' [value]="'bar2d'" [checked]='chart === "bar2d"'
-                          (change)="onSelectionChange('bar2d')">
-                        <label>Bar2d</label>
-                      </div>
+
+                    <div class="inline fields">
+                      <label for="options">Filter Quantity</label>
+                      <sui-select placeholder="Choose" class="selection" [(ngModel)]="filterValue"
+                        (ngModelChange)="filterQuantity(filterValue)">
+                        <sui-select-option value="10"></sui-select-option>
+                        <sui-select-option value="30"></sui-select-option>
+                        <sui-select-option value="50"></sui-select-option>
+                        <sui-select-option value="86"></sui-select-option>
+                      </sui-select>
                     </div>
-                    <div class="field">
-                      <div class="ui radio checkbox">
-                        <input type="radio" name='options' [value]="'pie2d'" [checked]='chart === "pie2d"'
-                          (change)="onSelectionChange('pie2d')">
-                        <label>Pie2d</label>
-                      </div>
-                    </div>
+
+
                   </div>
-
-                  <div class="inline fields">
-                    <label for="options">Filter Quantity</label>
-                    <sui-select placeholder="Choose" class="selection" [(ngModel)]="filterValue"
-                      (ngModelChange)="filterQuantity(filterValue)">
-                      <sui-select-option value="10"></sui-select-option>
-                      <sui-select-option value="30"></sui-select-option>
-                      <sui-select-option value="50"></sui-select-option>
-                      <sui-select-option value="86"></sui-select-option>
-                    </sui-select>
-                  </div>
-
+                  <p class="center" *ngIf="withResult"><button class="ui button blue" (click)="print($event)">Export to
+                      PDF</button></p>
 
                 </div>
-                <p class="center" *ngIf="withResult"><button class="ui button blue" (click)="print($event)">Export to
-                    PDF</button></p>
+                <br>
+                <fusioncharts *ngIf="withResult" (initialized)="initialized($event)" [width]="chartWidth" height="700"
+                  type="column2d" [dataSource]="dataSource">
+                </fusioncharts>
 
+
+
+                <h1 *ngIf="!withResult" class="center primary bolder">No result</h1>
               </div>
-              <br>
-              <fusioncharts *ngIf="withResult" (initialized)="initialized($event)" [width]="chartWidth" height="700"
-                type="column2d" [dataSource]="dataSource">
-              </fusioncharts>
-
-
-
-              <h1 *ngIf="!withResult" class="center primary bolder">No result</h1>
             </div>
+
+
+
+
           </div>
-
-
-
-
         </div>
+
       </div>
+    </sui-sidebar-sibling>
+  </sui-sidebar-container>
+
+
+
+  <!-- Categories Modal -->
+  <sui-modal [isClosable]="false" [mustScroll]="true" (dismissed)="catModal = false" #catModall *ngIf="catModal">
+    <div class="header">
+      {{catModalHeader}}
+      <button class="ui blue button" style="float:right" (click)="selectEventModal = true;">Invite all to an
+        event.</button>
+      <button class="ui violet button" style="float:right" (click)="catModall.dismiss();printResult();">
+        Print
+      </button>
+    </div>
+    <div class="content">
+      <table class="ui celled table">
+        <thead>
+          <tr>
+            <th>Username</th>
+            <th>Name</th>
+            <th>Course</th>
+            <th>Year</th>
+            <th>Gender</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let data of catModalData">
+            <td>{{data.username}}</td>
+            <td>{{data.name}}</td>
+            <td>{{data.course}}</td>
+            <td>{{data.year}}</td>
+            <td>{{data.gender}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="actions">
+
+      <button class="ui red button" (click)="catModall.deny()">Close</button>
+    </div>
+  </sui-modal>
+
+
+
+  <sui-modal [isClosable]="false" [mustScroll]="true" (dismissed)="selectEventModal = false" #selectModal
+    *ngIf="selectEventModal">
+
+    <div class="content">
+      <table class="ui celled table">
+        <thead>
+          <tr>
+            <th colspan="2">Poster with Event Name</th>
+            <th>Description</th>
+            <th>Time From</th>
+            <th>Time To</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let event of events">
+            <td colspan="2">
+              <h4 class="ui image header">
+                <img src="{{event.poster_url}}" class="ui mini rounded image">
+                <div class="content">
+                  {{event.name}}
+
+                </div>
+              </h4>
+            </td>
+
+            <td>{{trim(event.description)}}</td>
+            <td>{{event.time_from}}</td>
+            <td>{{event.time_to}}</td>
+            <td><button class="ui green button" (click)="inviteAll(event)">Select</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="actions">
+      <button class="ui red button" (click)="selectModal.deny()">Close</button>
+    </div>
+  </sui-modal>
+
+</div>
+
+
+<div id="print" *ngIf="isPrinting">
+  <div class="head">
+    <div style="margin-bottom:10px;padding-right:20px;padding-left:20px;">
+      <div id="logo_header" class="ui">
+        <img src="assets/images/gclogoprint.png" class="ui centered tiny image" alt="">
+
+      </div>
+      <h3 class="center" style="font-weight:bolder;margin:0;font-family:Montserrat-Black !important">GORDON COLLEGE</h3>
+      <h3 class="center" style="font-weight:bold;margin:0;font-family: Montserrat-Bold !important;">Students Problem
+        Report</h3>
+
 
     </div>
-  </sui-sidebar-sibling>
-</sui-sidebar-container>
-
-
-
-<!-- Categories Modal -->
-<sui-modal [isClosable]="false" [mustScroll]="true" (dismissed)="catModal = false" #catModall *ngIf="catModal">
-  <div class="header">
-    {{catModalHeader}}
-    <button class="ui blue button" style="float:right" (click)="selectEventModal = true;">Invite all to an
-      event.</button>
   </div>
-  <div class="content">
-    <table class="ui celled table">
+
+  <div class="ui container body" style="margin-top:25px;">
+    <p class="center" style="font-family: Montserrat-Bold !important;">Problem : {{catModalHeader}}</p>
+    <table class="ui center aligned very basic table">
       <thead>
         <tr>
-          <th>Username</th>
+          <th>Student ID</th>
           <th>Name</th>
-          <th>Course</th>
           <th>Year</th>
-          <th>Gender</th>
+          <th>Course</th>
         </tr>
       </thead>
 
       <tbody>
-        <tr *ngFor="let data of catModalData">
-          <td>{{data.username}}</td>
-          <td>{{data.name}}</td>
-          <td>{{data.course}}</td>
-          <td>{{data.year}}</td>
-          <td>{{data.gender}}</td>
+        <tr *ngFor="let student of catModalData">
+          <td>{{student.id}}</td>
+          <td>{{student.name}}</td>
+          <td>{{student.year}}</td>
+          <td>{{student.course}}</td>
         </tr>
       </tbody>
     </table>
   </div>
-  <div class="actions">
-
-    <button class="ui red button" (click)="catModall.deny()">Close</button>
-  </div>
-</sui-modal>
-
-
-
-<sui-modal [isClosable]="false" [mustScroll]="true" (dismissed)="selectEventModal = false" #selectModal
-  *ngIf="selectEventModal">
-
-  <div class="content">
-    <table class="ui celled table">
-      <thead>
-        <tr>
-          <th colspan="2">Poster with Event Name</th>
-          <th>Description</th>
-          <th>Time From</th>
-          <th>Time To</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-
-      <tbody>
-        <tr *ngFor="let event of events">
-          <td colspan="2">
-            <h4 class="ui image header">
-              <img src="{{event.poster_url}}" class="ui mini rounded image">
-              <div class="content">
-                {{event.name}}
-
-              </div>
-            </h4>
-          </td>
-
-          <td>{{trim(event.description)}}</td>
-          <td>{{event.time_from}}</td>
-          <td>{{event.time_to}}</td>
-          <td><button class="ui green button" (click)="inviteAll(event)">Select</button></td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-  <div class="actions">
-    <button class="ui red button" (click)="selectModal.deny()">Close</button>
-  </div>
-</sui-modal>
+</div>

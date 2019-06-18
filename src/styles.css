@@ -4,12 +4,50 @@
     font-family: 'Montserrat';
     src: url(assets/fonts/Montserrat/Montserrat-Regular.ttf) format("truetype");
   }
+  @font-face {
+    font-family: 'Montserrat-Bold';
+    src: url(assets/fonts/Montserrat/Montserrat-Bold.ttf) format("truetype");
+  }
+  @font-face {
+    font-family: 'Montserrat-Black';
+    src: url(assets/fonts/Montserrat/Montserrat-Black.ttf) format("truetype");
+  }
 .bolder {
     font-weight: bolder !important;
 }
+.monserrat-bold{
+    font-family: Montserrat-Bold !important;
+}
+thead > tr > th {
+    font-family: Montserrat-Bold !important;
+}
+h2.ui.header{
+    font-family: Montserrat-Bold !important;
+
+}
+
+div.ui.top.attached.demo.menu{
+    background: #6435c9;
+}
+
+div.ui.top.attached.demo.menu > a.item > i {
+    color:white;
+}
+
+
+sui-sidebar > a.item{
+    color:#9e7ee2 !important;
+    font-family: Montserrat-Bold;
+}
+sui-sidebar-container{
+    min-height:100vh;
+}
+sui-sidebar-sibling{
+    min-height: 100vh !important;
+}
 
 .primary{
-    color: #003863 !important;
+    color: #6435c9 !important;
 }
 .secondary{
     color: #f3f3f3;
@@ -56,7 +94,11 @@
 
 html { overflow-y: hidden; }
 html, body { height: 100%; }
-body { margin: 0; font-family: Montserrat, Roboto; }
+/* * { margin: 0; font-family: Montserrat, Roboto !important; } */
+p, div, h1,h2,h3,h4,h5,h6, section{
+    font-family: Montserrat, Roboto !important;
+}
+
 
 
 /* Smartphones (portrait and landscape) ----------- */

@@ -29,6 +29,7 @@ import { AdminEventsComponent } from './admin-events/admin-events.component';
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
 import { AttendanceComponent } from './attendance/attendance.component';
 import { TermsAndConditionComponent } from './terms-and-condition/terms-and-condition.component';
+import { LandingComponent } from './landing/landing.component';
 
 
 const routes: Routes = [
@@ -143,6 +144,10 @@ const routes: Routes = [
   {
     path: 'takers-attendance',
     component: AttendanceComponent
+  },
+  {
+    path: 'landing',
+    component:LandingComponent
   },
   {
     path: '404',

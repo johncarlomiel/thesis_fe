@@ -15,6 +15,7 @@ import Swal from 'sweetalert2';
 })
 export class AdminGraphComponent implements OnInit {
   printing: Boolean = false;
+  isPrinting = false;
   isEventModal: Boolean = false;
   chartWidth = "100%";
   events: Array<any>;

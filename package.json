@@ -36,12 +36,14 @@
     "jwt-decode": "^2.2.0",
     "ng2-semantic-ui": "^0.9.7",
     "ngx-date-fns": "^4.0.2",
-    "ngx-infinite-scroll": "^7.0.1",
+    "ngx-infinite-scroll": "^7.1.0",
+    "ngx-infinite-scroller": "^0.4.4",
     "ngx-pagination": "^3.2.1",
     "ngx-print": "^1.1.4",
     "rxjs": "~6.3.3",
     "socket.io-client": "^2.2.0",
     "sweetalert2": "^7.29.0",
+    "swiper": "^4.5.0",
     "zone.js": "~0.8.26"
   },
   "devDependencies": {

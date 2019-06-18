@@ -7,7 +7,7 @@
 
 
 <!-- Rankings Section -->
-<p class="center aligned"><button class="ui blue button center large" routerLink="/profile">
+<p class="center aligned" style="margin-top:5%;"><button class="ui blue button center large" routerLink="/profile">
     Click here to see results
   </button></p>
 <h1 class="ui header primary bolder large center aligned">Rankings</h1>
@@ -63,7 +63,8 @@
     <div class="two wide column"></div>
     <div *ngFor="let activity of activities; let i = index">
       <div class="two wide column">
-        <a class="ui tag label massive" [ngStyle]="{'background-color': getBackgroudColor(i),'width': '100px'}">{{activity}}</a>
+        <a class="ui tag label massive"
+          [ngStyle]="{'background-color': getBackgroudColor(i),'width': '100px'}">{{activity}}</a>
       </div>
     </div>
     <div class="two wide column"></div>
@@ -82,7 +83,8 @@
     <div class="two wide column"></div>
     <div *ngFor="let competency of competencies; let i = index">
       <div class="two wide column">
-        <a class="ui tag label massive" [ngStyle]="{'background-color': getBackgroudColor(i),'width': '100px'}">{{competency}}</a>
+        <a class="ui tag label massive"
+          [ngStyle]="{'background-color': getBackgroudColor(i),'width': '100px'}">{{competency}}</a>
       </div>
     </div>
     <div class="two wide column"></div>
@@ -102,7 +104,8 @@
     <div class="two wide column"></div>
     <div *ngFor="let job of jobs; let i = index">
       <div class="two wide column">
-        <a class="ui tag label massive" [ngStyle]="{'background-color': getBackgroudColor(i),'width': '100px'}">{{job}}</a>
+        <a class="ui tag label massive"
+          [ngStyle]="{'background-color': getBackgroudColor(i),'width': '100px'}">{{job}}</a>
       </div>
     </div>
     <div class="two wide column"></div>
@@ -144,7 +147,8 @@
     <div class="two wide column"></div>
     <div *ngFor="let selfEsti2 of self_estimates2; let i = index">
       <div class="two wide column">
-        <a class="ui tag label massive" [ngStyle]="{'background-color': getBackgroudColor(i),'width': '100px'}">{{selfEsti2}}</a>
+        <a class="ui tag label massive"
+          [ngStyle]="{'background-color': getBackgroudColor(i),'width': '100px'}">{{selfEsti2}}</a>
       </div>
     </div>
     <div class="two wide column"></div>
@@ -163,7 +167,8 @@
     <div class="two wide column"></div>
     <div *ngFor="let summary of summarys; let i = index">
       <div class="two wide column">
-        <a class="ui tag label massive" [ngStyle]="{'background-color': getBackgroudColor(i),'width': '100px'}">{{summary.value}}</a>
+        <a class="ui tag label massive"
+          [ngStyle]="{'background-color': getBackgroudColor(i),'width': '100px'}">{{summary.value}}</a>
       </div>
     </div>
     <div class="two wide column"></div>

@@ -45,9 +45,10 @@
 
       <div class="ui container" style="margin-top:15px;height: 100%;">
 
-        <h2 class="ui center aligned icon header">
-          <i class="circular home icon"></i>
+        <h2 class="ui violet center aligned icon header">
+          <i class="violet print icon"></i>
           Print Section
+
 
           <div class="sub header">This page is for handling unprinted self-directed-search result of every student</div>
         </h2>
@@ -77,15 +78,12 @@
           </p>
         </div>
 
-        <div class="right">
-          <button class="button ui disabled" (click)="printAll()" *ngIf="!isEmpty">
-            Print All
-          </button>
-        </div>
+
         <br>
         <div class="ui input" style="float:right">
-          <input type="text" placeholder="Search..." (input)="onSearchChange($event.target.value)">
+          <input type="text" placeholder="Search..." (keyup.enter)="onSearchChange($event.target.value)">
         </div>
+
         <h2 class="ui red header center" *ngIf="isEmpty">No Result</h2>
         <table class="ui celled table" *ngIf="!isEmpty">
           <thead>
@@ -147,9 +145,11 @@
         <img src="assets/images/gclogoprint.png" class="ui mini left floated image" alt="">
         <img src="assets/icons/riasec-logo.png" class="ui mini right floated image" alt="">
       </div>
-      <h4 class="center" style="font-weight:bolder">GORDON COLLEGE</h4>
-      <h4 class="center" style="font-weight:bolder">STUDENT WELFARE OFFICE</h4>
-      <p class="center" style="font-weight:bold">Tapinac Oval Sports Complex, East Tapinac, Olongapo City</p>
+      <h4 class="center" style="font-weight:bolder;font-family:'Montserrat-Black' !important">GORDON COLLEGE</h4>
+      <h4 class="center" style="font-weight:bolder;font-family:'Montserrat-Black' !important">STUDENT WELFARE OFFICE
+      </h4>
+      <p class="center" style="font-weight:bold; font-family: 'Montserrat-Bold' !important">Tapinac Oval Sports Complex,
+        East Tapinac, Olongapo City</p>
 
     </div>
   </div>
@@ -163,7 +163,8 @@
         <span style="float:right">{{dateNow}}</span>
       </div>
     </div>
-    <h3 style="margin-top:0;margin-bottom:5px;" class="center container" id="print_header">OFFICIAL RESULT</h3>
+    <h3 style="margin-top:0;margin-bottom:5px;font-family:'Montserrat-Bold' !important" class="center container"
+      id="print_header">OFFICIAL RESULT</h3>
     <div class="ui grid" style="margin-left:20px; margin-right:20px;">
       <div class="eight wide column">
         <div class="ui segment">

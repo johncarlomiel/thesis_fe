@@ -5,3 +5,7 @@
     float:right;
     margin-bottom: 8px;
 }
+thead > tr > th{
+    background-color:#9E7EE2;
+    color:white;
+ }

@@ -1,95 +1,164 @@
-<div class="ui basic segment" *ngIf="!printing">
-  <button class="ui secondary labeled icon button" style="margin-bottom:10px;" routerLink="/admin-home">
-    <i class="left arrow icon"></i>
-    Back to dashboard
-  </button>
+<div *ngIf="!isPrinting">
 
 
 
-  <div class="container clearfix">
-
-    <div class="people-list" id="people-list">
-      <div class="search">
-        <input type="text" placeholder="search" />
-        <i class="fa fa-search"></i>
+  <div class="ui top attached demo menu">
+    <a class="item" (click)="sidebar.toggle()">
+      <i class="sidebar icon"></i>
+    </a>
+    <div class="right menu">
+      <div class="item">
+        <div class="ui blue button" (click)="logout()">Logout</div>
       </div>
-      <ul class="list">
-        <li class="clearfix" [ngClass]="{'active': contact.isSelected}" *ngFor="let contact of contacts;let i = index"
-          (click)="selectContact(i);getMessages(contact.convo_name);">
-
-          <img [src]="contact.dp_path" alt="avatar" class="ui avatar mini image" />
-          <div class="about">
-
-            <div class="name primary">
-
-              {{contact.name}}
-              <a class="ui empty circular label" style="margin-left:5px;" [ngClass]="{'green': contact.isOnline,
-              'grey': !contact.isOnline}"></a>
-            </div>
-            <p>{{contact.recent_msg}}</p>
-            <span style="text-align: right" [ngClass]="{'online-text': contact.isOnline}">
-              {{contact.isOnline ? 'Active Now' : 'Last online: '+durationLastOnline(contact.last_online)}}
-            </span>
-
-          </div>
-        </li>
-
-
-      </ul>
     </div>
-    <div class="chat">
-      <div class="chat-header clearfix" *ngIf="selectedContact">
-        <img src="{{selectedContact.dp_path}}" class="ui avatar tiny image" alt="avatar" />
+  </div>
 
-        <div class="chat-about">
-          <div class="chat-with">Chat with {{selectedContact.name}}</div>
+  <sui-sidebar-container class="ui bottom attached segment">
+    <sui-sidebar class="vertical" #sidebar style="height:100%">
+      <a class="item" routerLink="/admin-home">
+        Home
+      </a>
+      <a class="item active" routerLink="/takers-attendance">
+        Attendance
+      </a>
+      <a class="item" routerLink="/admin-graph-specific">
+        Specific Reports
+      </a>
+      <a class="item" routerLink="/admin-graph-general">
+        General Reports
+      </a>
+      <a class="item" routerLink="/admin-new-print">
+        Print Section
+      </a>
+      <a class="item" routerLink="/admin-new-archive">
+        Archive Section
+      </a>
+      <a class="item" routerLink="/admin-settings">
+        Accounts Settings
+      </a>
+      <a class="item" routerLink="/admin-events">
+        Events
+      </a>
+      <a class="item" routerLink="/admin-messages">
+        Messages
+      </a>
+    </sui-sidebar>
+
+    <sui-sidebar-sibling [isDimmedWhenVisible]="true">
+      <div class="ui grid" style="padding:20px;">
+
+        <div class="ui segment six wide column" style="padding:5px;margin:0;height: 90vh;">
+
+          <div class="ui two column grid" style="min-height: 10%;">
+            <div class="column">
+              <button class="ui labeled violet icon button" (click)="refreshContacts();">
+                <i class="undo icon"></i>
+                Reset Contacts
+              </button>
+            </div>
+            <div class="column">
+              <div class="ui form">
+                <div class="field">
+                  <input type="text" placeholder="Search here" (keyup.enter)="searchContacts(keyword.value);" #keyword>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="ui segment" id="contact-list" style="padding:0" ngxInfiniteScroller strategy="scrollingToBottom"
+            (onScrollDown)="onScrollDownContacts()">
+            <div class="ui link items">
+              <div
+                [ngClass]="{'unread': contact.user_id != userData.id && contact.isSeen != '1' && contact.isSeen != null}"
+                class="item" *ngFor="let contact of contacts;let i = index"
+                (click)="selectContact(i);getMessages(contact.convo_name);">
+                <a class="ui circular tiny image">
+                  <img [src]="contact.dp_path">
+                </a>
+
+                <div class="middle aligned content">
+                  <div class="primary bolder header" style="font-family: 'Montserrat-Bold' !important">
+                    {{contact.name}}
+                  </div>
+                  <div class="description" *ngIf="!!contact.recent_msg">Recent Message : {{contact.recent_msg}}
+                  </div>
+                  <div class="extra" [ngClass]="{'active': contact.isOnline}">
+                    {{contact.isOnline ? 'Active Now' : 'Last online: '+durationLastOnline(contact.last_online)}}
+                  </div>
+                  <hr>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+
+
+
         </div>
-        <i class="fa fa-star"></i>
-      </div> <!-- end chat-header -->
+        <div class="ui segment ten wide column" style="padding:5px;margin:0;height: 90vh">
+          <div class="ui one column grid" style="min-height: 10%;">
+            <div class="column" *ngIf="selectedContact">
+              <div class="ui items">
+                <div class="item">
+                  <a class="ui circular tiny image">
+                    <img src="{{selectedContact.dp_path}}">
 
-      <div class="chat-history">
-        <div class="ui active centered inline loader" *ngIf="isLoading"></div>
-        <ul>
-          <cdk-virtual-scroll-viewport [itemSize]="messages.length" *ngIf="messages"
-            (scrolledIndexChange)="getNextBatch($event)" #scrollMe>
-            <li class="clearfix" *cdkVirtualFor="let message of messages">
-              <div class="message-data " [ngClass]="{'align-right': selectedContact.contact_user_id == message.id}">
-                <span class="message-data-time">{{message.timestamp}}</span> &nbsp; &nbsp;
-                <span class="message-data-name">{{message.name}}</span> <i class="fa fa-circle me"></i>
+                  </a>
+                  <div class="middle aligned content">
+                    <div class="primary bolder header" style="font-family: 'Montserrat-Black' !important">
+                      Chatting with {{selectedContact.name}}
+                    </div>
+
+                    <div class="extra">
+                      <div class="ui circular violet icon right floated button" (click)="scrollToBottom();">
+                        <i class="angle double down icon"></i>
+                      </div>
+                    </div>
+
+                  </div>
+
+                </div>
 
               </div>
-              <div class="message" [ngClass]="{'other-message': selectedContact.contact_user_id == message.id,
-                                            'float-right': selectedContact.contact_user_id == message.id,
-                                            'my-message': selectedContact.contact_user_id != message.id}">
-                {{message.message}}
+
+            </div>
+          </div>
+          <hr>
+
+          <div id="message-section" ngxInfiniteScroller strategy="scrollingToTop" (onScrollUp)="onScrollUp()"
+            #msg_section>
+            <div *ngFor="let message of messages;let i = index;">
+              <div class="container" [ngClass]="{'darker': userData.id != message.id}">
+                <img [src]="message.dp_path" alt="Avatar" [ngClass]="{'right': userData.id != message.id}">
+                <h4 style="margin:0">{{message.name}}</h4>
+                <p>{{message.message}}</p>
+                <span [ngClass]="{'time-left': userData.id != message.id}">{{convertDate(message.timestamp)}}</span>
               </div>
 
-            </li>
-          </cdk-virtual-scroll-viewport>
+            </div>
+          </div>
 
 
+          <hr>
+          <div class="ui grid" style="max-height: 20%;">
+            <div class="thirteen wide column">
+              <div class="ui form">
+                <div class="field">
+                  <textarea rows="4" cols="7" placeholder="place your message here." (click)="messageBoxClicked();"
+                    #userMsg></textarea>
 
-        </ul>
+                </div>
 
+              </div>
 
-
-
-      </div> <!-- end chat-history -->
-
-      <div class="chat-message clearfix">
-        <textarea name="message-to-send" id="message-to-send" placeholder="Type your message" rows="3"
-          #userMsg></textarea>
-
-        <i class="fa fa-file-o"></i> &nbsp;&nbsp;&nbsp;
-        <i class="fa fa-file-image-o"></i>
-
-        <button (click)="sendMessage(userMsg.value, selectedContact.convo_name)">Send</button>
-
-      </div> <!-- end chat-message -->
-
-    </div> <!-- end chat -->
-
-  </div> <!-- end container -->
+            </div>
+            <div class="three wide column">
+              <button class="ui button violet" style="float:right"
+                (click)="sendMessage(userMsg.value, selectedContact.convo_name)">Send</button>
+            </div>
+          </div>
 
 
 
@@ -99,4 +168,16 @@
 
 
 
+
+
+
+
+
+        </div>
+
+
+
+      </div>
+    </sui-sidebar-sibling>
+  </sui-sidebar-container>
 </div>

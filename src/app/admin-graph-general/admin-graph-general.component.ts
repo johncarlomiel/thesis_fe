@@ -9,6 +9,7 @@ import { AdminService } from '../services/admin.service';
 import { Router } from '@angular/router';
 import { ChatService } from '../services/chat.service';
 import Swal from 'sweetalert2'
+import { colors } from '../data/colors';
 
 
 @Component({
@@ -33,6 +34,8 @@ export class AdminGraphGeneralComponent implements OnInit {
   events: Array<any>;
   selectEventModal = false;
 
+  isPrinting = false;
+
 
   dataplotModal: Boolean = false;
   dataPlotData = Array.apply(null, Array())
@@ -53,7 +56,7 @@ export class AdminGraphGeneralComponent implements OnInit {
       yAxisName: "Values",
       numberSuffix: "",
       theme: "candy",
-      "palettecolors": "5d62b5,29c3be,f2726f"
+      "palettecolors": colors
     },
     data: [],
   }
@@ -259,6 +262,7 @@ export class AdminGraphGeneralComponent implements OnInit {
         this.catModal = true;
         this.catModalData = successData;
         this.catModalHeader = dataObj.categoryLabel;
+        console.log(this.catModalData);
         // console.log(this.catModalData)
 
       }, (error) => console.log(error))
@@ -290,6 +294,15 @@ export class AdminGraphGeneralComponent implements OnInit {
   }
   trim(string: string) {
     return string.substring(0, 200);
+  }
+
+  printResult() {
+    // this.catModal = false;
+    this.isPrinting = true;
+    setTimeout(() => {
+      window.print();
+      this.isPrinting = false;
+    }, 2000);
   }
 
 }

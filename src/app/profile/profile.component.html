@@ -3,7 +3,7 @@
 <br>
 
 
-<div class="ui container">
+<div class="ui container" style="margin-top:5%;">
 
     <h1 class="ui header bolder primary underlined">Profile Page</h1>
     <div class="ui breadcrumb">
@@ -20,38 +20,40 @@
 <div class="ui one column grid container padding">
 
     <div class="column">
-        <h2 class="ui header center primary bolder" *ngIf="emptyResult">Self Directed Search still not taken</h2>
-        <div class="ui card" style="width:100%" *ngIf="!emptyResult">
+        <img src="assets/home-assets/error.png" class="ui centered large rounded image" *ngIf="emptyResult">
+        <!-- <h2 class="ui header center primary bolder" >Self Directed Search still not taken</h2> -->
+        <div *ngIf="!emptyResult">
             <div class="content">
-                <h2 class="ui icon header center aligned">
-                    <i class="briefcase icon"></i>
+                <h2 class="ui icon  bolder violet header center aligned">
+                    <i class="violet briefcase icon"></i>
                     <div class="content">
-                        SDS Result
-                        <div class="sub header">Career Assestment Result</div>
+                        Self Directed Search Result
                     </div>
                 </h2>
             </div>
             <div class="content">
                 <div class="ui grid ">
-                    <div class="ui segment sixteen wide column " *ngFor="let code of codes;let i = index;" style="margin:20px;">
-                        <a class="ui right ribbon label large" style="color:ghostwhite" [ngStyle]="{'background-color': true ? colors[i]: ''}">{{code.name}}</a>
+                    <div class="ui segment sixteen wide column " *ngFor="let code of codes;let i = index;"
+                        style="margin:20px;">
+                        <a class="ui right ribbon label large" style="color:ghostwhite"
+                            [ngStyle]="{'background-color': true ? colors[i]: ''}">{{code.name}}</a>
                         <div *ngFor="let indivCode of code.result">
                             <div class="ui divided items">
                                 <div class="item">
                                     <div class="content">
-                                        <a class="header">{{indivCode.occupation}}</a>
+                                        <a class="header primary">{{indivCode.occupation}}</a>
                                         <div class="description">
                                             <p>{{indivCode.description}}</p>
                                         </div>
 
                                         <div class="extra">
-                                            <a href="{{indivCode.link}}" class="ui right floated blue button">
+                                            <a href="{{indivCode.link}}" class="ui right floated violet button">
                                                 See more details here
                                                 <i class="right chevron icon"></i>
                                             </a>
                                         </div>
 
-                                        <hr>
+
                                     </div>
                                 </div>
                             </div>
