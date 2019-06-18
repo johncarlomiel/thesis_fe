@@ -43,14 +43,12 @@ export class HomeComponent implements OnInit {
 
 
 
-        // console.log(this.userSession)
 
       },
         (error) => {
           this.userSession = false;
 
 
-          // console.log(this.userSession)
           console.log(error)
         });
     }
@@ -74,7 +72,7 @@ export class HomeComponent implements OnInit {
 
   getTakers() {
     this.data.getTakers().subscribe((takers) => {
-      console.log(takers)
+
       this.takers = takers[0].takers;
     }, err => console.log(err));
   }

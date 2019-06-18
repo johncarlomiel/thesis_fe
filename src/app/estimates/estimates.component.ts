@@ -50,51 +50,51 @@ export class EstimatesComponent implements OnInit {
     if (name == 'mechanical') {
       this.mechanical.val = value;
       this.mechanical.color = this.determineColor(value);
-      // console.log(this.mechanical)
+
     } else if (name == 'scientific') {
       this.scientific.val = value;
       this.scientific.color = this.determineColor(value);
-      // console.log(this.scientific)
+
     } else if (name == 'artistic') {
       this.artistic.val = value;
       this.artistic.color = this.determineColor(value);
-      // console.log(this.artistic)
+
     } else if (name == 'teaching') {
       this.teaching.val = value;
       this.teaching.color = this.determineColor(value);
-      // console.log(this.teaching)
+
     } else if (name == 'sales') {
       this.sales.val = value;
       this.sales.color = this.determineColor(value);
-      // console.log(this.sales)
+
     } else if (name == 'clerical') {
       this.clerical.val = value;
       this.clerical.color = this.determineColor(value);
-      // console.log(this.clerical)
+
     } else if (name == 'manual') {
       this.manual.val = value;
       this.manual.color = this.determineColor(value);
-      // console.log(this.manual)
+
     } else if (name == 'math') {
       this.math.val = value;
       this.math.color = this.determineColor(value);
-      // console.log(this.math)
+
     } else if (name == 'musical') {
       this.musical.val = value;
       this.musical.color = this.determineColor(value);
-      // console.log(this.musical)
+
     } else if (name == 'uof') {
       this.uof.val = value;
       this.uof.color = this.determineColor(value);
-      // console.log(this.uof)
+
     } else if (name == 'managerial') {
       this.managerial.val = value;
       this.managerial.color = this.determineColor(value);
-      // console.log(this.managerial)
+
     } else if (name == 'office') {
       this.office.val = value;
       this.office.color = this.determineColor(value);
-      // console.log(this.office)
+
     }
 
 
@@ -139,7 +139,6 @@ export class EstimatesComponent implements OnInit {
       this.part2Results[4] = this.managerial.val;
       this.part2Results[5] = this.office.val;
 
-      // console.log(this.selfEstiRes);
       localStorage.setItem('selfEstiRes', btoa(JSON.stringify(this.selfEstiRes)));
       this.view = false;
       this.loader = true;

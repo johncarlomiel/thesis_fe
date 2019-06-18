@@ -118,7 +118,6 @@ export class EvaluateComponent implements OnInit {
 
 
             // For testing purpose
-            // console.log(this.summaryHolder)
             // this.summaryHolder = [
             //     { value: 33, letter: "R" },
             //     { value: 33, letter: "I" },
@@ -136,10 +135,7 @@ export class EvaluateComponent implements OnInit {
             this.second = this.calculateShit();
             this.third = this.calculateShit()
 
-            // console.log(this.summarys)
-            // console.log(this.first)
-            // console.log(this.second)
-            // console.log(this.third)
+
 
             //Submit RIASEC Results into the server
             this.data.submitLetters(this.summarys).subscribe((successData) => {

@@ -86,14 +86,12 @@ export class QuestionComponent implements OnInit {
     this.testQuestions = JSON.parse(localStorage.getItem("tsqts"));
     this.testIndex = Number(localStorage.getItem("qtsIndex"));
     this.results = JSON.parse(localStorage.getItem("qstResult"));
-    // console.log(this.results)
+
 
     this.valuePerQuestion = 100 / this.testQuestions.length;
     this.value = this.valuePerQuestion * this.testIndex;
 
 
-    // console.log(this.testQuestions)
-    // console.log(this.testIndex)
     // this.questions = exportedQuestions;
 
     this.checkSession();
@@ -138,8 +136,6 @@ export class QuestionComponent implements OnInit {
 
 
 
-
-      console.log(this.proceed)
 
       //Check if the variable proceed is thru to proceed to the next question
       if (this.proceed) {

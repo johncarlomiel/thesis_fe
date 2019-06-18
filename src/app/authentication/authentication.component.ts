@@ -77,7 +77,6 @@ export class AuthenticationComponent implements OnInit {
 
 
   userLogin(username, password) {
-    // console.log(username, password)
     if (username == "admin" && password == "admin") {
       this.router.navigate(["/admin-auth"])
     } else {

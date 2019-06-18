@@ -26,7 +26,7 @@ export class AdminEventsComponent implements OnInit {
   printing = false;
   constructor(private adminService: AdminService,
     private router: Router) {
-    console.log(this.updateData)
+
     this.getEvents();
 
   }
@@ -48,7 +48,7 @@ export class AdminEventsComponent implements OnInit {
       f.value.time_from = datefns.format(f.value.time_from, 'hh:mm A');
       f.value.time_to = datefns.format(f.value.time_to, 'hh:mm A');
       f.value.poster = this.selectedPoster;
-      console.log(f.value)
+
       this.adminService.addEvent(f.value).subscribe((successData) => {
         this.showAddEvent = false;
         swal({
@@ -60,7 +60,7 @@ export class AdminEventsComponent implements OnInit {
     } else {
       this.err = true;
     }
-    console.log(f.valid);  // false
+    // false
   }
   updateEvent(field: string, value: any) {
     this.adminService.updateEvent(field, value, this.updateData.id).subscribe((successData) => {
@@ -83,7 +83,6 @@ export class AdminEventsComponent implements OnInit {
       id
     }
     this.updateData = data;
-    console.log(this.updateData)
     this.showUpdateEvent = true;
   }
 
@@ -104,7 +103,6 @@ export class AdminEventsComponent implements OnInit {
             'Your event has been deleted.',
             'success'
           )
-          console.log(successData);
           this.getEvents();
         }, (err) => console.error(err));
 
@@ -133,7 +131,7 @@ export class AdminEventsComponent implements OnInit {
     this.isInvitationModal = true;
     this.adminService.getInvitations(event.event_id).subscribe((invitations) => {
       this.invitations = invitations;
-      console.log(this.invitations)
+
     }, (err) => console.log(err));
   }
 
@@ -155,7 +153,6 @@ export class AdminEventsComponent implements OnInit {
   searchEvents(keyword) {
     this.adminService.searchEvents(keyword).subscribe((events) => {
       this.events = events;
-      console.log(this.events)
     }, err => console.error(err));
   }
 

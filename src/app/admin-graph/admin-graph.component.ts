@@ -69,7 +69,7 @@ export class AdminGraphComponent implements OnInit {
   getEvents() {
     this.adminService.getEvents().subscribe((events) => {
       this.events = events;
-      console.log(this.events);
+
 
     }, (err) => console.log(err));
   }
@@ -77,7 +77,7 @@ export class AdminGraphComponent implements OnInit {
   inviteAll(event) {
     let invitations = [];
     this.dataPlotData.forEach((element) => {
-      console.log(element);
+
       invitations.push([event.event_id, element.id]);
     });
     this.chatService.sendInvitation(this.dataPlotData, invitations);
@@ -116,7 +116,7 @@ export class AdminGraphComponent implements OnInit {
       }
 
     });
-    // console.log(this.criteria)
+
 
 
     this.problems.forEach((first, firstIndex) => {
@@ -129,7 +129,7 @@ export class AdminGraphComponent implements OnInit {
 
     if (this.caption.length != 0) {
       let caption = this.replaceAll(this.caption.toString(), ",", " ")
-      // console.log(caption)
+
       this.dataSource.chart["caption"] = "All students that have the ff criteria: <br>" + caption;
       this.dataSource.chart["subCaption"] = "With problems of the ff: <br>" + this.subCaption.toString();
     } else {
@@ -184,8 +184,7 @@ export class AdminGraphComponent implements OnInit {
       });
 
     });
-    // console.log(this.criteria_variables)
-    // console.log(this.problem_variables)
+
 
 
     //Place it to formated variable before sending to service for fetching
@@ -198,7 +197,7 @@ export class AdminGraphComponent implements OnInit {
       this.loader = true;
       this.adminService.graph(data).subscribe((successData) => {
         setTimeout(() => this.loader = false, 1200)
-        // console.log(successData)
+
         if (successData.conditionMet.value == 0 && successData.notCondition.value == 0) {
 
           this.withResult = false;
@@ -251,9 +250,7 @@ export class AdminGraphComponent implements OnInit {
       this.dataplotModal = true;
       this.category_header = dataObj.categoryLabel;
       this.dataPlotData = this.dataSource.data[dataObj.dataIndex].data;
-      // console.log(this.dataPlotData)
-      // console.log(dataObj)
-      // console.log(this.dataSource)
+
     });
   }
   maPrint() {

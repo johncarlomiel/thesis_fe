@@ -47,10 +47,10 @@ export class AttendanceComponent implements OnInit {
   changeDate() {
     this.isLoading = true;
     let date = date_fns.format(this.date, "YYYY-MM-DD")
-    console.log(date)
+
     this.adminService.getTakersByDate(date.toString()).subscribe((takers) => {
       this.isLoading = false;
-      console.log(takers)
+
       this.takers = takers;
     }, err => console.error(err));
   }

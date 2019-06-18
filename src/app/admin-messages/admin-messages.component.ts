@@ -65,7 +65,6 @@ export class AdminMessagesComponent implements OnInit {
     if (!this.isContactReachLimit) {
 
       this.contactsLimit += 10;
-      console.log(this.contactsLimit)
       setTimeout(() => {
         this.adminService.getContacts(this.contactsLimit).subscribe((successData) => {
           this.contacts = successData;
@@ -75,7 +74,6 @@ export class AdminMessagesComponent implements OnInit {
             this.lastLengthContacts = successData.length;
           }
 
-          console.log(this.contacts)
         }, err => console.error(err));
 
       }, 500);
@@ -88,11 +86,10 @@ export class AdminMessagesComponent implements OnInit {
       setTimeout(() => {
         this.adminService.getMessages(this.selectedContact.convo_name, this.limit)
           .subscribe((successData) => {
-            console.log("trueee")
+
             this.messages = successData.reverse();
             this.isLoading = false;
             // this.scrollToBottom();
-            console.log(this.messages)
           }, (err) => console.log(err));
       }, 1000);
     }
@@ -155,16 +152,13 @@ export class AdminMessagesComponent implements OnInit {
 
 
   ngOnInit() {
-    console.log(this.selectedContact)
 
     this.getContacts();
     this.chatService.getNewMessage().subscribe((msg) => {
 
-      console.log(msg);
-      console.log(this.selectedContact)
+
       if (msg.id != this.userData.id) {
         let newMessage = msg;
-        console.log(newMessage)
         this.notifyMe(newMessage.message, newMessage.dp_path, newMessage.name, newMessage.convo_name);
       }
 
@@ -172,7 +166,6 @@ export class AdminMessagesComponent implements OnInit {
         this.messages.push(msg)
         if (msg.id == this.userData.id) {
           setTimeout(() => {
-            console.log(this.messages)
             this.scrollToBottom();
           }, 100);
 
@@ -227,7 +220,7 @@ export class AdminMessagesComponent implements OnInit {
   getMessages(convo_name) {
     this.adminService.getMessages(convo_name, this.limit).subscribe((successData) => {
       this.messages = successData.reverse();
-      console.log(this.messages)
+
       setTimeout(() => {
         this.isInitialized = true;
         this.scrollToBottom();
@@ -251,7 +244,7 @@ export class AdminMessagesComponent implements OnInit {
     this.adminService.getContacts(this.contactsLimit).subscribe((successData) => {
       this.contacts = successData;
       this.lastLengthContacts = successData.length
-      console.log(this.contacts)
+
     }, err => console.error(err));
   }
 
@@ -260,12 +253,12 @@ export class AdminMessagesComponent implements OnInit {
     this.adminService.getContacts(this.contactsLimit).subscribe((successData) => {
       this.contacts = successData;
       this.lastLengthContacts = successData.length;
-      console.log(this.contacts)
+
       //Join all of the conversion room for every contact user
       this.chatService.joinAllContactsRoom(this.contacts, this.userData);
 
       this.chatService.getNewOnlineUser().subscribe((id) => {
-        console.log(id)
+
         if (this.contacts.some((contact) => contact.contact_user_id === id)) {
           for (const key in this.contacts) {
             //Check if it the id 
@@ -281,7 +274,7 @@ export class AdminMessagesComponent implements OnInit {
       });
 
       this.chatService.getNewOfflineUser().subscribe((data) => {
-        console.log(data)
+
         if (this.contacts.some((contact) => contact.contact_user_id === data.id)) {
           for (const key in this.contacts) {
             //Check if it the id 
@@ -298,7 +291,6 @@ export class AdminMessagesComponent implements OnInit {
       });
       this.selectedContact = this.contacts[0];
       this.selectedContact.isSelected = true;
-      console.log(this.selectedContact)
       this.readConvo(this.selectedContact.contact_user_id, this.selectedContact.convo_name);
       this.getMessages(this.contacts[0].convo_name);
 
@@ -315,7 +307,7 @@ export class AdminMessagesComponent implements OnInit {
       convo_name
     }
     this.chatService.seenAllMessages(contact_info).subscribe((response) => {
-      console.log(response);
+
       this.refreshContacts();
 
     }, err => console.log(err));

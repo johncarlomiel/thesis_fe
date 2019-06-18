@@ -36,7 +36,6 @@ export class ArchiveOldComponent implements OnInit {
       } else {
         this.oldResultData = successData;
 
-        // console.log(this.oldResultData)
         this.noResult = false;
       }
 
@@ -50,7 +49,6 @@ export class ArchiveOldComponent implements OnInit {
       } else {
         this.oldResultData = successData;
 
-        console.log(this.oldResultData)
         this.noResult = false;
       }
     }, (error) => console.log(error))
@@ -58,7 +56,6 @@ export class ArchiveOldComponent implements OnInit {
 
 
   viewSingleResult(id, name) {
-    console.log(id);
     this.adminService.getMySDS(id).subscribe((successData) => {
       this.singleResultData = successData;
       this.singleResultId = id;

@@ -23,7 +23,7 @@ export class AdminSettingsComponent implements OnInit {
   getAllUsers() {
     this.adminService.getAllUsers().subscribe((successData) => {
       this.allUsers = successData;
-      // console.log(this.allUsers)
+
 
     }, (error) => console.log(error))
   }
@@ -42,7 +42,7 @@ export class AdminSettingsComponent implements OnInit {
       if (result.value) {
         this.isLoading = true;
         this.adminService.changeType(type, id).subscribe((successData) => {
-          // console.log(successData);
+
           this.isLoading = false;
           this.getAllUsers();
           swal(

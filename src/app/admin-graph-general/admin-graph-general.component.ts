@@ -69,14 +69,13 @@ export class AdminGraphGeneralComponent implements OnInit {
     this.problems = problems.problems;
     this.graphLbl = new Label().label;
     // this.graphLbl[0].value = 23
-    // console.log(this.graphLbl)
     this.withResult = true;
   }
 
   inviteAll(event) {
     let invitations = [];
     this.catModalData.forEach((element) => {
-      console.log(element);
+
       invitations.push([event.event_id, element.id]);
     });
     this.chatService.sendInvitation(this.catModalData, invitations);
@@ -111,7 +110,6 @@ export class AdminGraphGeneralComponent implements OnInit {
     });
     //Iterate thru all criteria checkboxes check boxes that are checked
 
-    // console.log(this.criteria_variables)
 
     //Create the conditions for sql
     this.sql = "";
@@ -132,7 +130,6 @@ export class AdminGraphGeneralComponent implements OnInit {
 
       });
       this.sql += `)`;
-      // console.log(this.criteria_variables.length)
       if (this.criteria_variables.length - 1 != firstIndex) {
         this.sql += ` AND `
       }
@@ -145,24 +142,14 @@ export class AdminGraphGeneralComponent implements OnInit {
       sql: this.sql,
       sqlTable
     }
-    // console.log(graphData)
     //Check if there is an criteria
     if (graphData.sql != "") {
       this.adminService.generalGraph(graphData).subscribe((successData) => {
         //Loop thru all users check all of their problems
-        console.log(graphData)
+
         successData.forEach((element, index) => {
-          // console.log(element)
-          Object.keys(element).forEach((element, index) => {
-            // console.log(element + "==" + this.graphLbl[index].fieldname)
-            if (element == this.graphLbl[index].fieldname) {
-              console.log("Tama");
 
-            } else {
-              console.log("Mali")
-            }
 
-          })
           Object.values(element).forEach((secondElement, secondIndex) => {
             if (secondElement) {
               this.graphLbl[secondIndex].value++;
@@ -175,11 +162,9 @@ export class AdminGraphGeneralComponent implements OnInit {
         let sortedData = this.graphLbl.map((x) => {
           return x
         })
-        // console.log(this.graphLbl)
         for (let index = 0; index < 10; index++) {
           this.dataSource.data.push(this.graphLbl[index])
         }
-        console.log(this.dataSource.data)
       }, (error) => console.log(error))
     }
 
@@ -230,7 +215,7 @@ export class AdminGraphGeneralComponent implements OnInit {
   }
   initialized($event) {
     this.chartObj = $event.chart; // saving chart instance
-    // console.log(this.chartObj)
+
     this.handler = this.dataplotClickHandler.bind(this);
     this.initMessage = '';
     this.message = this.clickPlotMsg;
@@ -248,22 +233,19 @@ export class AdminGraphGeneralComponent implements OnInit {
       this.dataplotModal = true;
       this.category_header = dataObj.categoryLabel;
       this.dataPlotData = this.dataSource.data[dataObj.dataIndex].fieldname;
-      // console.log(this.dataPlotData)
-      // console.log(dataObj)
-      // console.log(this.dataSource)
+
       let data = {
         problem: this.dataPlotData + " = 1",
         userCriteria: this.sql
       }
       // Send a request to service
       this.adminService.getUsersProblem(data).subscribe((successData) => {
-        // console.log(successData)
+
         //Open the modal 
         this.catModal = true;
         this.catModalData = successData;
         this.catModalHeader = dataObj.categoryLabel;
-        console.log(this.catModalData);
-        // console.log(this.catModalData)
+
 
       }, (error) => console.log(error))
     });
@@ -289,7 +271,6 @@ export class AdminGraphGeneralComponent implements OnInit {
   getEvents() {
     this.adminService.getEvents().subscribe((events) => {
       this.events = events;
-      console.log(this.events)
     }, (err) => console.log(err));
   }
   trim(string: string) {

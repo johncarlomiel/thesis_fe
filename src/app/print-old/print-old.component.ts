@@ -40,7 +40,7 @@ export class PrintOldComponent implements OnInit {
   onSearchChange(searchValue: string) {
     this.adminService.dynamicSearch("original-print", searchValue).subscribe((successData) => {
       this.newResultData = successData;
-      console.log(this.newResultData)
+
       if (successData.length > 0) {
         this.isEmpty = false;
       } else {
@@ -52,15 +52,15 @@ export class PrintOldComponent implements OnInit {
   getNewResult() {
     this.adminService.getOldPrintResults().subscribe((successData) => {
       this.newResultData = successData;
-      console.log(this.newResultData)
+
     }, (error) => console.log(error))
   }
 
   viewSingleResult(i, name) {
-    console.log(i)
+
     //Get Sds result
     this.adminService.getMySDS(i).subscribe((successData) => {
-      console.log(successData);
+
       this.singleResultData = successData;
       this.singleResultName = name;
       this.singleResultId = i;
