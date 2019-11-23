@@ -119,4 +119,3 @@ FusionChartsModule.fcRoot(FusionCharts, Charts, FusionTheme, Candy);
   bootstrap: [AppComponent]
 })
 export class AppModule { }
-platformBrowserDynamic().bootstrapModule(AppModule);
